@@ -1,0 +1,47 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "user_name": "",
+        "email": "",
+        "password": "",
+        "locationId": 1
+      }
+    ],
+    "songs": [
+      {
+        "id": 1,
+        "song_id": 3942,
+        "votes": 1
+      }
+    ],
+    "playlists": [
+      {
+        "id": 1,
+        "userId": 1,
+        "title": "",
+        "access_code": 1234,
+        "locationId": 1
+      }
+    ],
+    "playlistSong": [
+      {
+        "id": 1,
+        "userId": 1,
+        "playlistId": 1
+      }
+    ],
+    "locations": [
+      {
+        "id": 2,
+        "longitude": 1,
+        "latitude": 1
+      }
+    ],
+    "collaborators": [
+      {
+        "userId": 1,
+        "playlistId": 1
+      }
+    ]
+  }

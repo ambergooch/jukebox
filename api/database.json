@@ -1,47 +1,56 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "user_name": "",
-        "email": "",
-        "password": "",
-        "locationId": 1
-      }
-    ],
-    "songs": [
-      {
-        "id": 1,
-        "song_id": 3942,
-        "votes": 1
-      }
-    ],
-    "playlists": [
-      {
-        "id": 1,
-        "userId": 1,
-        "title": "",
-        "access_code": 1234,
-        "locationId": 1
-      }
-    ],
-    "playlistSong": [
-      {
-        "id": 1,
-        "userId": 1,
-        "playlistId": 1
-      }
-    ],
-    "locations": [
-      {
-        "id": 2,
-        "longitude": 1,
-        "latitude": 1
-      }
-    ],
-    "collaborators": [
-      {
-        "userId": 1,
-        "playlistId": 1
-      }
-    ]
-  }
+  "users": [
+    {
+      "id": 1,
+      "user_name": "",
+      "email": "",
+      "password": "",
+      "locationId": 1
+    },
+    {
+      "id": 2,
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "type": "user",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQn5wtYUPX3xBG_Iuj_k1t4KRmvIKMYvceQh6cJyQmF7FtELK2PrTKew7-9Y6Wpi5SM&_nc_ht=scontent.xx&oh=027b19e7fe240b865782d82cf307e0d2&oe=5DAE1449"
+     }
+  ],
+  "songs": [
+    {
+      "id": 1,
+      "song_id": 3942,
+      "votes": 1
+    }
+  ],
+  "playlists": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "",
+      "access_code": 1234,
+      "locationId": 1
+    }
+  ],
+  "playlistSong": [
+    {
+      "id": 1,
+      "userId": 1,
+      "playlistId": 1,
+      "songId": 1
+    }
+  ],
+  "locations": [
+    {
+      "id": 2,
+      "longitude": 1,
+      "latitude": 1
+    }
+  ],
+  "collaborators": [
+    {
+      "userId": 1,
+      "playlistId": 1
+    }
+  ]
+}

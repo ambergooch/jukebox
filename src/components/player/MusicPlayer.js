@@ -15,7 +15,7 @@ export default class MusicPlayer extends Component {
 
     connectPlayer () {
 
-        const token = this.props.params.access_token
+        const token = this.props.token
         console.log(token)
         if (window.Spotify !== null) {
           clearInterval(this.playerCheckInterval)

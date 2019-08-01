@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Button, Grid, Segment, Header, Container, Modal, Form, List } from 'semantic-ui-react'
+import Spotify from "spotify-web-api-js"
 // import TaskList from "../task/TaskList"
 // import "./Home.css"
 import MusicPlayer from "../player/MusicPlayer";
 import PlayStatus from "../player/PlayStatus";
+import SearchResults from '../search/SearchResults'
 
 export default class Home extends Component{
 
@@ -15,9 +17,11 @@ export default class Home extends Component{
             <Segment placeholder className="home">
             <Grid columns={4} relaxed='very' stackable>
             <Grid.Column>
-              {/* <Header>Player</Header> */}
-               <Container className="music-player">
-                    <PlayStatus />
+                <Container className="search">
+                    <SearchResults {...this.props} />
+                </Container>
+                <Container className="music-player">
+                    <PlayStatus {...this.props} token={this.props.token}/>
                     {/* <MusicPlayer {...this.props} token={this.props.token} getNowPlaying={this.getNowPlaying} /> */}
                   {/* {
                     this.props.messages.map(message =>
@@ -28,7 +32,8 @@ export default class Home extends Component{
                     <Form.TextArea />
                     <Button onClick={this.postNewMessage} content='Send' labelPosition='left' icon='edit' primary />
                   </Form> */}
-              </Container>
+                </Container>
+
             </Grid.Column>
 
             {/* <Grid.Column>

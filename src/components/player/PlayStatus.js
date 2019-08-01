@@ -10,11 +10,12 @@ export default class PlayStatus extends Component {
 
   constructor() {
     super()
-    const params = this.getHashParams()
+    // const params = this.getHashParams()
     // console.log(spotifyWebAPI.getMyCurrentPlaybackState())
     // console.log(params.refresh_token)
+    const accessToken = sessionStorage.getItem("access_token")
     this.state = {
-      loggedIn: params.access_token ? true : false,
+      loggedIn: accessToken !== "undefined" ? true : false,
       deviceId: "",
       searchTerm: "",
       progressBarValue: 1,
@@ -29,9 +30,9 @@ export default class PlayStatus extends Component {
       },
 
     }
-    if (params.access_token) {
-      spotifyAPI.setAccessToken(params.access_token)
-    }
+    // if (this.props.token) {
+    //   spotifyAPI.setAccessToken(this.props.token)
+    // }
     this.playerCheckInterval = null
     this.positionCheckInterval = null
   }
@@ -89,6 +90,7 @@ export default class PlayStatus extends Component {
     console.log("nowPlaying state progress", this.state.nowPlaying.progress)
     console.log("nowPlaying state object", this.state.nowPlaying)
     console.log("deviceId", this.state.deviceId)
+    console.log(this.props.token)
 
     // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
     // console.log(progressBarStyles)
@@ -117,7 +119,7 @@ export default class PlayStatus extends Component {
             </div>
 
             <div className="music-player">
-              <MusicPlayer params={this.getHashParams()} getNowPlaying={this.getNowPlaying}/>
+              <MusicPlayer token={this.props.token} getNowPlaying={this.getNowPlaying}/>
             </div>
           </div>)
           :

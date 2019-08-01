@@ -6,11 +6,11 @@ import Spotify from "spotify-web-api-js"
 import Login from './authentication/Login'
 import Home from './home/Home'
 import SearchResults from './search/SearchResults'
-import SearchSongs from './search/SearchSongs'
-import SearchArtists from './search/SearchArtists'
-import SearchAlbums from './search/SearchAlbums'
+import SongList from './search/SongList'
+import ArtistList from './search/ArtistList'
+import AlbumList from './search/AlbumList'
 import APIManager from './modules/APIManager'
-import Callback from '../callback/Callback'
+import Callback from './callback/Callback'
 
 const spotifyAPI = new Spotify();
 
@@ -146,15 +146,15 @@ class ApplicationViews extends Component {
                 <Route exact path="/search" render={(props) => {
                     return <SearchResults />
                 }} />
-                <Route path="/search/songs" render={(props) => {
-                    return <SearchSongs />
+                {/* <Route path="/search/songs" render={(props) => {
+                    return <SongList />
                 }} />
                 <Route path="/search/artists" render={(props) => {
-                    return <SearchArtists />
+                    return <ArtistList />
                 }} />
                 <Route path="/search/albums" render={(props) => {
-                    return <SearchAlbums />
-                }} />
+                    return <AlbumList />
+                }} /> */}
 
 
 

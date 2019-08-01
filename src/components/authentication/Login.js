@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Container, Grid, Segment, Header, Icon, Divider } from 'semantic-ui-react';
 import appKey from "../key"
 import Spotify from "spotify-web-api-js"
-// import { Link } from 'react-router-dom';
-// import { loginUser } from '../auth/userManager';
-// import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link,Paper, Box, Grid, Typography} from '@material-ui/core'
+
 
 const spotifyAPI = new Spotify();
 
@@ -20,25 +18,14 @@ export default class Login extends Component {
     spotifyUserId: ""
   }
 
-  logInUserAndGetInfo = (newUser) => {
-    const token = this.props.token
-    this.addToAPI("users", newUser)
-    .then(() => sessionStorage.setItem("access_token", token))
-    // this.props.setUser(newUser); // set user in redux state
-    if (this.props.location.pathname === '/') {
-      this.props.history.push('/'); // if there is no page the user wants to go to
-      // then go to the home page
-    } else {
-      // if there is a page the user wants to go to then just send them there
-      this.props.history.push();
-    }
-  }
-
   getSpotifyUserId = () => {
     spotifyAPI.getMe().then(user => {
       this.setState({spotifyUserId: user.id})
       sessionStorage.setItem("spotify_user_id", user.id)
     })
+    // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
+    // .then(() => this.saveUser())
+    // console.log("user saved")
   }
 
   windowPopup(url, title, w, h) {
@@ -52,54 +39,36 @@ export default class Login extends Component {
     // Open the Auth flow in a popup.
     this.windowPopup(authURL, "Login with Spotify", 400, 500)
     this.getSpotifyUserId()
-    this.saveUser()
   }
-
-        // fetch("https://api.spotify.com/v1/me", {
-        //   method: "GET",
-        //   headers: {
-
 
 // 1. I need to save user to database
 // 2. I need to set state
 // 3. I need to add user to session storage
 
   saveUser() {
-      if (this.state.spotifyUserId) {
-        if (sessionStorage.getItem("access_token") !== null) {
- console.log("save user")
-        //      fetch("https://api.spotify.com/v1/me", {
-        //   method: "GET",
-        //   headers: {
-        //     authorization: `Bearer ${payload}`,
-        //     "Content-Type": "application/json",
-        //   }
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     this.setState({
-        //       currentUser: data
-        //     })
-        //   })
-        // });
+      if (this.state.spotifyUserId ) {
+        // if (sessionStorage.getItem("access_token") !== undefined) {
+            console.log("save user")
+
             spotifyAPI.getMe()
             .then(user => {
-                console.log(user)
-              let newUser = {
+              let newUser =
+              {
                 displayName: user.display_name,
                 email: user.email,
                 spotifyId: user.id,
                 image: user.images[0].url
-              };
-              this.logInUserAndGetInfo(newUser);
-              // this.props.fetchRecentlyPlayed({ limit: 12 });
+              }
+              this.props.addToAPI("users", newUser)
             })
-            // this.props.history.push("/")
         } else {
           window.location = `${loginURL}`;
         }
-      }
+      // }
     }
-
+    componentDidMount() {
+      sessionStorage.clear()
+    }
 
     render() {
       // console.log(popup)
@@ -138,11 +107,40 @@ export default class Login extends Component {
     }
 }
 
+
+  // logInUserAndGetInfo = (newUser) => {
+  //   const token = this.props.token
+  //   this.addToAPI("users", newUser)
+
+  //   // this.props.setUser(newUser); // set user in redux state
+  //   if (this.props.location.pathname === '/') {
+  //     this.props.history.push('/'); // if there is no page the user wants to go to
+  //     // then go to the home page
+  //   } else {
+  //     // if there is a page the user wants to go to then just send them there
+  //     this.props.history.push();
+  //   }
+  // }
+
  // Spotify.getMe(payload)
       // .then(response => response.json())
       // .then(data => {
       //   this.me = data
       //   })
+
+           //      fetch("https://api.spotify.com/v1/me", {
+        //   method: "GET",
+        //   headers: {
+        //     authorization: `Bearer ${payload}`,
+        //     "Content-Type": "application/json",
+        //   }
+        //   .then(response => response.json())
+        //   .then(data => {
+        //     this.setState({
+        //       currentUser: data
+        //     })
+        //   })
+        // });
 
   //     saveUser() {
   //       console.log(this.state.currentUser);

@@ -102,9 +102,22 @@ class ApplicationViews extends Component {
         this.loginUser()
         this.setState({
             token: this.state.token,
-            authURL: this.authURL
-
         })
+
+        const newState = {};
+
+            APIManager.getAll("users")
+            .then(users => (newState.users = users));
+            APIManager.getAll("playlists")
+            .then(playlists => (newState.playlists = playlists));
+            APIManager.getAll("playlistSong")
+            .then(playlistSong => (newState.playlistSong = playlistSong));
+            APIManager.getAll("locations")
+            .then(locations => (newState.locations = locations))
+            APIManager.getAll("collaborators")
+            .then(collaborators => (newState.collaborators = collaborators))
+            .then(() => this.setState(newState));
+
     }
 
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined

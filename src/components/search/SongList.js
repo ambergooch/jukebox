@@ -1,21 +1,91 @@
 import React, {Component} from 'react'
-import { Icon, Button } from "semantic-ui-react"
-
-// const spotifyAPI = new Spotify();
+import { Icon } from "semantic-ui-react"
+import Spotify from "spotify-web-api-js"
+const spotifyAPI = new Spotify()
 
 export default class SongList extends Component {
 
- addToPlaylist = () => {
+    state = {
+        isPlaying: false,
+        queue: [],
+        songResult: {
+            uri: null,
+            name: null,
+            artist: null,
+            cover: null,
 
- }
+        }
+    }
+    playSong = (trackURI) => {
+        // spotifyAPI.play(this.state.deviceId)
+        const deviceId = "81d72cef4cbedfc3151083eadfee7a503c14857a"
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+          method: 'PUT',
+          body: JSON.stringify({ uris: [trackURI] }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.props.token}`
+          },
+        });
+        this.setState({isPlaying: true})
+        this.playNext()
+    }
+
+    addToQueue = (trackURI, songTitle, artistName, coverArt) => {
+        // this.state.isPlaying === false &&
+        // this.state.songResult.uri === data.uri &&
+        spotifyAPI.getMyCurrentPlaybackState()
+          .then(data => {
+        if (this.state.songResult.uri === data.uri && this.state.queue.length === 0) {
+          this.playSong(trackURI)
+        } else {
+
+            const song = {
+                userId: parseInt(sessionStorage.getItem("spotify_user_id")),
+                song_uri: trackURI
+            }
+            this.props.addToAPI("songs", song)
+            this.setState({
+                queue: {
+                    uri: trackURI,
+                    name: songTitle,
+                    artist: artistName,
+                    cover: coverArt
+                }
+            })
+
+        //   this.state.queue.push({
+        //     "uri": trackURI,
+        //     "name": songTitle,
+        //     "artist": artistName,
+        //     "cover": coverArt
+        //   })
+        }
+        console.log(data)
+        console.log(this.state)
+      })
+
+    }
+
+    playNext () {
+        if (this.state.queue.length > 0){
+          console.log("Playing next song");
+          this.playSong(this.state.queue[0]);
+          this.state.queue.shift();
+        //   updatePlaylistWindow();
+        }
+    }
+
+
 
     render() {
+
         return (
             <div className="song-results">
             {
             this.props.tracks.map( (track, index) =>
                 <div key={index}>
-                    <button onClick={this.addToPlaylist}>
+                    <button className='add' onClick={(event) => { event.preventDefault();this.addToQueue(track.uri, track.name, track.artists[0].name, track.album.images[0].url)}}>
                         <Icon  size="tiny" name="plus" />
                     </button>
                 {track.name} by {track.artists[0].name}
@@ -27,4 +97,6 @@ export default class SongList extends Component {
         )
     }
 }
+
+//
 

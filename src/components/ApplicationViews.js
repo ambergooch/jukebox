@@ -4,13 +4,14 @@ import { withRouter } from 'react-router'
 import appKey from "./key"
 import Spotify from "spotify-web-api-js"
 import Login from './authentication/Login'
+import Callback from './callback/Callback'
 import Home from './home/Home'
 import SearchResults from './search/SearchResults'
-import SongList from './search/SongList'
-import ArtistList from './search/ArtistList'
-import AlbumList from './search/AlbumList'
+// import SongList from './search/SongList'
+// import ArtistList from './search/ArtistList'
+// import AlbumList from './search/AlbumList'
 import APIManager from './modules/APIManager'
-import Callback from './callback/Callback'
+import PlaylistView from './playlist/PlaylistView'
 
 const spotifyAPI = new Spotify();
 
@@ -28,15 +29,24 @@ class ApplicationViews extends Component {
         currentUser: ""
     }
 
-    loginUser = () => {
-        if(this.state.currentUser !== null) {
-          return(
-            <a className="login-a" href={"http://localhost:3000/login"}>
-                Login in button
-            </a>
-          )
-        }
-        return null
+    // loginUser = () => {
+    //     if(this.state.currentUser !== null) {
+    //       return(
+    //         <a className="login-a" href={"http://localhost:3000/login"}>
+    //             Login in button
+    //         </a>
+    //       )
+    //     }
+    //     return null
+    //   }
+    getSpotifyUserId = () => {
+        spotifyAPI.getMe().then(user => {
+          this.setState({spotifyUserId: user.id})
+          sessionStorage.setItem("spotify_user_id", user.id)
+        })
+        // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
+        // .then(() => this.saveUser())
+        // console.log("user saved")
       }
 
     getToken = () => {
@@ -63,6 +73,7 @@ class ApplicationViews extends Component {
             window.close()
             const token = sessionStorage.getItem("access_token")
             console.log("current token", token)
+            this.getSpotifyUserId()
         }
     }
     checkTokenInt = setInterval(() => {
@@ -71,13 +82,13 @@ class ApplicationViews extends Component {
     }, 100000 )
 
 
-      getTokenInt = setInterval(() => {
+    getTokenInt = setInterval(() => {
+        this.getToken();
         const token = this.state.token;
         sessionStorage.setItem('access_token', token);
+        this.getSpotifyUserId()
         console.log(token)
-
-        this.getToken();
-      }, 900000);
+    }, 3000000);
 
     getHashParams = () => {
         var hashParams = {};
@@ -99,7 +110,7 @@ class ApplicationViews extends Component {
         })
     }
     componentDidMount () {
-        this.loginUser()
+        // this.loginUser()
         this.setState({
             token: this.state.token,
         })
@@ -124,7 +135,7 @@ class ApplicationViews extends Component {
 
     render() {
         // console.log(sessionStorage.getItem("access_token"))
-        console.log(this.state.token)
+
         return (
             <React.Fragment>
                 <Route exact path="/callback" render={props => {
@@ -134,22 +145,29 @@ class ApplicationViews extends Component {
                     return <Login/>
                 }} /> */}
                 <Route path="/login" render={props => {
-                    return <Login  {...props} addToAPI={this.addToAPI}   getToken={this.getToken}/>
+                    return <Login  {...props} addToAPI={this.addToAPI}
+                        getToken={this.getToken}
+                        getUserId={this.getSpotifyUserId}/>
                  }} />
                 <Route exact path="/" render={(props) => {
                     if(this.isAuthenticated()) {
-                        return <Home {...props} token={this.state.token} />
+                        return <Home {...props} token={this.state.token}
+                            addToAPI={this.addToAPI}
+                            users={this.state.users} />
                     } else {
                         return <Redirect to="./login" />
                     }
                 }} />
                 <Route exact path="/search" render={(props) => {
-                    return <SearchResults />
+                    return <SearchResults {...props} addToAPI={this.addToAPI}/>
                 }} />
-                {/* <Route path="/search/songs" render={(props) => {
-                    return <SongList />
+                <Route exact path="/playlist" render={(props) => {
+                    return <PlaylistView users={this.state.users} currentUser={this.state.currentUser}/>
                 }} />
-                <Route path="/search/artists" render={(props) => {
+                {/* <Route path="/nav" render={(props) => {
+                    return <Navbar />
+                }} /> */}
+                {/* <Route path="/search/artists" render={(props) => {
                     return <ArtistList />
                 }} />
                 <Route path="/search/albums" render={(props) => {

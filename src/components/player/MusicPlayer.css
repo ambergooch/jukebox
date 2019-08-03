@@ -6,6 +6,18 @@
     overflow: hidden;
   }
   .progress-bar {
-    background-color: black;
+    background-color: green;
     height: 8px;
+  }
+
+  .player-buttons{
+    display: flex;
+    justify-content: center
+
+  }
+
+  .control-container {
+    margin-top: 0;
+    background-color: black;
+    margin-left: 0
   }

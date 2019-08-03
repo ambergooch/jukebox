@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Spotify from "spotify-web-api-js"
 import { Link } from "react-router-dom"
-import { Menu, Segment, Tab } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import SongList from "./SongList"
 import ArtistList from "./ArtistList"
 import AlbumList from "./AlbumList"
@@ -19,7 +19,14 @@ export default class SearchResults extends Component {
         albums: []
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (event, { name }) => {
+        event.preventDefault()
+        this.setState({ activeItem: name })
+    }
+
+    handleSearchButton = (event) => {
+        event.preventDefault()
+    }
 
     searchTracks = (searchTerm) => {
         spotifyAPI.searchTracks(searchTerm)
@@ -55,7 +62,6 @@ export default class SearchResults extends Component {
     }
 
     render() {
-        console.log(this.state.searchTerm)
         const { activeItem } = this.state
         return (
             <div className="search-container">
@@ -97,7 +103,7 @@ export default class SearchResults extends Component {
                 <div>
                     {
                         this.state.activeItem === 'Songs' ?
-                            (<SongList {...this.props} tracks={this.state.tracks} />) :
+                        (<SongList {...this.props} tracks={this.state.tracks} />) :
                         this.state.activeItem === 'Artists' ?
                         (<ArtistList artists={this.state.artists}/>) :
                         (this.state.activeItem === 'Albums') ?

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Container, Grid, Segment, Header, Icon, Divider } from 'semantic-ui-react';
+import { Button, Grid, Segment } from 'semantic-ui-react';
 import appKey from "../key"
 import Spotify from "spotify-web-api-js"
 
@@ -18,15 +18,15 @@ export default class Login extends Component {
     spotifyUserId: ""
   }
 
-  getSpotifyUserId = () => {
-    spotifyAPI.getMe().then(user => {
-      this.setState({spotifyUserId: user.id})
-      sessionStorage.setItem("spotify_user_id", user.id)
-    })
-    // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
-    // .then(() => this.saveUser())
-    // console.log("user saved")
-  }
+  // getSpotifyUserId = () => {
+  //   spotifyAPI.getMe().then(user => {
+  //     this.setState({spotifyUserId: user.id})
+  //     sessionStorage.setItem("spotify_user_id", user.id)
+  //   })
+  //   // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
+  //   // .then(() => this.saveUser())
+  //   // console.log("user saved")
+  // }
 
   windowPopup(url, title, w, h) {
     var left = (window.innerWidth/2)-(w/2);
@@ -38,7 +38,8 @@ export default class Login extends Component {
     event.preventDefault()
     // Open the Auth flow in a popup.
     this.windowPopup(authURL, "Login with Spotify", 400, 500)
-    this.getSpotifyUserId()
+    this.props.getUserId()
+    console.log("saved")
   }
 
 // 1. I need to save user to database
@@ -72,11 +73,11 @@ export default class Login extends Component {
 
     render() {
       // console.log(popup)
-      console.log(window)
-      console.log(this.state.currentUser)
+      // console.log(window)
+      console.log(this.props.addToAPI)
         return (
           <div>
-              <Segment placeholder>
+              <Segment>
               <Grid columns={1} relaxed='very' stackable textAlign='center'>
                 <Grid.Row verticalAlign='middle'>
                 {/* <Grid.Column>
@@ -89,10 +90,10 @@ export default class Login extends Component {
                 </Grid.Column> */}
 
                 <Grid.Column verticalAlign='middle'>
-                  <Header icon>
+                  {/* <Header icon>
                     <Icon name='world' />
                     Sign in with Spotify
-                  </Header>
+                  </Header> */}
 
                   <Button onClick={this.handleLoginClick} content='Connect' size='big' />
 

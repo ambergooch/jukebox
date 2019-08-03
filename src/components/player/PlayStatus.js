@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Spotify from "spotify-web-api-js"
 import MusicPlayer from './MusicPlayer';
-// import SearchSong from "./components/SearchSong"
+import { Grid, Container } from 'semantic-ui-react'
+import './PlayStatus.css'
+
 
 
 const spotifyAPI = new Spotify();
@@ -17,7 +19,6 @@ export default class PlayStatus extends Component {
     this.state = {
       loggedIn: accessToken !== "undefined" ? true : false,
       deviceId: "",
-      searchTerm: "",
       progressBarValue: 1,
       tracks: [],
       nowPlaying: {
@@ -46,20 +47,6 @@ export default class PlayStatus extends Component {
     return hashParams;
   }
 
-  searchTracks = (searchTerm) => {
-    spotifyAPI.searchTracks(searchTerm)
-      .then((data) => {
-        console.log("Search for 'tracks' results", data.tracks.items)
-        this.setState({
-          tracks: data.tracks.items
-        })
-      })
-  }
-  updateSearchTerm = (event) => {
-    this.setState({
-      searchTerm: event.target.value
-    });
-  }
 
   getNowPlaying = () => {
     spotifyAPI.getMyCurrentPlaybackState()
@@ -78,7 +65,7 @@ export default class PlayStatus extends Component {
               }
           });
         } else {
-          console.log("no track currently playing")
+          // console.log("no track currently playing")
           this.setState({nowPlaying: {
             name: "no song currently playing"
           }})
@@ -87,45 +74,44 @@ export default class PlayStatus extends Component {
   }
 
   render() {
-    console.log("nowPlaying state progress", this.state.nowPlaying.progress)
-    console.log("nowPlaying state object", this.state.nowPlaying)
-    console.log("deviceId", this.state.deviceId)
-    console.log(this.props.token)
+    // console.log("nowPlaying state progress", this.state.nowPlaying.progress)
+    // console.log("nowPlaying state object", this.state.nowPlaying)
+    // console.log("deviceId", this.state.deviceId)
+    // console.log(this.props.token)
 
     // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
     // console.log(progressBarStyles)
     return (
-      <div className='App'>
+      <Container className="player-container" fluid>
 
-        <button onClick={() => this.getNowPlaying()}>
+        {/* <button onClick={() => this.getNowPlaying()}>
               Check Now Playing
-        </button>
-
+        </button> */}
+        <Container fluid>
         {this.state.loggedIn ?
-          (<div>
-            <div>
-              <strong>Now Playing</strong> <br />
-            </div>
-            <div>
-              <img src={ this.state.nowPlaying.image } style={ {width: 200} } alt={this.state.nowPlaying.album}/>
-              <p>
-                { this.state.nowPlaying.name }
-                <br />
-                {this.state.nowPlaying.artist}
-                <br />
-                {this.state.nowPlaying.album}
-                <br />
-              </p>
-            </div>
+          (<React.Fragment>
+            <Grid.Row>
+              <strong>Now Playing</strong>
+            </Grid.Row>
+            <Grid.Column className="play-info">
+              <img src={ this.state.nowPlaying.image } style={ {width: 150} } alt={this.state.nowPlaying.album}/>
+              <p>{ this.state.nowPlaying.name }
+              <br />
+              {this.state.nowPlaying.artist}
+              <br />
+              {this.state.nowPlaying.album}</p>
+            </Grid.Column>
 
-            <div className="music-player">
+            <Grid.Row className="music-player">
               <MusicPlayer token={this.props.token} getNowPlaying={this.getNowPlaying}/>
-            </div>
-          </div>)
+            </Grid.Row>
+          </React.Fragment>
+          )
           :
           (<div>Please log in</div>)
         }
-      </div>
+      </Container>
+        </Container>
     )
   }
 }

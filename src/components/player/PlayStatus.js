@@ -90,16 +90,16 @@ export default class PlayStatus extends Component {
         <Container fluid>
         {this.state.loggedIn ?
           (<React.Fragment>
-            <Grid.Row>
-              <strong>Now Playing</strong>
-            </Grid.Row>
             <Grid.Column className="play-info">
               <img src={ this.state.nowPlaying.image } style={ {width: 150} } alt={this.state.nowPlaying.album}/>
-              <p>{ this.state.nowPlaying.name }
+              <div className='song-details'>
+              <strong>{ this.state.nowPlaying.name }</strong>
               <br />
               {this.state.nowPlaying.artist}
               <br />
-              {this.state.nowPlaying.album}</p>
+              {this.state.nowPlaying.album}
+
+              </div>
             </Grid.Column>
 
             <Grid.Row className="music-player">

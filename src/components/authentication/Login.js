@@ -74,7 +74,7 @@ export default class Login extends Component {
     render() {
       // console.log(popup)
       // console.log(window)
-      console.log(this.props.addToAPI)
+      console.log(this.props.getUserId)
         return (
           <div>
               <Segment>

@@ -9,6 +9,7 @@ export default class SongList extends Component {
         isPlaying: false,
         queue: [],
         songResult: {
+
             uri: null,
             name: null,
             artist: null,
@@ -31,28 +32,30 @@ export default class SongList extends Component {
         this.playNext()
     }
 
-    addToQueue = (trackURI, songTitle, artistName, coverArt) => {
+    addToQueue = (trackURI, trackID, songTitle, artistName, coverArt) => {
         // this.state.isPlaying === false &&
         // this.state.songResult.uri === data.uri &&
         spotifyAPI.getMyCurrentPlaybackState()
           .then(data => {
-        if (this.state.songResult.uri === data.uri && this.state.queue.length === 0) {
+        if (this.state.songResult.uri === data.item.uri && this.state.queue.length === 0) {
           this.playSong(trackURI)
         } else {
-
+            console.log(data)
             const song = {
-                userId: parseInt(sessionStorage.getItem("spotify_user_id")),
-                song_uri: trackURI
+                userId: sessionStorage.getItem("spotify_user_id"),
+                playlistId: null,
+                song_uri: trackURI,
+                song_id: trackID
             }
-            this.props.addToAPI("songs", song)
-            this.setState({
-                queue: {
-                    uri: trackURI,
-                    name: songTitle,
-                    artist: artistName,
-                    cover: coverArt
-                }
-            })
+            this.props.addToAPI("songsToPlaylist", song)
+            // this.setState({
+            //     queue: {
+            //         uri: trackURI,
+            //         name: songTitle,
+            //         artist: artistName,
+            //         cover: coverArt
+            //     }
+            // })
 
         //   this.state.queue.push({
         //     "uri": trackURI,
@@ -67,25 +70,17 @@ export default class SongList extends Component {
 
     }
 
-    playNext () {
-        if (this.state.queue.length > 0){
-          console.log("Playing next song");
-          this.playSong(this.state.queue[0]);
-          this.state.queue.shift();
-        //   updatePlaylistWindow();
-        }
-    }
 
 
 
     render() {
-
+        console.log(this.props.tracks)
         return (
             <div className="song-results">
             {
             this.props.tracks.map( (track, index) =>
                 <div key={index}>
-                    <button className='add' onClick={(event) => { event.preventDefault();this.addToQueue(track.uri, track.name, track.artists[0].name, track.album.images[0].url)}}>
+                    <button className='add' onClick={(event) => { event.preventDefault();this.addToQueue(track.uri, track.id, track.name, track.artists[0].name, track.album.images[0].url)}}>
                         <Icon  size="tiny" name="plus" />
                     </button>
                 {track.name} by {track.artists[0].name}

@@ -57,12 +57,27 @@
       "locationId": 1
     }
   ],
-  "playlistSong": [
+  "songsToPlaylist": [
     {
-      "id": 1,
-      "userId": 1,
-      "playlistId": 1,
-      "songId": 1
+      "userId": "124771983",
+      "playlistId": null,
+      "song_uri": "spotify:track:1lFC3sMgOcDrVzNh8zXRnl",
+      "song_id": "1tf9gSxIUNW15SFwI7feSb",
+      "id": 1
+    },
+    {
+      "userId": "124771983",
+      "playlistId": null,
+      "song_uri": "spotify:track:4omnfKQRBPbu7XuFpjcj2l",
+      "song_id": "4omnfKQRBPbu7XuFpjcj2l",
+      "id": 2
+    },
+    {
+      "userId": "124771983",
+      "playlistId": null,
+      "song_uri": "spotify:track:6mcxQ1Y3uQRU0IHsvdNLH1",
+      "song_id": "6mcxQ1Y3uQRU0IHsvdNLH1",
+      "id": 3
     }
   ],
   "locations": [

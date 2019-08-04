@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Spotify from "spotify-web-api-js"
 import { Link } from "react-router-dom"
-import { Menu } from 'semantic-ui-react'
+import { Menu, Input } from 'semantic-ui-react'
 import SongList from "./SongList"
 import ArtistList from "./ArtistList"
 import AlbumList from "./AlbumList"
 import BrowseStuff from "./BrowseStuff"
+import "./SearchResults.css"
 
 const spotifyAPI = new Spotify();
 
@@ -24,8 +25,21 @@ export default class SearchResults extends Component {
         this.setState({ activeItem: name })
     }
 
-    handleSearchButton = (event) => {
+    updateSearchTerm = (event) => {
+        this.setState({
+            searchTerm: event.target.value
+        });
+        }
+
+    handleSearchEvent = (event) => {
         event.preventDefault()
+        this.searchTracks(this.state.searchTerm)
+        this.searchArtists(this.state.searchTerm)
+        this.searchAlbums(this.state.searchTerm)
+        // this.setState({
+        //     searchTerm: ""
+        // });
+        // ^^^^^^ Why doesn't this work? Figure out how to clear input field ^^^^^^
     }
 
     searchTracks = (searchTerm) => {
@@ -55,18 +69,16 @@ export default class SearchResults extends Component {
             })
         })
     }
-    updateSearchTerm = (event) => {
-    this.setState({
-        searchTerm: event.target.value
-    });
-    }
+
 
     render() {
         const { activeItem } = this.state
         return (
             <div className="search-container">
-                <form onSubmit={() => { this.searchTracks(this.state.searchTerm);}}>
-                    <input onChange={this.updateSearchTerm} type="text" placeholder="Search..." />
+                <form onSubmit={this.handleSearchEvent}>
+                    <Input className="search-input" onChange={this.updateSearchTerm}>
+                        <input type="text" placeholder="Search..." style={{borderRadius: 16}}/>
+                    </Input>
                     {/* <input onChange={(event) => { event.preventDefault(); this.updateSearchTerm(event); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}} type="text" placeholder="Search..." /> */}
                     <button onClick={(event) => { event.preventDefault(); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}}>
                     </button>
@@ -75,7 +87,12 @@ export default class SearchResults extends Component {
                     {
                     this.state.searchTerm !== null ?
                     (<Menu pointing secondary>
-                        <Menu.Item  as= {Link} to="/search/"name='Songs' active={activeItem === 'Songs'} onClick={this.handleItemClick} />
+                        <Menu.Item  as= {Link}
+                            to="/search/"
+                            name='Songs'
+                            active={activeItem === 'Songs'}
+                            onClick={this.handleItemClick}
+                        />
                         <Menu.Item
                             as= {Link}
                             to="/search"

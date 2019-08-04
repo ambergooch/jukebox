@@ -11,18 +11,14 @@ export default class SideMenu extends Component {
     activeItem: "",
     inputValues: [],
     inputValue: ""
-}
- show = dimmer => () => {
-    console.log("show")
-     this.setState({ dimmer, open: true })
   }
+
+  show = () => this.setState({ open: true })
   close = () => this.setState({ open: false })
 
-handleItemClick = (e, { name }) => {
-  this.setState({ activeItem: name })
-  // this.show()
-  console.log("clicked")
-}
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+  }
 
   // handleHideClick = () => this.setState({ visible: false })
   // handleShowClick = () => this.setState({ visible: true })
@@ -68,17 +64,17 @@ focus() {
     const { activeItem } = this.state
     return (
 
-      <Menu className='side-menu' pointing secondary vertical inverted style={{width: 250, marginTop: '50px'}}>
-        <Menu.Item as='a' name='add' active={activeItem === 'add'} onClick={this.handleItemClick}>
-          <Icon name='add circle' />
+      <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', borderLeft: 'none'}}>
+        <Menu.Item as='a' name='add' color='green' style={{marginBottom: '10px'}} active={activeItem === 'add'} onClick={this.handleItemClick}>
+          <Icon name='add circle' size='large'/>
           Create new session
         </Menu.Item>
-        <Menu.Item as='a' name='find' active={activeItem === 'find'} onClick={this.handleItemClick}>
-          <Icon name='map marker alternate' />
+        <Menu.Item as='a' name='find' color='green' style={{marginBottom: '10px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
+          <Icon name='map marker alternate' size='large'/>
           Find a nearby session
         </Menu.Item>
-        <Menu.Item as='a' name='unlock' active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.show()}}>
-          <Icon name='unlock alternate' />
+        <Menu.Item as='a' name='unlock' color='green' style={{marginBottom: '10px'}} active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.show()}}>
+          <Icon name='unlock alternate' size='large'/>
           Enter existing session code
         </Menu.Item>
         <Modal size='tiny' dimmer={dimmer} open={open} onClose={this.close}>

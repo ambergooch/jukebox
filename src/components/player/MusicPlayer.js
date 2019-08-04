@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Spotify from "spotify-web-api-js"
 import "./MusicPlayer.css"
-import { Grid, Icon } from 'semantic-ui-react'
+import { Grid, Icon, Progress } from 'semantic-ui-react'
 // import PlaylistView from "../playlist/PlaylistView";
 
 const spotifyAPI = new Spotify()
@@ -12,10 +12,14 @@ export default class MusicPlayer extends Component {
         deviceId: "",
         position: null,
         duration: null,
-        progressBarValue: 1,
+        progressBarValue: 0,
         trackURI: ""
     }
-
+    milisToMinutesAndSeconds = mil => {
+      let minutes = Math.floor(mil / 60000);
+      let seconds = ((mil % 60000) / 1000).toFixed(0);
+      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  };
     connectPlayer () {
         const token = this.props.token
         console.log(token)
@@ -38,12 +42,16 @@ export default class MusicPlayer extends Component {
         this.player.on('authentication_error', e => {
           console.error(e);
           this.setState({ loggedIn: false });
+          window.location = "http://localhost:3000/login"
         });
-        this.player.on('account_error', e => { console.error(e); });
+        this.player.on('account_error', e => {
+          console.error(e);
+          // window.location = "http://localhost:3000/login"
+        });
         this.player.on('playback_error', e => {
           console.error(e);
           console.log("playback error")
-          this.props.history.push("/login")
+          // window.location = "http://localhost:3000/login"
         });
 
         // Playback status updates
@@ -78,6 +86,15 @@ export default class MusicPlayer extends Component {
         },
       });
       this.setState({isPlaying: true})
+  }
+
+  playNext () {
+    if (this.state.queue.length > 0){
+      console.log("Playing next song");
+      this.playSong(this.state.queue[0]);
+      this.state.queue.shift();
+    //   updatePlaylistWindow();
+    }
   }
 
   // addToQueue = () => {
@@ -135,16 +152,19 @@ export default class MusicPlayer extends Component {
         });
       }
     }
-    onPrevClick = () => {
+    onPrevClick = (event) => {
+      event.preventDefault()
       this.player.previousTrack();
     }
 
-    onPlayClick = () => {
+    onPlayClick = (event) => {
+      event.preventDefault()
       this.player.togglePlay();
       // this.playSong("spotify:track:22oEJW6r2rMb9z4IntfyEa")
     }
 
-    onNextClick = () => {
+    onNextClick = (event) => {
+      event.preventDefault()
       this.player.nextTrack();
     }
     // transferPlaybackHere() {
@@ -181,18 +201,25 @@ export default class MusicPlayer extends Component {
         // )
       }
     render () {
-        const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
+        // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
         return (
             <Grid.Row className="control-container">
                 <Grid.Row className="playing-status">
                 {/* <MusicPlayer {...this.props} Spotify={this.spotifyAPI} params={this.getHashParams()}/> */}
                     {this.state.isPlaying ? "Playing" : "Paused"}
-                    <Grid.Row className="progress-bar" style={progressBarStyles} />
+                    {/* <Grid.Row className="progress-bar" style={progressBarStyles} /> */}
+                    <Progress percent={this.state.progressBarValue} size='small' color='green' style={{marginLeft: 190}}inverted />
                 </Grid.Row>
-                <Grid.Row className="player-buttons">
-                    <button onClick={this.onPrevClick}>Previous</button>
-                    <Icon name="play circle outline" size="huge" onClick={this.onPlayClick}>{this.state.isPlaying ? "Pause" : "Play"}></Icon>
-                    <button onClick={this.onNextClick}>Next</button>
+                <Grid.Row className="player-buttons-container">
+                    <button className="player-button" onClick={this.onPrevClick}>
+                      <Icon name='step backward' size='large' color='grey'></Icon>
+                    </button>
+                    <button className="player-button" onClick={this.onPlayClick}>
+                      {this.state.isPlaying ? <Icon name="pause circle outline" color='grey' size="huge" ></Icon> : <Icon name="play circle outline" color='grey' size="huge" ></Icon>}
+                    </button >
+                    <button className="player-button" onClick={this.onNextClick}>
+                      <Icon name='step forward' size='large' color='grey'></Icon>
+                    </button>
                 </Grid.Row>
             </Grid.Row>
         )

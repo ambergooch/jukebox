@@ -21,6 +21,11 @@ p:last-child {
     color: #ededed
 }
 
+.song-details {
+    margin-left: 15px;
+    color: #ededed
+}
+
 img {
     margin-left: 10px
 }

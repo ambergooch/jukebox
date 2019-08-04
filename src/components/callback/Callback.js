@@ -44,7 +44,7 @@ export default class Callback extends Component {
       console.log(window)
       console.log(token)
       window.opener.sessionStorage.setItem("access_token", token)
-      // Spotify.getMe()
+      this.props.getUserId()
       window.close()
     }
     window.opener.location = "/"

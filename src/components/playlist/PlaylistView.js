@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Spotify from "spotify-web-api-js"
+import SongCard from "./SongCard"
+import { Message, Table } from 'semantic-ui-react'
 
 const spotifyAPI = new Spotify();
 
@@ -35,12 +37,34 @@ export default class PlaylistView extends Component {
     // }
 
     componentDidMount = () => {
-        this.createNewPlaylist()
+        // this.createNewPlaylist()
     }
 
     render() {
         return (
-        <div></div>
+        //    <Message floating attached className="playlist">
+            <Table basic='very' selectable singleLine >
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Title</Table.HeaderCell>
+                <Table.HeaderCell>Artist</Table.HeaderCell>
+                <Table.HeaderCell>Album</Table.HeaderCell>
+                <Table.HeaderCell>Duration</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+                <Table.Body>
+            {
+                this.props.songs.map(song =>
+                    <SongCard key={song.id} {...this.props}
+                        song={song} />
+                )
+            }
+            </Table.Body>
+            </Table>
+            // </Message>
+
         )
     }
 }

@@ -3,7 +3,14 @@
     margin: 40px;
     padding: 3px
 } */
-.ui.input > input[type="text"] {
+/* .ui.input > input[type="text"] {
+    width: 60px;
+    height: 70px;
+    margin: 30px;
+    padding: 3px;
+    text-align: center
+} */
+.code-input {
     width: 60px;
     height: 70px;
     margin: 30px;
@@ -15,4 +22,17 @@
 .body-div {
     height: 100%
 }
+
+a.active {
+    color: green;
+}
+
+/* a.item {
+    margin-bottom: 6px;
+}
+
+.ui.secondary.pointing.menu .item {
+    margin: 20px;
+} */
+
 

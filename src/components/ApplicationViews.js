@@ -22,14 +22,13 @@ class ApplicationViews extends Component {
     state = {
         users: [],
         playlists: [],
-        playlistSong: [],
+        songsToPlaylist: [],
         locations: [],
         collaborators: [],
         token: spotifyAPI.getAccessToken(),
         currentUser: ""
     }
-
-    // loginUser = () => {
+  // loginUser = () => {
     //     if(this.state.currentUser !== null) {
     //       return(
     //         <a className="login-a" href={"http://localhost:3000/login"}>
@@ -39,6 +38,59 @@ class ApplicationViews extends Component {
     //     }
     //     return null
     //   }
+
+    componentDidMount () {
+        // this.loginUser()
+        this.setState({
+            token: this.state.token,
+        })
+
+        const newState = {};
+            APIManager.getAll("users")
+            .then(users => (newState.users = users));
+            APIManager.getAll("playlists")
+            .then(playlists => (newState.playlists = playlists));
+            APIManager.getAll("songsToPlaylist")
+            .then(songsToPlaylist => (newState.songsToPlaylist = songsToPlaylist));
+            APIManager.getAll("locations")
+            .then(locations => (newState.locations = locations))
+            APIManager.getAll("collaborators")
+            .then(collaborators => (newState.collaborators = collaborators))
+            .then(() => this.setState(newState));
+
+    }
+
+    addToAPI = (resource, object) => {
+        APIManager.post(resource, object)
+        .then(() => APIManager.getAll(resource))
+        .then(item =>{
+            this.setState({
+                [resource]: item
+            })
+        })
+    }
+
+    deleteFromAPI = (resource, id) => {
+        APIManager.delete(resource, id)
+        .then(APIManager.getAll(resource))
+        .then(item => {
+            //  this.props.history.push("/");
+            this.setState({
+                [resource]: item
+            })
+        })
+    }
+
+   updateAPI = (resource, object) => {
+        return APIManager.put(resource, object)
+        .then(() => APIManager.getAll(resource))
+        .then(item => {
+            this.setState({
+                [resource]: item
+            })
+        })
+    }
+
     getSpotifyUserId = () => {
         spotifyAPI.getMe().then(user => {
           this.setState({spotifyUserId: user.id})
@@ -100,36 +152,7 @@ class ApplicationViews extends Component {
         return hashParams;
     }
 
-    addToAPI = (resource, object) => {
-        APIManager.post(resource, object)
-        .then(() => APIManager.getAll(resource))
-        .then(item =>{
-            this.setState({
-            [resource]: item
-            })
-        })
-    }
-    componentDidMount () {
-        // this.loginUser()
-        this.setState({
-            token: this.state.token,
-        })
 
-        const newState = {};
-
-            APIManager.getAll("users")
-            .then(users => (newState.users = users));
-            APIManager.getAll("playlists")
-            .then(playlists => (newState.playlists = playlists));
-            APIManager.getAll("playlistSong")
-            .then(playlistSong => (newState.playlistSong = playlistSong));
-            APIManager.getAll("locations")
-            .then(locations => (newState.locations = locations))
-            APIManager.getAll("collaborators")
-            .then(collaborators => (newState.collaborators = collaborators))
-            .then(() => this.setState(newState));
-
-    }
 
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
 
@@ -139,7 +162,7 @@ class ApplicationViews extends Component {
         return (
             <React.Fragment>
                 <Route exact path="/callback" render={props => {
-                    return <Callback {...props}/>
+                    return <Callback {...props} getUserId={this.getSpotifyUserId}/>
                 }} />
                 {/* <Route path="/callback/:accessToken/:refreshToken" render={props => {
                     return <Login/>
@@ -153,7 +176,11 @@ class ApplicationViews extends Component {
                     if(this.isAuthenticated()) {
                         return <Home {...props} token={this.state.token}
                             addToAPI={this.addToAPI}
-                            users={this.state.users} />
+                            deleteFromAPI={this.deleteFromAPI}
+                            updateAPI={this.updateAPI}
+                            users={this.state.users}
+                            playlists={this.state.playlists}
+                            songs={this.state.songsToPlaylist} />
                     } else {
                         return <Redirect to="./login" />
                     }
@@ -162,7 +189,12 @@ class ApplicationViews extends Component {
                     return <SearchResults {...props} addToAPI={this.addToAPI}/>
                 }} />
                 <Route exact path="/playlist" render={(props) => {
-                    return <PlaylistView users={this.state.users} currentUser={this.state.currentUser}/>
+                    return <PlaylistView {...props}
+                        users={this.state.users}
+                        currentUser={this.state.currentUser}
+                        playlists={this.state.playlists}
+                        songs={this.state.songsToPlaylist}
+                        deleteFromAPI={this.deleteFromAPI} />
                 }} />
                 {/* <Route path="/nav" render={(props) => {
                     return <Navbar />

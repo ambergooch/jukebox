@@ -31,11 +31,11 @@ export default class PlaylistView extends Component {
         .then(data => {
                 this.setState({
                     isPlaying: true,
-                    currentSongUri: data.uri,
-                    currentSongId: data.id
+                    currentSongUri: data.item.uri,
+                    currentSongId: data.item.id
                 })
 
-            console.log("got currently playing")
+            console.log("got currently playing", data)
         })
 
     }

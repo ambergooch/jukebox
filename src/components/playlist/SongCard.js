@@ -53,7 +53,10 @@ export default class SongCard extends Component {
 
     handleButtonClick = () => {
         this.props.playSong(this.props.song.song_uri)
-        // this.props.getCurrentPlayback()
+        if (this.props.isPlaying) {
+
+            this.props.getCurrentPlayback()
+        }
     }
 
     getMetadata = (songID) => {
@@ -79,6 +82,7 @@ export default class SongCard extends Component {
     }
 
     render() {
+        // this.props.getCurrentPlayback()
 
 //    if (this.state.hover) {
 //      const linkStyle = {color: '#ed1212',cursor: 'pointer'}
@@ -89,7 +93,7 @@ export default class SongCard extends Component {
         // console.log(this.props.song.song_uri)
         // console.log(this.props.currentSongUri)
         return (
-            <React.Fragment key={this.props.song.id}>
+            <React.Fragment className="song-card" key={this.props.song.id}>
 
                 {/* <div className="form-group" hidden = {(this.state.hidden)? "hidden" : ""}>
                     <Input fluid type="text" onChange={this.handleFieldChange} id="message" value = {this.state.message} />

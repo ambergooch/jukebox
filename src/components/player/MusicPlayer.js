@@ -97,15 +97,23 @@ export default class MusicPlayer extends Component {
   playNext () {
     if (this.props.queue.length > 0){
       console.log("Playing next song");
-      this.props.playSong(this.props.queue[0].song_uri);
+      this.props.playSong(this.props.queue[1].song_uri);
       this.props.queue.shift();
-
+    //Changed index to 1 to play second song after clicking first play button. Using reduce is and option to add more control
     }
   }
 
+  onSeekChange = (e, val) => {
+    // duration = 100%
+    // ? = val%
 
-
-
+    let dur = this.state.duration;
+    let seek = Math.floor((val * dur) / 100); // round number
+    this.setState({ progressBarValue: val });
+    this.player.seek(seek).then(() => {
+        console.log(`Seek song to ${seek} ms`);
+    });
+  }
 
 
 
@@ -175,7 +183,8 @@ export default class MusicPlayer extends Component {
 
     onNextClick = (event) => {
       event.preventDefault()
-      this.player.nextTrack();
+      this.playNext()
+      // this.player.nextTrack();
     }
     // transferPlaybackHere() {
     //   const token = this.getHashParams().access_token
@@ -220,7 +229,9 @@ export default class MusicPlayer extends Component {
                 {/* <MusicPlayer {...this.props} Spotify={this.spotifyAPI} params={this.getHashParams()}/> */}
                     {this.state.isPlaying ? "Playing" : "Paused"}
                     {/* <Grid.Row className="progress-bar" style={progressBarStyles} /> */}
-                    <Progress percent={this.state.progressBarValue} size='small' color='green' style={{marginLeft: 190}}inverted />
+                    <Progress percent={this.state.progressBarValue} onClick={this.onSeekChange} size='small' color='green' style={{marginLeft: 190}}inverted>
+                      <div id="range-1" class="ui range"></div>
+                    </Progress>
                 </Grid.Row>
                 <Grid.Row className="player-buttons-container">
                     <button className="player-button" onClick={this.onPrevClick}>

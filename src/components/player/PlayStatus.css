@@ -8,6 +8,7 @@
     bottom: 0;
     margin: 0;
     padding: 0;
+    width: 250px
 }
 
 .music-player {
@@ -25,10 +26,12 @@ p:last-child {
     margin-left: 15px;
     color: #ededed;
     font-size: 90%;
+    /* margin-right: 1100px; */
 }
 
 .song-details strong {
     font-size: 130%;
+
 }
 
 img {
@@ -37,6 +40,23 @@ img {
 
 .play-info {
     margin-bottom: 0px;
-    margin-right: 1100px;
+    position: relative;
+    z-index: -5;
+    width: 900px;
+
     /* background-color: black */
+    /* position: fixed; */
+    display: flex;
+    flex-direction: column;
+    top: 1;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    /* opacity: 0.5; */
+    margin-bottom: 120px;
+    overflow-x: hidden;
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
  }

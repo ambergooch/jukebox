@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react'
 // import Spotify from "spotify-web-api-js"
 // import TaskList from "../task/TaskList"
 // import "./Home.css"
-// import MusicPlayer from "../player/MusicPlayer";
+import MusicPlayer from "../player/MusicPlayer";
 import PlayStatus from "../player/PlayStatus";
 import SearchResults from "../search/SearchResults"
 import Navbar from "../nav/Navbar"
@@ -20,12 +20,16 @@ export default class Home extends Component{
         return(
           <React.Fragment>
             <Navbar users={this.props.users}/>
+            <Container className="player-bar" fluid>
+              <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
+            </Container>
              <div className="side-bar" style={{boxShadow: "6px 6px 10px grey"}}>
                <SideMenu />
                 <PlayStatus {...this.props} token={this.props.token}
                   queue={this.props.queue}
-                  playSong={this.props.playSong}/>
-                 {/* <MusicPlayer {...this.props} token={this.props.token} getNowPlaying={this.getNowPlaying} /> */}
+                  playSong={this.props.playSong}
+                  nowPlaying={this.props.nowPlaying} />
+
              </div>
             <div className="main-window">
             {/* <Grid columns={4} relaxed='very' stackable> */}
@@ -43,6 +47,8 @@ export default class Home extends Component{
                     playSong={this.props.playSong} />
                 </Container>
             </div>
+
+
 
              {/* <Grid.Row> */}
 

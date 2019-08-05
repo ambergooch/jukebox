@@ -22,7 +22,7 @@ handleLogout = (event)=>{
     render() {
         // console.log(this.props.users)
         return (
-        <Menu inverted style={{position: 'sticky', zIndex: 5 }}>
+        <Menu inverted style={{position: 'sticky', top: 0, zIndex: 5, backgroundColor: 'black' }}>
                 {
                     this.props.users
                         .filter(user => user.id === currentUserId)

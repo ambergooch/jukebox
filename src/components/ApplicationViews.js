@@ -28,6 +28,14 @@ class ApplicationViews extends Component {
         token: "",
         currentUser: "",
         deviceId: "",
+        nowPlaying: {
+            name: "Not checked",
+            artist: "",
+            album: "",
+            image: "",
+            position: 0,
+            duration: 0
+          },
         queue: []
     }
   // loginUser = () => {
@@ -43,10 +51,12 @@ class ApplicationViews extends Component {
 
     componentDidMount () {
         // this.loginUser()
+        this.getNowPlaying()
         this.setState({
             token: spotifyAPI.getAccessToken(),
             currentUser: sessionStorage.getItem("spotify_user_id"),
-            deviceId: sessionStorage.getItem("device_id")
+            deviceId: sessionStorage.getItem("device_id"),
+            queue: []
         })
 
         const newState = {};
@@ -171,6 +181,31 @@ class ApplicationViews extends Component {
         console.log("clicked play")
     }
 
+    getNowPlaying = () => {
+        spotifyAPI.getMyCurrentPlaybackState()
+          .then((response) => {
+            console.log("Now playing response item", response.item)
+            if(response) {
+              this.setState({
+                nowPlaying: {
+                    isPlaying: response.is_playing,
+                    progress: response.progress_ms,
+                    duration: response.item.duration_ms,
+                    name: response.item.name,
+                    artist: response.item.album.artists[0].name,
+                    album: response.item.album.name,
+                    image: response.item.album.images[0].url
+                  }
+              });
+            } else {
+              // console.log("no track currently playing")
+              this.setState({nowPlaying: {
+                name: "no song currently playing"
+              }})
+            }
+          })
+      }
+
     // Copies songsToPlaylist array from database to new array
     populateQueue = () => {
         this.state.queue.push.apply(this.state.queue, this.state.songsToPlaylist)
@@ -180,6 +215,7 @@ class ApplicationViews extends Component {
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
 
     render() {
+
         this.populateQueue()
         console.log(this.state.deviceId)
         console.log(this.state.queue)
@@ -209,7 +245,9 @@ class ApplicationViews extends Component {
                             playlists={this.state.playlists}
                             songs={this.state.songsToPlaylist}
                             playSong={this.playSong}
-                            queue={this.state.queue} />
+                            queue={this.state.queue}
+                            nowPlaying={this.state.nowPlaying}
+                            getNowPlaying={this.getNowPlaying} />
                     } else {
                         return <Redirect to="./login" />
                     }

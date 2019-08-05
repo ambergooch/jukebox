@@ -64,7 +64,7 @@ focus() {
     const { activeItem } = this.state
     return (
 
-      <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', borderLeft: 'none'}}>
+      <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', border: 'none'}}>
         <Menu.Item as='a' name='add' color='green' style={{marginBottom: '15px'}} active={activeItem === 'add'} onClick={this.handleItemClick}>
           <Icon name='add circle' size='large'/>
           Create new session
@@ -77,7 +77,7 @@ focus() {
           <Icon name='unlock alternate' size='large'/>
           Enter existing session code
         </Menu.Item>
-        <Modal size='tiny' dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal size='tiny' dimmer={dimmer} open={open} onClose={this.close} style={{backgroundColor: "blue"}}>
           <Modal.Header>Enter a code to join a private session</Modal.Header>
           <Modal.Content image>
             <Modal.Description>
@@ -108,6 +108,78 @@ focus() {
           </Modal.Actions>
         </Modal>
       </Menu>
+
+// const {
+//   Modal,
+//   Button,
+//   Image,
+//   Divider,
+//   TransitionablePortal
+// } = semanticUIReact
+
+// class App extends React.Component {
+//   state = { open: false }
+
+//   handleOpen = () => {
+//     this.setState({ open: true })
+//   }
+
+//   handleClose = () => {
+//     this.setState({ open: false })
+//   }
+
+//   render() {
+//     const { open } = this.state
+
+//     return (
+//       <div>
+//         <style>{`
+//           .ui.dimmer {
+//             transition: background-color 0.5s ease;
+//             background-color: transparent;
+//           }
+
+//           .modal-fade-in .ui.dimmer {
+//             background-color: orange;
+//           }
+//         `}</style>
+
+//         <Button content='Open' onClick={this.handleOpen} />
+
+//         <TransitionablePortal
+//           open={this.state.open}
+//           onOpen={() => setTimeout(() => document.body.classList.add('modal-fade-in'), 0)}
+//           transition={{ animation: 'scale', duration: 500 }}
+//         >
+//           <Modal
+//             open={true}
+//             onClose={(event) => {
+//               document.body.classList.remove('modal-fade-in')
+//               this.handleClose()
+//             }}
+//             closeIcon
+//           >
+//             <Modal.Header>
+//               Resize test
+//             </Modal.Header>
+//             <Modal.Content>
+//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
+//               <Divider />
+//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
+//               <Divider />
+//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
+//               <Divider />
+//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
+//             </Modal.Content>
+//           </Modal>
+//         </TransitionablePortal>
+//       </div>
+//     )
+//   }
+// }
+
+// ReactDOM.render(<App />, document.getElementById('app'));
+
       // <Sidebar.Pushable className="body-div" as={Container} style={{height: '100vh'}}>
       //   <Button.Group>
       //     <Button disabled={visible} onClick={this.handleShowClick}>

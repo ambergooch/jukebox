@@ -103,7 +103,7 @@ export default class PlayStatus extends Component {
             </Grid.Column>
 
             <Grid.Row className="music-player">
-              <MusicPlayer token={this.props.token} getNowPlaying={this.getNowPlaying}/>
+              <MusicPlayer token={this.props.token} getNowPlaying={this.getNowPlaying} queue={this.props.queue} />
             </Grid.Row>
           </React.Fragment>
           )

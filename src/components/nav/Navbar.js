@@ -27,7 +27,7 @@ handleLogout = (event)=>{
                     this.props.users
                         .filter(user => user.id === currentUserId)
                         .map(user =>
-                            <Container fluid style={{marginRight: '100px'}}>
+                            <Container key={user.id} fluid style={{marginRight: '100px'}}>
                                 <Menu.Item position='right' style={{ marginRight: '.5em'}}>
                                     {user.displayName}
                                 </Menu.Item>

@@ -17,13 +17,12 @@ export default class Home extends Component{
 
 
   render(){
-console.log(this.props.songs)
         return(
           <React.Fragment>
             <Navbar users={this.props.users}/>
              <div className="side-bar" style={{boxShadow: "6px 6px 10px grey"}}>
                <SideMenu />
-                 <PlayStatus {...this.props} token={this.props.token}/>
+                 <PlayStatus {...this.props} token={this.props.token} queue={this.props.queue}/>
                  {/* <MusicPlayer {...this.props} token={this.props.token} getNowPlaying={this.getNowPlaying} /> */}
              </div>
             <div className="main-window">
@@ -37,7 +36,9 @@ console.log(this.props.songs)
                     currentUser={this.props.currentUser}
                     playlists={this.props.playlists}
                     songs={this.props.songs}
-                    deleteFromAPI={this.props.deleteFromAPI} />
+                    deleteFromAPI={this.props.deleteFromAPI}
+                    deleteSongsFromAPI={this.props.deleteSongsFromAPI}
+                    playSong={this.props.playSong} />
                 </Container>
             </div>
 

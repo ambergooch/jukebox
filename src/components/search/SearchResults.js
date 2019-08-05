@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Spotify from "spotify-web-api-js"
 import { Link } from "react-router-dom"
 import { Menu, Input } from 'semantic-ui-react'
-import SongList from "./SongList"
+import SongSearch from "./SongSearch"
 import ArtistList from "./ArtistList"
 import AlbumList from "./AlbumList"
 import BrowseStuff from "./BrowseStuff"
@@ -77,7 +77,7 @@ export default class SearchResults extends Component {
             <div className="search-container">
                 <form onSubmit={this.handleSearchEvent}>
                     <Input className="search-input" onChange={this.updateSearchTerm}>
-                        <input type="text" placeholder="Search..." style={{borderRadius: 16}}/>
+                        <input type="text" placeholder="Search..." style={{borderRadius: 20}}/>
                     </Input>
                     {/* <input onChange={(event) => { event.preventDefault(); this.updateSearchTerm(event); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}} type="text" placeholder="Search..." /> */}
                     <button onClick={(event) => { event.preventDefault(); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}}>
@@ -120,12 +120,12 @@ export default class SearchResults extends Component {
                 <div>
                     {
                         this.state.activeItem === 'Songs' ?
-                        (<SongList {...this.props} tracks={this.state.tracks} />) :
+                        (<SongSearch {...this.props} tracks={this.state.tracks} />) :
                         this.state.activeItem === 'Artists' ?
                         (<ArtistList artists={this.state.artists}/>) :
                         (this.state.activeItem === 'Albums') ?
                         ( <AlbumList albums={this.state.albums}/>) :
-                        //anything else show SongList
+                        //anything else show
                         ( <BrowseStuff />)
                     }
                     {/* <SearchSongs {...this.props} tracks={this.state.tracks}/> */}

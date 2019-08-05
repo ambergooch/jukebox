@@ -1,6 +1,6 @@
 .segment.player-bar {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .player-container {
@@ -18,16 +18,21 @@
 p:last-child {
     margin-left: 15px;
     margin-right: 1100px;
-    color: #ededed
+    color: #ededed;
 }
 
 .song-details {
     margin-left: 15px;
-    color: #ededed
+    color: #ededed;
+    font-size: 90%;
+}
+
+.song-details strong {
+    font-size: 130%;
 }
 
 img {
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 .play-info {

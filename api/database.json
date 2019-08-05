@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "user_name": "",
       "email": "",
       "password": "",
@@ -16,42 +16,10 @@
       "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQn5wtYUPX3xBG_Iuj_k1t4KRmvIKMYvceQh6cJyQmF7FtELK2PrTKew7-9Y6Wpi5SM&_nc_ht=scontent.xx&oh=027b19e7fe240b865782d82cf307e0d2&oe=5DAE1449"
     }
   ],
-  "songs": [
-    {
-      "id": 1,
-      "song_id": 3942,
-      "votes": 1
-    },
-    {
-      "userId": null,
-      "song_uri": "spotify:track:2PpruBYCo4H7WOBJ7Q2EwM",
-      "id": 2
-    },
-    {
-      "userId": null,
-      "song_uri": "spotify:track:22oEJW6r2rMb9z4IntfyEa",
-      "id": 3
-    },
-    {
-      "userId": null,
-      "song_uri": "spotify:track:22oEJW6r2rMb9z4IntfyEa",
-      "id": 4
-    },
-    {
-      "userId": null,
-      "song_uri": "spotify:track:4HlFJV71xXKIGcU3kRyttv",
-      "id": 5
-    },
-    {
-      "userId": null,
-      "song_uri": "spotify:track:4U3f4OUjYMRRcFXGOpbo0q",
-      "id": 6
-    }
-  ],
   "playlists": [
     {
       "id": 1,
-      "userId": 1,
+      "userId": "1",
       "title": "",
       "access_code": 1234,
       "locationId": 1
@@ -60,29 +28,50 @@
   "songsToPlaylist": [
     {
       "userId": "124771983",
-      "playlistId": null,
-      "song_uri": "spotify:track:1lFC3sMgOcDrVzNh8zXRnl",
-      "song_id": "1tf9gSxIUNW15SFwI7feSb",
-      "id": 1
-    },
-    {
-      "userId": "124771983",
-      "playlistId": null,
-      "song_uri": "spotify:track:4omnfKQRBPbu7XuFpjcj2l",
-      "song_id": "4omnfKQRBPbu7XuFpjcj2l",
+      "playlistId": 1,
+      "song_uri": "spotify:track:5BP0oaQ1VhuaznT77CBXQp",
+      "song_id": "5BP0oaQ1VhuaznT77CBXQp",
       "id": 2
     },
     {
       "userId": "124771983",
-      "playlistId": null,
-      "song_uri": "spotify:track:6mcxQ1Y3uQRU0IHsvdNLH1",
-      "song_id": "6mcxQ1Y3uQRU0IHsvdNLH1",
+      "playlistId": 1,
+      "song_uri": "spotify:track:2Aqc48sn8He26hmTvQ2BMj",
+      "song_id": "2Aqc48sn8He26hmTvQ2BMj",
       "id": 3
+    },
+    {
+      "userId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:2rd9ETlulTbz6BYZcdvIE1",
+      "song_id": "2rd9ETlulTbz6BYZcdvIE1",
+      "id": 8
+    },
+    {
+      "userId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:0HVQuuXGAcQ2P5mBN521ae",
+      "song_id": "0HVQuuXGAcQ2P5mBN521ae",
+      "id": 9
+    },
+    {
+      "userId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:5rc7kzr4kZFqQczwYAbPEr",
+      "song_id": "5rc7kzr4kZFqQczwYAbPEr",
+      "id": 10
+    },
+    {
+      "userId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:0yOcVe3GzHnKT2bdlVb8jR",
+      "song_id": "0yOcVe3GzHnKT2bdlVb8jR",
+      "id": 11
     }
   ],
   "locations": [
     {
-      "id": 2,
+      "id": 1,
       "longitude": 1,
       "latitude": 1
     }

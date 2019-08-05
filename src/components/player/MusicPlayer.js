@@ -13,7 +13,8 @@ export default class MusicPlayer extends Component {
         position: null,
         duration: null,
         progressBarValue: 0,
-        trackURI: ""
+        trackURI: "",
+        // queue: []
     }
     milisToMinutesAndSeconds = mil => {
       let minutes = Math.floor(mil / 60000);
@@ -57,8 +58,12 @@ export default class MusicPlayer extends Component {
         // Playback status updates
         this.player.on("player_state_changed", state => {
           console.log("player state", state)
+          if (state.paused === true && state.position === 0 && state.disallows.pausing){
+            this.playNext();
+          }
           this.onStateChanged(state)
           this.props.getNowPlaying()
+
 
         });
 
@@ -69,33 +74,40 @@ export default class MusicPlayer extends Component {
           this.setState({ deviceId: device_id }, () => {
             // this.transferPlaybackHere(this.state.deviceId.device_id)
             this.transferPlaybackToApp(this.state.deviceId)
+            sessionStorage.setItem("device_id", this.state.deviceId)
           });
           this.positionCheckInterval = setInterval(() => {
             this.checkPositionChange()
           }, 1000)
         });
     }
-    playSong = (trackURI) => {
-      // spotifyAPI.play(this.state.deviceId)
-      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.state.deviceId}`, {
-        method: 'PUT',
-        body: JSON.stringify({ uris: [trackURI] }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.props.token}`
-        },
-      });
-      this.setState({isPlaying: true})
-  }
+  //   playSong = (trackURI) => {
+  //     // spotifyAPI.play(this.state.deviceId)
+  //     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.state.deviceId}`, {
+  //       method: 'PUT',
+  //       body: JSON.stringify({ uris: [trackURI] }),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${this.props.token}`
+  //       },
+  //     });
+  //     this.setState({isPlaying: true})
+  // }
 
   playNext () {
-    if (this.state.queue.length > 0){
+    if (this.props.queue.length > 0){
       console.log("Playing next song");
-      this.playSong(this.state.queue[0]);
-      this.state.queue.shift();
-    //   updatePlaylistWindow();
+      this.playSong(this.props.queue[0]);
+      this.props.queue.shift();
+
     }
   }
+
+
+
+
+
+
 
   // addToQueue = () => {
   //   if (this.state.isPlaying === false && this.state.queue.length === 0) {
@@ -138,9 +150,7 @@ export default class MusicPlayer extends Component {
         } = state.track_window;
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
-        const artistName = currentTrack.artists
-          .map(artist => artist.name)
-          .join(", ");
+        const artistName = currentTrack.artists[0].name
         const isPlaying = !state.paused;
         this.setState({
           position,
@@ -194,6 +204,7 @@ export default class MusicPlayer extends Component {
       this.playerCheckInterval = setTimeout(() =>
         this.connectPlayer(), 1000
       )
+
 
         // this.getNowPlaying()
         // this.playerCheckInterval = setInterval(() =>

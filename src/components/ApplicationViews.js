@@ -25,8 +25,10 @@ class ApplicationViews extends Component {
         songsToPlaylist: [],
         locations: [],
         collaborators: [],
-        token: spotifyAPI.getAccessToken(),
-        currentUser: ""
+        token: "",
+        currentUser: "",
+        deviceId: "",
+        queue: []
     }
   // loginUser = () => {
     //     if(this.state.currentUser !== null) {
@@ -42,7 +44,9 @@ class ApplicationViews extends Component {
     componentDidMount () {
         // this.loginUser()
         this.setState({
-            token: this.state.token,
+            token: spotifyAPI.getAccessToken(),
+            currentUser: sessionStorage.getItem("spotify_user_id"),
+            deviceId: sessionStorage.getItem("device_id")
         })
 
         const newState = {};
@@ -63,20 +67,18 @@ class ApplicationViews extends Component {
     addToAPI = (resource, object) => {
         APIManager.post(resource, object)
         .then(() => APIManager.getAll(resource))
-        .then(item =>{
+        .then(data =>{
             this.setState({
-                [resource]: item
+                [resource]: data
             })
         })
     }
 
     deleteFromAPI = (resource, id) => {
         APIManager.delete(resource, id)
-        .then(APIManager.getAll(resource))
-        .then(item => {
-            //  this.props.history.push("/");
+        .then(data => {
             this.setState({
-                [resource]: item
+                [resource]: data
             })
         })
     }
@@ -84,9 +86,9 @@ class ApplicationViews extends Component {
    updateAPI = (resource, object) => {
         return APIManager.put(resource, object)
         .then(() => APIManager.getAll(resource))
-        .then(item => {
+        .then(data => {
             this.setState({
-                [resource]: item
+                [resource]: data
             })
         })
     }
@@ -152,13 +154,37 @@ class ApplicationViews extends Component {
         return hashParams;
     }
 
+    playSong = (trackURI) => {
 
+        // spotifyAPI.play(this.state.deviceId)
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.state.deviceId}`, {
+          method: 'PUT',
+          body: JSON.stringify({ uris: [trackURI] }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.state.token}`
+          },
+        });
+        this.setState({
+            isPlaying: true
+        })
+        console.log("clicked play")
+    }
+
+    // Copies songsToPlaylist array from database to new array
+    populateQueue = () => {
+        this.state.queue.push.apply(this.state.queue, this.state.songsToPlaylist)
+        console.log("queue populated")
+    }
 
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
 
     render() {
+        this.populateQueue()
+        console.log(this.state.deviceId)
+        console.log(this.state.queue)
+        console.log(this.state.songsToPlaylist.length)
         // console.log(sessionStorage.getItem("access_token"))
-
         return (
             <React.Fragment>
                 <Route exact path="/callback" render={props => {
@@ -177,10 +203,13 @@ class ApplicationViews extends Component {
                         return <Home {...props} token={this.state.token}
                             addToAPI={this.addToAPI}
                             deleteFromAPI={this.deleteFromAPI}
+                            deleteSongsFromAPI={this.deleteSongsFromAPI}
                             updateAPI={this.updateAPI}
                             users={this.state.users}
                             playlists={this.state.playlists}
-                            songs={this.state.songsToPlaylist} />
+                            songs={this.state.songsToPlaylist}
+                            playSong={this.playSong}
+                            queue={this.state.queue} />
                     } else {
                         return <Redirect to="./login" />
                     }
@@ -194,7 +223,8 @@ class ApplicationViews extends Component {
                         currentUser={this.state.currentUser}
                         playlists={this.state.playlists}
                         songs={this.state.songsToPlaylist}
-                        deleteFromAPI={this.deleteFromAPI} />
+                        deleteFromAPI={this.deleteFromAPI}
+                        deleteSongsFromAPI={this.deleteSongsFromAPI} />
                 }} />
                 {/* <Route path="/nav" render={(props) => {
                     return <Navbar />

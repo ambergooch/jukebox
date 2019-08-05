@@ -65,15 +65,15 @@ focus() {
     return (
 
       <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', borderLeft: 'none'}}>
-        <Menu.Item as='a' name='add' color='green' style={{marginBottom: '10px'}} active={activeItem === 'add'} onClick={this.handleItemClick}>
+        <Menu.Item as='a' name='add' color='green' style={{marginBottom: '15px'}} active={activeItem === 'add'} onClick={this.handleItemClick}>
           <Icon name='add circle' size='large'/>
           Create new session
         </Menu.Item>
-        <Menu.Item as='a' name='find' color='green' style={{marginBottom: '10px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
+        <Menu.Item as='a' name='find' color='green' style={{marginBottom: '15px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
           <Icon name='map marker alternate' size='large'/>
           Find a nearby session
         </Menu.Item>
-        <Menu.Item as='a' name='unlock' color='green' style={{marginBottom: '10px'}} active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.show()}}>
+        <Menu.Item as='a' name='unlock' color='green' style={{marginBottom: '15px'}} active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.show()}}>
           <Icon name='unlock alternate' size='large'/>
           Enter existing session code
         </Menu.Item>

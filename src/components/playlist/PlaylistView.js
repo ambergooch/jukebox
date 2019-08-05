@@ -9,13 +9,13 @@ const spotifyAPI = new Spotify();
 export default class PlaylistView extends Component {
 
     state = {
-        addSong: "",
-        playlist: []
+        // addSong: "",
+        // playlist: [],
+        isPlaying: false,
+        currentSongUri: "",
+        currentSongId: ""
     }
 
-    // playSong = () => {
-    //     spotifyAPI.play()
-    // }
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
         spotifyAPI.createPlaylist(spotifyId)
@@ -25,6 +25,37 @@ export default class PlaylistView extends Component {
             // this is when to set location
         })
     }
+
+    getCurrentPlayback = () => {
+        spotifyAPI.getMyCurrentPlaybackState()
+        .then(data => {
+            if (data) {
+                this.setState({
+                    isPlaying: true,
+                    currentSongUri: data.uri,
+                    currentSongId: data.id
+                })
+            }
+            console.log("got currently playing")
+        })
+
+    }
+
+
+    // playSong = (trackURI) => {
+    //     // spotifyAPI.play(this.state.deviceId)
+    //     const deviceId = "81d72cef4cbedfc3151083eadfee7a503c14857a"
+    //     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+    //       method: 'PUT',
+    //       body: JSON.stringify({ uris: [trackURI] }),
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${this.props.token}`
+    //       },
+    //     });
+    //     this.setState({isPlaying: true})
+    //     this.playNext()
+    // }
 
     // addToPlaylist = (event) => {
     //     event.preventDefault()
@@ -41,27 +72,35 @@ export default class PlaylistView extends Component {
     }
 
     render() {
+        console.log(this.state.currentSongUri)
         return (
         //    <Message floating attached className="playlist">
-            <Table basic='very' selectable singleLine >
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Title</Table.HeaderCell>
-                <Table.HeaderCell>Artist</Table.HeaderCell>
-                <Table.HeaderCell>Album</Table.HeaderCell>
-                <Table.HeaderCell>Duration</Table.HeaderCell>
-                <Table.HeaderCell></Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
+            <Table basic='very' singleLine >
+                <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell>Title</Table.HeaderCell>
+                    <Table.HeaderCell>Artist</Table.HeaderCell>
+                    <Table.HeaderCell>Album</Table.HeaderCell>
+                    <Table.HeaderCell>Duration</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+                </Table.Header>
 
                 <Table.Body>
-            {
-                this.props.songs.map(song =>
-                    <SongCard key={song.id} {...this.props}
-                        song={song} />
-                )
-            }
-            </Table.Body>
+                {
+                    this.props.songs.map(song =>
+                        <SongCard key={song.id} {...this.props}
+                            playSong={this.props.playSong}
+                            isPlaying={this.state.isPlaying}
+                            currentSongUri={this.state.currentSongUri}
+                            currentSongId={this.state.currentSongId}
+                            getCurrentPlayback={this.getCurrentPlayback}
+                            song={song}
+                        />
+                    )
+                }
+                </Table.Body>
             </Table>
             // </Message>
 

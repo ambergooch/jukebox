@@ -13,7 +13,9 @@ export default {
     return fetch(`http://localhost:5002/${resource}/${id}`, {
         method: "DELETE"
     })
-    .then(e => e.json())
+    .then(data => data.json())
+    .then(() => fetch(`${remoteURL}/${resource}`))
+    .then(data => data.json());
   },
 
   post(resource, newObject) {

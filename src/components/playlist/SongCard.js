@@ -53,7 +53,7 @@ export default class SongCard extends Component {
 
     handleButtonClick = () => {
         this.props.playSong(this.props.song.song_uri)
-        this.props.getCurrentPlayback()
+        // this.props.getCurrentPlayback()
     }
 
     getMetadata = (songID) => {
@@ -68,6 +68,12 @@ export default class SongCard extends Component {
           });
     }
 
+    milisToMinutesAndSeconds = (mil) => {
+        const minutes = Math.floor(mil / 60000);
+        const seconds = ((mil % 60000) / 1000).toFixed(0);
+        return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    };
+
     componentDidMount () {
         this.getMetadata(this.props.song.song_id)
     }
@@ -80,8 +86,8 @@ export default class SongCard extends Component {
 //      const linkStyle = {color: '#000'}
 //    }
         // console.log(this.state.songId)
-        console.log(this.props.song.song_uri)
-        console.log(this.props.currentSongUri)
+        // console.log(this.props.song.song_uri)
+        // console.log(this.props.currentSongUri)
         return (
             <React.Fragment key={this.props.song.id}>
 
@@ -100,7 +106,7 @@ export default class SongCard extends Component {
                         <Table.Cell> {this.state.song}</Table.Cell>
                         <Table.Cell>{this.state.artist}</Table.Cell>
                         <Table.Cell>{this.state.album}</Table.Cell>
-                        <Table.Cell>{this.state.duration}</Table.Cell>
+                        <Table.Cell>{this.milisToMinutesAndSeconds(this.state.duration)}</Table.Cell>
                         <Table.Cell>
                             {
                             this.props.users

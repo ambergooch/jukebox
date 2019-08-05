@@ -29,13 +29,12 @@ export default class PlaylistView extends Component {
     getCurrentPlayback = () => {
         spotifyAPI.getMyCurrentPlaybackState()
         .then(data => {
-            if (data) {
                 this.setState({
                     isPlaying: true,
                     currentSongUri: data.uri,
                     currentSongId: data.id
                 })
-            }
+
             console.log("got currently playing")
         })
 
@@ -72,10 +71,11 @@ export default class PlaylistView extends Component {
     }
 
     render() {
-        console.log(this.state.currentSongUri)
+        // this.getCurrentPlayback()
+        // console.log(this.state.currentSongUri)
         return (
         //    <Message floating attached className="playlist">
-            <Table basic='very' singleLine >
+            <Table basic='very' selectable singleLine >
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell></Table.HeaderCell>

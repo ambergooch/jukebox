@@ -19,6 +19,7 @@ div.side-bar {
     width: 250px;
     /* opacity: 0.5; */
     background: #1B1C1D;
+    background-image: linear-gradient(to bottom right, black, rgb(56, 53, 53));
     overflow-x: hidden;
     flex: 1;
     flex-grow: 1;

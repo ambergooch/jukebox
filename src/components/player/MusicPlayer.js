@@ -16,11 +16,11 @@ export default class MusicPlayer extends Component {
         trackURI: "",
         // queue: []
     }
-    milisToMinutesAndSeconds = mil => {
-      let minutes = Math.floor(mil / 60000);
-      let seconds = ((mil % 60000) / 1000).toFixed(0);
-      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-  };
+  //   milisToMinutesAndSeconds = (mil) => {
+  //     const minutes = Math.floor(mil / 60000);
+  //     const seconds = ((mil % 60000) / 1000).toFixed(0);
+  //     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  // };
     connectPlayer () {
         const token = this.props.token
         console.log(token)
@@ -97,7 +97,7 @@ export default class MusicPlayer extends Component {
   playNext () {
     if (this.props.queue.length > 0){
       console.log("Playing next song");
-      this.playSong(this.props.queue[0]);
+      this.props.playSong(this.props.queue[0].song_uri);
       this.props.queue.shift();
 
     }
@@ -212,6 +212,7 @@ export default class MusicPlayer extends Component {
         // )
       }
     render () {
+      console.log(this.props)
         // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
         return (
             <Grid.Row className="control-container">

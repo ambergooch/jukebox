@@ -22,7 +22,9 @@ export default class Home extends Component{
             <Navbar users={this.props.users}/>
              <div className="side-bar" style={{boxShadow: "6px 6px 10px grey"}}>
                <SideMenu />
-                 <PlayStatus {...this.props} token={this.props.token} queue={this.props.queue}/>
+                <PlayStatus {...this.props} token={this.props.token}
+                  queue={this.props.queue}
+                  playSong={this.props.playSong}/>
                  {/* <MusicPlayer {...this.props} token={this.props.token} getNowPlaying={this.getNowPlaying} /> */}
              </div>
             <div className="main-window">

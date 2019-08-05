@@ -80,8 +80,8 @@ export default class SearchResults extends Component {
                         <input type="text" placeholder="Search..." style={{borderRadius: 20}}/>
                     </Input>
                     {/* <input onChange={(event) => { event.preventDefault(); this.updateSearchTerm(event); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}} type="text" placeholder="Search..." /> */}
-                    <button onClick={(event) => { event.preventDefault(); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}}>
-                    </button>
+                    {/* <button onClick={(event) => { event.preventDefault(); this.searchTracks(this.state.searchTerm); this.searchArtists(this.state.searchTerm); this.searchAlbums(this.state.searchTerm)}}>
+                    </button> */}
                 </form>
                 <div>
                     {

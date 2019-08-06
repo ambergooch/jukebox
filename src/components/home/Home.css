@@ -1,11 +1,12 @@
 div.main-window {
-    margin-left: 270px;
+    margin-left: 250px;
     margin-bottom: 120px;
+    padding: 40px;
     overflow: auto;
-    width: 1000px;
+    width: 1100px;
     /* height: 400px; */
 
-
+    /* background-color: rgb(2, 2, 2) */
 }
 
 .ui.ui.ui.container:not(.fluid) {
@@ -23,7 +24,7 @@ div.side-bar {
     width: 250px;
     /* opacity: 0.5; */
     background: #1B1C1D;
-    background-image: linear-gradient(to bottom right, black, rgb(56, 53, 53));
+    /* background-image: linear-gradient(to bottom right, black, rgb(56, 53, 53)); */
     overflow-x: hidden;
     flex: 1;
     flex-grow: 1;

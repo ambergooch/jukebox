@@ -1,112 +1,148 @@
 import React, { Component } from 'react'
-import { Button, Icon, Input, Menu, Sidebar, Modal, Container } from 'semantic-ui-react'
+import { Button, Icon, Input, Menu, Sidebar, Modal, Container, Form, Checkbox, TextArea } from 'semantic-ui-react'
 
 import ApplicationViews from '../ApplicationViews';
 import './SideMenu.css'
 
 export default class SideMenu extends Component {
   state = {
-    visible: true,
-    open: false,
+    openAdd: false,
+    openUnlock: false,
     activeItem: "",
-    inputValues: [],
-    inputValue: ""
+    playlist: {
+      userId: "1",
+      title: "",
+      access_code: null,
+      locationId: 1
+    }
   }
+  //Go back and refactor for location info
 
-  show = () => this.setState({ open: true })
-  close = () => this.setState({ open: false })
+  showAdd = () => this.setState({ openAdd: true })
+  showUnlock = () => this.setState({ openUnlock: true })
+  closeAdd = () => this.setState({ openAdd: false })
+  closeUnlock = () => this.setState({ openUnlock: false })
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
   }
 
-  // handleHideClick = () => this.setState({ visible: false })
-  // handleShowClick = () => this.setState({ visible: true })
-  // handleSidebarHide = () => this.setState({ visible: false })
-
-
-
-  addInputValue = e => {
-    e.preventDefault();
-    this.setState(({ inputValues, inputValue }) => ({
-      inputValues: [...inputValues, ...inputValue.split(",")],
-      inputValue: []
-    }));
+  handleFieldChange = evt => {
+    const stateToChange = {};
+    stateToChange[evt.target.id] = evt.target.value;
+    this.setState(stateToChange);
   };
 
-//   FOR FOCUS CHANGE SEE https://codepen.io/anon/pen/OgPLQj?editors=1010
-// https://stackoverflow.com/questions/55106620/react-parse-comma-separated-user-input
+createPlaylist = (event) => {
+  event.preventDefault()
+  const playlist = {
 
-  removeInputValue(index) {
-    this.setState({
-      inputValues: this.state.inputValues.filter((_, i) => i !== index)
-    });
   }
+}
 
-  handleInputValueChange = (event, index) => {
-    this.state.inputValue[index] = event.target.value;
-    this.setState(this.state.inputValue);
-  };
+constructNewAnimal = evt => {
+  evt.preventDefault();
+  if (this.state.employee === "") {
+    window.alert("Please select a caretaker");
+  } else {
+    const animal = {
+      name: this.state.animalName,
+      breed: this.state.breed,
+      // Make sure the employeeId is saved to the database as a number since it is a foreign key.
+      employeeId: parseInt(this.state.employeeId)
+    };
 
-focus() {
-    this.textInput.focus();
+    // Create the animal and redirect user to animal list
+    this.props
+      .addAnimal(animal)
+      .then(() => this.props.history.push("/animals"));
   }
+};
 
 
-  changeFocus(index) {
-   return event => {
-       this.state.inputValues[index].focus()
-   }
-  }
 
   render() {
-    const { visible, open, dimmer } = this.state
+    const { visible, openAdd, openUnlock, dimmer } = this.state
     const { activeItem } = this.state
     return (
 
       <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', border: 'none'}}>
-        <Menu.Item as='a' name='add' color='green' style={{marginBottom: '15px'}} active={activeItem === 'add'} onClick={this.handleItemClick}>
+        <Menu.Item as='a' name='add' className='green' style={{marginBottom: '15px', marginTop: '20px'}} active={activeItem === 'add'} onClick={(e) => {this.handleItemClick(e, 'add'); this.showAdd()}}>
           <Icon name='add circle' size='large'/>
           Create new session
         </Menu.Item>
-        <Menu.Item as='a' name='find' color='green' style={{marginBottom: '15px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
+        <Menu.Item as='a' name='find' className='green' style={{marginBottom: '15px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
           <Icon name='map marker alternate' size='large'/>
           Find a nearby session
         </Menu.Item>
-        <Menu.Item as='a' name='unlock' color='green' style={{marginBottom: '15px'}} active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.show()}}>
+        <Menu.Item as='a' name='unlock' className='green' style={{marginBottom: '15px'}} active={activeItem === 'unlock'} onClick={(e) => {this.handleItemClick(e, 'unlock'); this.showUnlock()}}>
           <Icon name='unlock alternate' size='large'/>
-          Enter existing session code
+          Enter a session code
         </Menu.Item>
-        <Modal size='tiny' dimmer={dimmer} open={open} onClose={this.close} style={{backgroundColor: "blue"}}>
-          <Modal.Header>Enter a code to join a private session</Modal.Header>
-          <Modal.Content image>
-            <Modal.Description>
-              <p>If you have a code for an existing private session, enter it below.</p>
-            <Input className='code-input' size='massive' type='text' maxLength="1"
-             value={this.state.inputValue[0]} onChange={(event) => {this.handleInputValueChange(0); this.changeFocus(0)}}/>
-            <Input className='code-input' size='massive' type='text' maxLength="1"
-             value={this.state.inputValue[1]} onChange={this.handleInputValueChange}/>
-            <Input className='code-input' size='massive' type='text' maxLength="1"
-             value={this.state.inputValue[2]} onChange={this.handleInputValueChange}/>
-            <Input className='code-input' size='massive' type='text' maxLength="1"
-             value={this.state.inputValue[3]} onChange={this.handleInputValueChange}/>
+
+          <Modal size='tiny' dimmer={dimmer} open={openAdd} onClose={this.closeAdd} className='inverted' closeIcon>
+            <Modal.Header>Start a new playlist</Modal.Header>
+            <Modal.Content image>
+              <Modal.Description>
+                <Form inverted>
+                  <Form.Field>
+                    <label>Title</label>
+                    <input placeholder='Party Mix #6' />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Description</label>
+                    <TextArea placeholder='Give your playlist a cool description' />
+                  </Form.Field>
+                  <Form.Field>
+                    <Checkbox label='Make public' />
+                  </Form.Field>
+                </Form>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              {/* <Button color='black' onClick={this.close}>
+                Nope
+              </Button> */}
+              <Button
+                style={{borderRadius: 20}}
+                positive
+                content="Create"
+                onClick={() => {this.createPlaylist()}}
+              />
+            </Modal.Actions>
+          </Modal>
+
+          <Modal size='tiny' dimmer={dimmer} open={openUnlock} onClose={this.closeUnlock} className='inverted' closeIcon>
+            <Modal.Header>Enter a code to join a private session</Modal.Header>
+            <Modal.Content image>
+              <Modal.Description>
+                <p>If you have a code for an existing private session, enter it below.</p>
+              {/* <Input className='code-input' size='massive' type='text' maxLength="1"
+              value={this.state.inputValue[0]} onChange={(event) => {this.handleInputValueChange(0); this.changeFocus(0)}}/>
+              <Input className='code-input' size='massive' type='text' maxLength="1"
+              value={this.state.inputValue[1]} onChange={this.handleInputValueChange}/>
+              <Input className='code-input' size='massive' type='text' maxLength="1"
+              value={this.state.inputValue[2]} onChange={this.handleInputValueChange}/>
+              <Input className='code-input' size='massive' type='text' maxLength="1"
+              value={this.state.inputValue[3]} onChange={this.handleInputValueChange}/> */}
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              {/* <Button color='black' onClick={this.close}>
+                Nope
+              </Button> */}
+              <Button
+                style={{borderRadius: 20}}
+                positive
+                icon='checkmark'
+                labelPosition='right'
+                content="Join session"
+                onClick={() => {this.closeUnlock()}}
+              />
+            </Modal.Actions>
+          </Modal>
 
 
-            </Modal.Description>
-          </Modal.Content>
-          <Modal.Actions>
-            {/* <Button color='black' onClick={this.close}>
-              Nope
-            </Button> */}
-            <Button
-              positive
-              icon='checkmark'
-              labelPosition='right'
-              content="Join session"
-              onClick={() => {this.close(); this.handleInputValueChange()}}
-            />
-          </Modal.Actions>
-        </Modal>
       </Menu>
 
 // const {

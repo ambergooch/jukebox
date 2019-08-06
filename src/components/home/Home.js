@@ -23,7 +23,7 @@ export default class Home extends Component{
             <Container className="player-bar" fluid>
               <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
             </Container>
-             <div className="side-bar" style={{boxShadow: "6px 6px 10px grey"}}>
+             <div className="side-bar" style={{boxShadow: "6px 6px 10px black"}}>
                <SideMenu />
                 <PlayStatus {...this.props} token={this.props.token}
                   queue={this.props.queue}

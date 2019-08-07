@@ -19,7 +19,7 @@ export default class Home extends Component{
 
 
   render(){
-    console.log(this.props)
+    console.log("home render", this.props.currentPlaylistId)
         return(
           <React.Fragment>
             <Navbar users={this.props.users}/>
@@ -50,7 +50,8 @@ export default class Home extends Component{
                     songs={this.props.songs}
                     deleteFromAPI={this.props.deleteFromAPI}
                     deleteSongsFromAPI={this.props.deleteSongsFromAPI}
-                    playSong={this.props.playSong} />
+                    playSong={this.props.playSong}
+                    currentPlaylistId={this.props.currentPlaylistId} />
                 </Container>
 
             : <Browse />}

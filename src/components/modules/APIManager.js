@@ -5,6 +5,11 @@ export default {
     return fetch(`${remoteURL}/${resource}/${id}`).then(e => e.json())
   },
 
+  getPlaylist (code) {
+    return fetch(`${remoteURL}/playlists?access_code=${code}`)
+    .then(e => e.json())
+  },
+
   getAll (resource) {
     return fetch(`${remoteURL}/${resource}`).then(e => e.json())
   },

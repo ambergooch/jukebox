@@ -14,7 +14,7 @@ import APIManager from './modules/APIManager'
 import PlaylistView from './playlist/PlaylistView'
 
 const spotifyAPI = new Spotify();
-
+const loginURL = "http://localhost:3000/login"
 const tokenFromMainWindow = sessionStorage.getItem("access_token")
 spotifyAPI.setAccessToken(tokenFromMainWindow)
 
@@ -29,7 +29,7 @@ class ApplicationViews extends Component {
         currentUser: "",
         deviceId: "",
         currentPlaylistId: null,
-        currentPlaylist: [],
+        currentPlaylist: "",
         codeInput: null,
         nowPlaying: {
             name: "Not checked",
@@ -99,13 +99,35 @@ class ApplicationViews extends Component {
         })
     }
 
+    saveUser() {
+        if (this.state.currentUser ) {
+          // if (sessionStorage.getItem("access_token") !== undefined) {
+              console.log("save user")
+
+              spotifyAPI.getMe()
+              .then(user => {
+                let newUser =
+                {
+                  displayName: user.display_name,
+                  email: user.email,
+                  spotifyId: user.id,
+                  image: user.images[0].url
+                }
+                this.addToAPI("users", newUser)
+              })
+          } else {
+            window.location = `${loginURL}`;
+          }
+        // }
+      }
+
     getSpotifyUserId = () => {
         spotifyAPI.getMe().then(user => {
-          this.setState({spotifyUserId: user.id})
+          this.setState({currentUser: user.id})
           sessionStorage.setItem("spotify_user_id", user.id)
         })
         // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
-        // .then(() => this.saveUser())
+        .then(() => this.saveUser())
         // console.log("user saved")
       }
 
@@ -214,6 +236,7 @@ class ApplicationViews extends Component {
             .find(playlist => playlist.userId === this.state.currentUser)
 
                 this.setState({
+                  currentPlaylist: currentPlaylist,
                   currentPlaylistId: currentPlaylist.id
                 })
 
@@ -221,39 +244,36 @@ class ApplicationViews extends Component {
     }
 
     setCode = (value) => {
+        APIManager.getPlaylist(value)
+        .then((currentPlaylist) => {
+            console.log("currentPlaylist from setCode", currentPlaylist)
         this.setState({
-            codeInput: value
-        });
-        console.log("set code")
-        console.log(this.state.codeInput)
-        this.setCurrentPlaylistByCode()
-        // this.props.history.push("/playlist")
+            currentPlaylist: currentPlaylist[0],
+            currentPlaylistId: currentPlaylist[0].id
+        })
+        })
     }
 
 
-    setCurrentPlaylistByCode = () => {
-        console.log(this.state.codeInput)
-        let currentPlaylist = this.state.playlists
-            .find(playlist => playlist.access_code === this.state.codeInput)
-
-
-                this.setState({
-                  currentPlaylistId: currentPlaylist
-                })
-
-
-                  console.log("current playlist set w code", this.state.currentPlaylistId)
-    }
+    // setCurrentPlaylistByCode = (value) => {
+    //     console.log(value)
+    //     let currentPlaylist = this.state.playlists
+    //         .find(playlist => playlist.access_code === value)
+    //             this.setState({
+    //               currentPlaylistId: currentPlaylist.id
+    //             })
+    //     console.log("current playlist set w code", currentPlaylist)
+    // }
 
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
 
     render() {
 
         this.populateQueue()
-        console.log(this.state.currentPlaylist)
-        console.log(this.state.codeInput)
-        console.log(this.state.deviceId)
-        console.log(this.state.queue)
+        console.log("app views current playlist id", this.state.currentPlaylistId)
+        // console.log(this.state.codeInput)
+        // console.log(this.state.deviceId)
+        // // console.log(this.state.queue)
         console.log(this.state.songsToPlaylist.length)
         // console.log(sessionStorage.getItem("access_token"))
         return (
@@ -323,6 +343,7 @@ class ApplicationViews extends Component {
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
+                    currentPlaylist={this.state.currentPlaylist}
                     currentPlaylistId={this.state.currentPlaylistId}
                     setCurrentPlaylist={this.setCurrentPlaylist}
                     setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}

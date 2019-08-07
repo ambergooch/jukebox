@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Icon, Input, Menu, Sidebar, Modal, Container, Form, Checkbox, TextArea, Header } from 'semantic-ui-react'
 import randomize from 'randomatic'
+import SingleCharInput from 'react-single-char-input'
 import RICIBs from 'react-individual-character-input-boxes';
 import ApplicationViews from '../ApplicationViews';
 import './SideMenu.css'
@@ -172,13 +173,13 @@ createPlaylist = (event) => {
               <Modal.Description>
                 <p>If you have a code for an existing private session, enter it below.</p>
                 <div className='code-input-box-div'>
-                  <RICIBs
+                  <input
                     id="codeInput"
                     amount={4}
                     autoFocus
-                    inputRegExp={/^[0-9]$/}
-                    // onChange={this.handleFieldChange}
-                    handleOutputString={this.handleInput}
+                    onChange={this.handleFieldChange}
+                    // handleOutputString={this.handleInput}
+                    // inputRegExp={/^[0-9]$/}
                     // password
                   />
                 </div>

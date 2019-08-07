@@ -3,12 +3,13 @@ import { Link } from "react-router-dom"
 import 'semantic-ui-css/semantic.min.css'
 import { Container, Dropdown, Image, Menu } from 'semantic-ui-react'
 
-
+const user = ""
 const currentUserId = sessionStorage.getItem("spotify_user_id")
 export default class NavBar extends Component {
 
     state = {
-        activeItem: ''
+        activeItem: '',
+        currentUser: []
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -20,8 +21,20 @@ export default class NavBar extends Component {
         setTimeout(() => spotifyLogoutWindow.close(), 1000)
 }
 
+componentDidMount = () => {
+    fetch(`http://localhost:5002/users?spotifyId=${currentUserId}`)
+    .then(e => e.json())
+    .then(user => {
+        this.setState({
+            currentUser: user[0]
+        })
+    })
 
-    render() {
+}
+
+
+    render()
+    {
         const { activeItem } = this.state
         return (
         <Menu inverted pointing secondary style={{position: 'sticky', top: 0, zIndex: 5, backgroundColor: '#141413', marginBottom: 0, boxShadow: "6px 6px 5px black", border: 'none' }}>
@@ -41,16 +54,13 @@ export default class NavBar extends Component {
                 color='green'
                 style={{marginLeft: '30px', marginBottom: '1px'}}
           />
-            {
-                this.props.users
-                    .filter(user => user.id === currentUserId)
-                    .map(user =>
-                        <Container key={user.id} fluid style={{marginRight: '100px'}}>
+
+                        <Container key={this.state.currentUser.spotifyId} fluid style={{marginRight: '100px'}}>
                             <Menu.Item position='right' style={{ marginRight: '.5em'}}>
-                                {user.displayName}
+                                {this.state.currentUser.displayName}
                             </Menu.Item>
                             <Menu.Item style={{padding: '4px'}}>
-                                <Image src={user.image} style={{ marginRight: '.5em', borderRadius: 100, width: 45 }} />
+                                <Image src={this.state.currentUser.image} style={{ marginRight: '.5em', borderRadius: 100, width: 45 }} />
                             </Menu.Item>
                             <Dropdown item simple direction='left'>
                             <Dropdown.Menu>
@@ -59,8 +69,6 @@ export default class NavBar extends Component {
                             </Dropdown.Menu>
                             </Dropdown>
                         </Container>
-                    )
-            }
 
         </Menu>
         )

@@ -23,7 +23,7 @@ export default class MusicPlayer extends Component {
   // };
     connectPlayer () {
         const token = this.props.token
-        console.log(token)
+        // console.log(token)
         if (window.Spotify !== null) {
           clearInterval(this.playerCheckInterval)
           this.player = new window.Spotify.Player({
@@ -57,7 +57,7 @@ export default class MusicPlayer extends Component {
 
         // Playback status updates
         this.player.on("player_state_changed", state => {
-          console.log("player state", state)
+          // console.log("player state", state)
           if (state.paused === true && state.position === 0 && state.disallows.pausing){
             this.playNext();
           }
@@ -96,7 +96,7 @@ export default class MusicPlayer extends Component {
 
   playNext () {
     if (this.props.queue.length > 0){
-      console.log("Playing next song");
+      // console.log("Playing next song");
       this.props.playSong(this.props.queue[1].song_uri);
       this.props.queue.shift();
     //Changed index to 1 to play second song after clicking first play button. Using reduce is and option to add more control
@@ -111,7 +111,7 @@ export default class MusicPlayer extends Component {
     let seek = Math.floor((val * dur) / 100); // round number
     this.setState({ progressBarValue: val });
     this.player.seek(seek).then(() => {
-        console.log(`Seek song to ${seek} ms`);
+        // console.log(`Seek song to ${seek} ms`);
     });
   }
 
@@ -206,7 +206,7 @@ export default class MusicPlayer extends Component {
       var deviceIds = [id]
       spotifyAPI.transferMyPlayback(deviceIds)
         .then(
-          console.log("device id in state", this.state.deviceId)
+          // console.log("device id in state", this.state.deviceId)
         )
     }
     componentDidMount () {

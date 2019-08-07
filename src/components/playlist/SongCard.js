@@ -13,6 +13,7 @@ export default class SongCard extends Component {
         // playlistId: this.props.song.playlistId,
         // songUri: this.props.song.song_uri,
         // songId: this.props.song.song_id,
+        currentUser: [],
         hidden: true,
         song: "",
         artist: "",
@@ -79,19 +80,17 @@ export default class SongCard extends Component {
 
     componentDidMount () {
         this.getMetadata(this.props.song.song_id)
+        fetch(`http://localhost:5002/users?spotifyId=${currentUserId}`)
+        .then(e => e.json())
+        .then(user => {
+            this.setState({
+                currentUser: user[0]
+            })
+        })
     }
 
     render() {
-        // this.props.getCurrentPlayback()
 
-//    if (this.state.hover) {
-//      const linkStyle = {color: '#ed1212',cursor: 'pointer'}
-//    } else {
-//      const linkStyle = {color: '#000'}
-//    }
-        // console.log(this.state.songId)
-        // console.log(this.props.song.song_uri)
-        // console.log(this.props.currentSongUri)
         return (
             <React.Fragment key={this.props.song.id}>
 
@@ -112,18 +111,14 @@ export default class SongCard extends Component {
                         <Table.Cell>{this.state.album}</Table.Cell>
                         <Table.Cell>{this.milisToMinutesAndSeconds(this.state.duration)}</Table.Cell>
                         <Table.Cell>
-                            {
-                            this.props.users
-                                .filter(user => user.id === this.props.song.userId)
-                                .map(user =>
-                                    <React.Fragment key={user.id}>
-                                        <Image src={user.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />
-                                    </React.Fragment>
-                                )
-                            }
+
+                            <React.Fragment key={this.state.currentUser.spotifyId}>
+                                <Image src={this.state.currentUser.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />
+                            </React.Fragment>
+
                         </Table.Cell>
                         <Table.Cell>
-                            {this.props.song.userId === currentUserId ?
+                            {this.props.song.playlistId === this.props.currentPlaylistId ?
                                 <Dropdown>
                                     <Dropdown.Menu>
                                         {/* <Button onClick={this.handleEditButton} icon="edit" size="mini"></Button> */}

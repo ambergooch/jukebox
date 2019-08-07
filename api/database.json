@@ -1,35 +1,133 @@
 {
   "users": [
     {
-      "id": 1,
-      "user_name": "",
-      "email": "",
-      "password": "",
-      "locationId": 1
-    },
-    {
       "access_token": "BQB8HU3xFTPcDux0DuzbuWEnCgYWGYbon2jdP4jPyH6cOHCZpOr2cod3jldqaRzuq-9s1kUO_cIfBZ72SyXH_L-Y7JWMjBqOvbkM5drBfKI3ZB-fu6QotCmhcGxi8sYLivFCT2QQPKRXa1onGA8EtWaugerZg3xtpeFhpwzQEg",
       "displayName": "Amber Gooch",
       "email": "agooch91@gmail.com",
-      "id": "124771983",
+      "spotifyId": "124771983",
       "type": "user",
       "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQn5wtYUPX3xBG_Iuj_k1t4KRmvIKMYvceQh6cJyQmF7FtELK2PrTKew7-9Y6Wpi5SM&_nc_ht=scontent.xx&oh=027b19e7fe240b865782d82cf307e0d2&oe=5DAE1449"
+    },
+    {
+      "displayName": "Madison Peper",
+      "email": "madisonpeper@gmail.com",
+      "spotifyId": "1271787056",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/10888748_1001846756496076_4700847125913372754_n.jpg?_nc_cat=107&_nc_oc=AQmMj097uRaw1o7F8RL70uq01kMovCLJD908jPbXRoc67F1zkQqtgw5HlLOiY8UdQ_M&_nc_ht=scontent.xx&oh=5a02bd701616fd9fca375e3fd9b2f523&oe=5DD8F3FE",
+      "id": "Loh12kU"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "osn7QuZ"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "2GaohwG"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "NoKm1OB"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "rUq_oK7"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "NxQNIqL"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "yzfG3X3"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "Fr_Jgq7"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "tld08G0"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "acxORzD"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "-SVg1Te"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "ihVijsX"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "SGrHB3b"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "Z9sff1J"
+    },
+    {
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQlwGxRDJ7KGpqmukdsVyvW9N0wCSZ9ZO4j4UBV4-JTulaCjvWbqwrowU8bCe6NYDdA&_nc_ht=scontent.xx&oh=daa450a0a3f2aec50b64fad71eecafec&oe=5DD5A149",
+      "id": "3Zdx64n"
     }
   ],
   "playlists": [
     {
       "userId": "124771983",
-      "title": "fjkldjfla",
-      "description": "fdjflka",
-      "access_code": 1616,
+      "title": "Party Mix",
+      "description": "fdsafa",
+      "access_code": 6552,
       "locationId": 1,
       "id": 1
     },
     {
       "userId": "124771983",
-      "title": "fdfa",
-      "description": "fdfasf",
-      "access_code": 8493,
+      "title": "Party Mix",
+      "description": "Party like it's 1999",
+      "access_code": 8027,
       "locationId": 1,
       "id": 2
     }
@@ -37,38 +135,10 @@
   "songsToPlaylist": [
     {
       "userId": "124771983",
-      "playlistId": 2,
-      "song_uri": "spotify:track:5BP0oaQ1VhuaznT77CBXQp",
-      "song_id": "5BP0oaQ1VhuaznT77CBXQp",
-      "id": 2
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 2,
-      "song_uri": "spotify:track:2Aqc48sn8He26hmTvQ2BMj",
-      "song_id": "2Aqc48sn8He26hmTvQ2BMj",
-      "id": 3
-    },
-    {
-      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:5rc7kzr4kZFqQczwYAbPEr",
-      "song_id": "5rc7kzr4kZFqQczwYAbPEr",
-      "id": 10
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:0yOcVe3GzHnKT2bdlVb8jR",
-      "song_id": "0yOcVe3GzHnKT2bdlVb8jR",
-      "id": 11
-    },
-    {
-      "userId": "124771983",
-      "playlistId": null,
-      "song_uri": "spotify:track:0W4Kpfp1w2xkY3PrV714B7",
-      "song_id": "0W4Kpfp1w2xkY3PrV714B7",
-      "id": 12
+      "song_uri": "spotify:track:22oEJW6r2rMb9z4IntfyEa",
+      "song_id": "22oEJW6r2rMb9z4IntfyEa",
+      "id": 1
     }
   ],
   "locations": [

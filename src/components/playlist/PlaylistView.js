@@ -25,7 +25,7 @@ export default class PlaylistView extends Component {
         spotifyAPI.createPlaylist(spotifyId)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             // this is when to set location
         })
     }
@@ -74,12 +74,12 @@ export default class PlaylistView extends Component {
     }
 
     render() {
-        console.log(this.props.playlists)
-        console.log(this.props)
+        console.log("playlist view", this.props.currentPlaylist)
+        // console.log(this.props)
         // this.getCurrentPlayback()
         // console.log(this.state.currentSongUri)
         return (
-        //    <Message floating attached className="playlist">
+        {}
         <React.Fragment>
             <Modal
                 trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px'}} negative>End session</Button>}
@@ -103,16 +103,15 @@ export default class PlaylistView extends Component {
                     </Button>
                 </Modal.Actions>
             </Modal>
-            <Header>
-            {
-                this.props.playlists
-                    .filter(playlist => playlist.id === this.props.currentPlaylistId )
-                    .map(playlist =>
-                        <div key={playlist.id} fluid style={{marginRight: '100px'}}>
-                            <Header>{playlist.title}</Header>
-                        </div>
-                    )
-            }
+            <Header >
+                {
+                    this.props.currentPlaylist ?
+                <div key={this.props.currentPlaylist.id} fluid style={{marginRight: '100px'}}>
+                    <Header style={{color: 'white'}}>{this.props.currentPlaylist.title}</Header>
+                </div>
+                :
+                <Header></Header>
+                }
             </Header>
             <Table basic='very' selectable singleLine inverted>
                 <Table.Header>
@@ -128,7 +127,7 @@ export default class PlaylistView extends Component {
 
                 <Table.Body>
                 {
-                    this.props.songs.filter(song => song.playlistId === this.props.currentPlaylistId)
+                    this.props.songs.filter(song => song.playlistId === this.props.currentPlaylist.id)
                     .map(song =>
                         <SongCard key={song.id} {...this.props}
                             playSong={this.props.playSong}

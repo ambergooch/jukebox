@@ -8,7 +8,7 @@ const spotifyAPI = new Spotify();
 
 const authURL = `https://accounts.spotify.com/authorize?client_id=${appKey.client_id}&redirect_uri=http://localhost:3000/callback/&scope=${appKey.scope}&response_type=token`
 // Probably won't need this later
-const loginURL = "http://localhost:3000/login"
+// const loginURL = "http://localhost:3000/login"
 
 export default class Login extends Component {
 
@@ -46,27 +46,27 @@ export default class Login extends Component {
 // 2. I need to set state
 // 3. I need to add user to session storage
 
-  saveUser() {
-      if (this.state.spotifyUserId ) {
-        // if (sessionStorage.getItem("access_token") !== undefined) {
-            console.log("save user")
+  // saveUser() {
+  //     if (this.state.spotifyUserId ) {
+  //       // if (sessionStorage.getItem("access_token") !== undefined) {
+  //           console.log("save user")
 
-            spotifyAPI.getMe()
-            .then(user => {
-              let newUser =
-              {
-                displayName: user.display_name,
-                email: user.email,
-                spotifyId: user.id,
-                image: user.images[0].url
-              }
-              this.props.addToAPI("users", newUser)
-            })
-        } else {
-          window.location = `${loginURL}`;
-        }
-      // }
-    }
+  //           spotifyAPI.getMe()
+  //           .then(user => {
+  //             let newUser =
+  //             {
+  //               displayName: user.display_name,
+  //               email: user.email,
+  //               spotifyId: user.id,
+  //               image: user.images[0].url
+  //             }
+  //             this.props.addToAPI("users", newUser)
+  //           })
+  //       } else {
+  //         window.location = `${loginURL}`;
+  //       }
+  //     // }
+  //   }
     componentDidMount() {
       sessionStorage.clear()
     }

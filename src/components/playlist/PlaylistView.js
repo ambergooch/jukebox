@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Spotify from "spotify-web-api-js"
 import SongCard from "./SongCard"
-import { Message, Table } from 'semantic-ui-react'
+import { Message, Table, Button, Modal, Header, Icon } from 'semantic-ui-react'
 
 const spotifyAPI = new Spotify();
-
+const currentUserId = sessionStorage.getItem("spotify_user_id")
 
 export default class PlaylistView extends Component {
 
@@ -13,8 +13,12 @@ export default class PlaylistView extends Component {
         // playlist: [],
         isPlaying: false,
         currentSongUri: "",
-        currentSongId: ""
+        currentSongId: "",
+        open: false
     }
+
+    handleOpen = () => this.setState({ open: true })
+    handleClose = () => this.setState({ open: false })
 
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
@@ -37,7 +41,6 @@ export default class PlaylistView extends Component {
 
             console.log("got currently playing", data)
         })
-
     }
 
 
@@ -71,11 +74,47 @@ export default class PlaylistView extends Component {
     }
 
     render() {
+        console.log(this.props.playlists)
+        console.log(this.props)
         // this.getCurrentPlayback()
         // console.log(this.state.currentSongUri)
         return (
         //    <Message floating attached className="playlist">
-            <Table basic='very' selectable singleLine >
+        <React.Fragment>
+            <Modal
+                trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px'}} negative>End session</Button>}
+                open={this.state.open}
+                onClose={this.handleClose}
+                basic
+                size='tiny'
+            >
+                <Header icon='exclamation circle' content='End Your Session' />
+                <Modal.Content>
+                <p>
+                    Are you sure you want to end this session?  Your playlist will not be saved.
+                </p>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button basic color='red' onClick={this.handleClose} inverted >
+                        <Icon name='remove' /> No
+                    </Button>
+                    <Button color='green' onClick={() => {this.props.deleteFromAPI("playlists", this.props.currentPlaylistId); this.handleClose()}} inverted>
+                        <Icon name='checkmark' /> Yes
+                    </Button>
+                </Modal.Actions>
+            </Modal>
+            <Header>
+            {
+                this.props.playlists
+                    .filter(playlist => playlist.id === this.props.currentPlaylistId )
+                    .map(playlist =>
+                        <div key={playlist.id} fluid style={{marginRight: '100px'}}>
+                            <Header>{playlist.title}</Header>
+                        </div>
+                    )
+            }
+            </Header>
+            <Table basic='very' selectable singleLine inverted>
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell></Table.HeaderCell>
@@ -89,7 +128,8 @@ export default class PlaylistView extends Component {
 
                 <Table.Body>
                 {
-                    this.props.songs.map(song =>
+                    this.props.songs.filter(song => song.playlistId === this.props.currentPlaylistId)
+                    .map(song =>
                         <SongCard key={song.id} {...this.props}
                             playSong={this.props.playSong}
                             isPlaying={this.state.isPlaying}
@@ -102,8 +142,8 @@ export default class PlaylistView extends Component {
                 }
                 </Table.Body>
             </Table>
-            // </Message>
 
+        </React.Fragment>
         )
     }
 }

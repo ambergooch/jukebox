@@ -3,10 +3,10 @@ div.main-window {
     margin-bottom: 120px;
     padding: 40px;
     overflow: auto;
-    width: 1100px;
-    /* height: 400px; */
-
-    /* background-color: rgb(2, 2, 2) */
+    width: 1050px;
+    height: 800px;
+    color: white;
+    background-color: rgb(2, 2, 2)
 }
 
 .ui.ui.ui.container:not(.fluid) {

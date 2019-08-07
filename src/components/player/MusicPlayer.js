@@ -221,7 +221,7 @@ export default class MusicPlayer extends Component {
         // )
       }
     render () {
-      console.log(this.props)
+
         // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
         return (
             <Grid.Row className="control-container">
@@ -230,7 +230,7 @@ export default class MusicPlayer extends Component {
                     {this.state.isPlaying ? "Playing" : "Paused"}
                     {/* <Grid.Row className="progress-bar" style={progressBarStyles} /> */}
                     <Progress percent={this.state.progressBarValue} onClick={this.onSeekChange} size='small' color='green' style={{marginLeft: 190}}inverted>
-                      <div id="range-1" class="ui range"></div>
+                      <div id="range-1" className="ui range"></div>
                     </Progress>
                 </Grid.Row>
                 <Grid.Row className="player-buttons-container">

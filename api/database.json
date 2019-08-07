@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "user_name": "",
       "email": "",
       "password": "",
@@ -18,24 +18,33 @@
   ],
   "playlists": [
     {
-      "id": 1,
-      "userId": "1",
-      "title": "",
-      "access_code": 1234,
-      "locationId": 1
+      "userId": "124771983",
+      "title": "fjkldjfla",
+      "description": "fdjflka",
+      "access_code": 1616,
+      "locationId": 1,
+      "id": 1
+    },
+    {
+      "userId": "124771983",
+      "title": "fdfa",
+      "description": "fdfasf",
+      "access_code": 8493,
+      "locationId": 1,
+      "id": 2
     }
   ],
   "songsToPlaylist": [
     {
       "userId": "124771983",
-      "playlistId": 1,
+      "playlistId": 2,
       "song_uri": "spotify:track:5BP0oaQ1VhuaznT77CBXQp",
       "song_id": "5BP0oaQ1VhuaznT77CBXQp",
       "id": 2
     },
     {
       "userId": "124771983",
-      "playlistId": 1,
+      "playlistId": 2,
       "song_uri": "spotify:track:2Aqc48sn8He26hmTvQ2BMj",
       "song_id": "2Aqc48sn8He26hmTvQ2BMj",
       "id": 3
@@ -55,39 +64,11 @@
       "id": 11
     },
     {
-      "userId": null,
-      "playlistId": 1,
-      "song_uri": "spotify:track:72Z17vmmeQKAg8bptWvpVG",
-      "song_id": "72Z17vmmeQKAg8bptWvpVG",
+      "userId": "124771983",
+      "playlistId": null,
+      "song_uri": "spotify:track:0W4Kpfp1w2xkY3PrV714B7",
+      "song_id": "0W4Kpfp1w2xkY3PrV714B7",
       "id": 12
-    },
-    {
-      "userId": null,
-      "playlistId": 1,
-      "song_uri": "spotify:track:3ZE3wv8V3w2T2f7nOCjV0N",
-      "song_id": "3ZE3wv8V3w2T2f7nOCjV0N",
-      "id": 13
-    },
-    {
-      "userId": null,
-      "playlistId": 1,
-      "song_uri": "spotify:track:2aSFLiDPreOVP6KHiWk4lF",
-      "song_id": "2aSFLiDPreOVP6KHiWk4lF",
-      "id": 14
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:1jkEorRvoRQNo1WZfD1X5q",
-      "song_id": "1jkEorRvoRQNo1WZfD1X5q",
-      "id": 15
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:1jkEorRvoRQNo1WZfD1X5q",
-      "song_id": "1jkEorRvoRQNo1WZfD1X5q",
-      "id": 16
     }
   ],
   "locations": [

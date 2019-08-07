@@ -28,6 +28,9 @@ class ApplicationViews extends Component {
         token: "",
         currentUser: "",
         deviceId: "",
+        currentPlaylistId: null,
+        currentPlaylist: [],
+        codeInput: null,
         nowPlaying: {
             name: "Not checked",
             artist: "",
@@ -38,16 +41,8 @@ class ApplicationViews extends Component {
           },
         queue: []
     }
-  // loginUser = () => {
-    //     if(this.state.currentUser !== null) {
-    //       return(
-    //         <a className="login-a" href={"http://localhost:3000/login"}>
-    //             Login in button
-    //         </a>
-    //       )
-    //     }
-    //     return null
-    //   }
+
+
 
     componentDidMount () {
         // this.loginUser()
@@ -74,8 +69,9 @@ class ApplicationViews extends Component {
 
     }
 
+
     addToAPI = (resource, object) => {
-        APIManager.post(resource, object)
+        return APIManager.post(resource, object)
         .then(() => APIManager.getAll(resource))
         .then(data =>{
             this.setState({
@@ -208,8 +204,45 @@ class ApplicationViews extends Component {
 
     // Copies songsToPlaylist array from database to new array
     populateQueue = () => {
+        this.state.queue = []
         this.state.queue.push.apply(this.state.queue, this.state.songsToPlaylist)
         console.log("queue populated")
+    }
+
+    setCurrentPlaylist = () => {
+        let currentPlaylist = this.state.playlists
+            .find(playlist => playlist.userId === this.state.currentUser)
+
+                this.setState({
+                  currentPlaylistId: currentPlaylist.id
+                })
+
+                  console.log("current playlist set", currentPlaylist)
+    }
+
+    setCode = (value) => {
+        this.setState({
+            codeInput: value
+        });
+        console.log("set code")
+        console.log(this.state.codeInput)
+        this.setCurrentPlaylistByCode()
+        // this.props.history.push("/playlist")
+    }
+
+
+    setCurrentPlaylistByCode = () => {
+        console.log(this.state.codeInput)
+        let currentPlaylist = this.state.playlists
+            .find(playlist => playlist.access_code === this.state.codeInput)
+
+
+                this.setState({
+                  currentPlaylistId: currentPlaylist
+                })
+
+
+                  console.log("current playlist set w code", this.state.currentPlaylistId)
     }
 
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
@@ -217,6 +250,8 @@ class ApplicationViews extends Component {
     render() {
 
         this.populateQueue()
+        console.log(this.state.currentPlaylist)
+        console.log(this.state.codeInput)
         console.log(this.state.deviceId)
         console.log(this.state.queue)
         console.log(this.state.songsToPlaylist.length)
@@ -247,22 +282,59 @@ class ApplicationViews extends Component {
                             playSong={this.playSong}
                             queue={this.state.queue}
                             nowPlaying={this.state.nowPlaying}
-                            getNowPlaying={this.getNowPlaying} />
+                            getNowPlaying={this.getNowPlaying}
+                            currentPlaylistId={this.state.currentPlaylistId}
+                            setCurrentPlaylist={this.setCurrentPlaylist}
+                            setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
+                            setCode={this.setCode} />
                     } else {
                         return <Redirect to="./login" />
                     }
                 }} />
-                <Route exact path="/search" render={(props) => {
-                    return <SearchResults {...props} addToAPI={this.addToAPI}/>
+                <Route path="/search" render={(props) => {
+                    return <Home {...props} token={this.state.token}
+                    addToAPI={this.addToAPI}
+                    deleteFromAPI={this.deleteFromAPI}
+                    deleteSongsFromAPI={this.deleteSongsFromAPI}
+                    updateAPI={this.updateAPI}
+                    users={this.state.users}
+                    playlists={this.state.playlists}
+                    songs={this.state.songsToPlaylist}
+                    playSong={this.playSong}
+                    queue={this.state.queue}
+                    nowPlaying={this.state.nowPlaying}
+                    getNowPlaying={this.getNowPlaying}
+                    currentPlaylistId={this.state.currentPlaylistId}
+                    setCurrentPlaylist={this.setCurrentPlaylist}
+                    setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
+                    setCode={this.setCode} />
+                    // <SearchResults {...props} addToAPI={this.addToAPI}/>
                 }} />
                 <Route exact path="/playlist" render={(props) => {
-                    return <PlaylistView {...props}
-                        users={this.state.users}
-                        currentUser={this.state.currentUser}
-                        playlists={this.state.playlists}
-                        songs={this.state.songsToPlaylist}
-                        deleteFromAPI={this.deleteFromAPI}
-                        deleteSongsFromAPI={this.deleteSongsFromAPI} />
+                    return <Home {...props} token={this.state.token}
+                    addToAPI={this.addToAPI}
+                    deleteFromAPI={this.deleteFromAPI}
+                    deleteSongsFromAPI={this.deleteSongsFromAPI}
+                    updateAPI={this.updateAPI}
+                    users={this.state.users}
+                    playlists={this.state.playlists}
+                    songs={this.state.songsToPlaylist}
+                    playSong={this.playSong}
+                    queue={this.state.queue}
+                    nowPlaying={this.state.nowPlaying}
+                    getNowPlaying={this.getNowPlaying}
+                    currentPlaylistId={this.state.currentPlaylistId}
+                    setCurrentPlaylist={this.setCurrentPlaylist}
+                    setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
+                    setCode={this.setCode}  />
+
+                        // <PlaylistView {...props}
+                        // users={this.state.users}
+                        // currentUser={this.state.currentUser}
+                        // playlists={this.state.playlists}
+                        // songs={this.state.songsToPlaylist}
+                        // deleteFromAPI={this.deleteFromAPI}
+                        // deleteSongsFromAPI={this.deleteSongsFromAPI} />
                 }} />
                 {/* <Route path="/nav" render={(props) => {
                     return <Navbar />

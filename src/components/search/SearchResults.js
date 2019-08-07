@@ -5,7 +5,7 @@ import { Menu, Input } from 'semantic-ui-react'
 import SongSearch from "./SongSearch"
 import ArtistList from "./ArtistList"
 import AlbumList from "./AlbumList"
-import BrowseStuff from "./BrowseStuff"
+import BrowseStuff from "./Browse"
 import "./SearchResults.css"
 
 const spotifyAPI = new Spotify();

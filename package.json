@@ -5,8 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^4.3.0",
     "fomantic-ui-css": "^2.7.7",
+    "randomatic": "^3.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-individual-character-input-boxes": "^0.3.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "semantic-ui-css": "^2.4.1",

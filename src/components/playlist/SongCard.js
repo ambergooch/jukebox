@@ -93,7 +93,7 @@ export default class SongCard extends Component {
         // console.log(this.props.song.song_uri)
         // console.log(this.props.currentSongUri)
         return (
-            <React.Fragment className="song-card" key={this.props.song.id}>
+            <React.Fragment key={this.props.song.id}>
 
                 {/* <div className="form-group" hidden = {(this.state.hidden)? "hidden" : ""}>
                     <Input fluid type="text" onChange={this.handleFieldChange} id="message" value = {this.state.message} />
@@ -104,7 +104,7 @@ export default class SongCard extends Component {
                     <Table.Row>
                         <Table.Cell>
                         <button className="song-card-button" onClick={this.handleButtonClick}  onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
-                            {this.props.isPlaying && this.props.song.song_uri === this.props.currentSongUri ? <Icon name="pause circle outline" size="large" ></Icon> : <Icon name="play circle outline" size="large" ></Icon>}
+                            {this.props.isPlaying && this.props.song.song_uri === this.props.currentSongUri ? <Icon name="pause circle outline" color="grey" size="large" ></Icon> : <Icon name="play circle outline" color="grey" size="large" ></Icon>}
                         </button>
                         </Table.Cell>
                         <Table.Cell> {this.state.song}</Table.Cell>

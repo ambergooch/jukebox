@@ -12,7 +12,7 @@ export default class BrowseStuff extends Component {
     render() {
         return (
             <div className="browse">
-
+                browse
             </div>
         )
     }

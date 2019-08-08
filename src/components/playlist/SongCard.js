@@ -135,7 +135,7 @@ export default class SongCard extends Component {
 
                         </Table.Cell>
                         <Table.Cell >
-                            {this.props.song.userId === currentUserId ?
+                            {this.props.song.spotifyId === currentUserId ?
                                 <Dropdown direction='left' className="inverted" style={{border: 'none'}}>
                                     <Dropdown.Menu inverted>
                                         {/* <Button onClick={this.handleEditButton} icon="edit" size="mini"></Button> */}

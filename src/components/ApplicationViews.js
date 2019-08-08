@@ -81,12 +81,14 @@ class ApplicationViews extends Component {
     }
 
     deleteFromAPI = (resource, id) => {
-        APIManager.delete(resource, id)
+        return APIManager.delete(resource, id)
         .then(data => {
             this.setState({
                 [resource]: data
             })
+
         })
+        .then(this.props.history.push("/"))
     }
 
    updateAPI = (resource, object) => {

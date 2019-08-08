@@ -22,60 +22,8 @@
       "id": 3
     }
   ],
-  "playlists": [
-    {
-      "userId": "124771983",
-      "title": "90's Party Mix",
-      "description": "Party like it's 1999",
-      "access_code": 4635,
-      "locationId": 1,
-      "id": 1
-    }
-  ],
-  "songsToPlaylist": [
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:6e40mgJiCid5HRAGrbpGA6",
-      "song_id": "6e40mgJiCid5HRAGrbpGA6",
-      "id": 1
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:00WvmRXTkPBZNhhRK3xfdy",
-      "song_id": "00WvmRXTkPBZNhhRK3xfdy",
-      "id": 2
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:5WTxbyWTpoqhdxEN2szOnl",
-      "song_id": "5WTxbyWTpoqhdxEN2szOnl",
-      "id": 3
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:62bOmKYxYg7dhrC6gH9vFn",
-      "song_id": "62bOmKYxYg7dhrC6gH9vFn",
-      "id": 4
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:2AW37v0bDyuOzGP3XnmFuA",
-      "song_id": "2AW37v0bDyuOzGP3XnmFuA",
-      "id": 5
-    },
-    {
-      "userId": "124771983",
-      "playlistId": 1,
-      "song_uri": "spotify:track:594M0rqYMOo8BhMGEdoi5C",
-      "song_id": "594M0rqYMOo8BhMGEdoi5C",
-      "id": 6
-    }
-  ],
+  "playlists": [],
+  "songsToPlaylist": [],
   "locations": [
     {
       "id": 1,

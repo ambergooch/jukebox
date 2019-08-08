@@ -26,31 +26,16 @@ export default class SongCard extends Component {
             this.setState({hover: !this.state.hover})
             console.log("mouse")
         }
-    // showButtons = event => {
-    //     let currentUserId = parseInt(sessionStorage.getItem("id"))
-    //     if (currentUserId === this.props.message.userId) {
-    //         this.setState( {hiddenBtn: !this.state.hiddenBtn} )
-    //     }
-    // }
 
-    // handleEditButton = event => {
-    //     console.log("edit clicked")
-    //     this.setState( {hidden: !this.state.hidden} )
-    //     this.setState( {hiddenBtn: !this.state.hiddenBtn} )
-    // }
 
-    // editMessage = event => {
-    //     event.preventDefault()
-    //     const editedMessage = {
-    //         id: this.props.message.id,
-    //         userId: parseInt(this.state.userId),
-    //         message: this.state.message,
-    //     }
-    //     console.log(editedMessage)
-    //     this.handleEditButton()
-    //     this.props.updateAPI(editedMessage, "messages")
-    //     .then(() => this.props.history.push("/"))
-    // }
+    showButtons = event => {
+        const playlist = this.props.playlists.filter(playlist => playlist.userId === currentUserId)
+        .map(playlist => {
+            this.setState({
+                hidden: !this.state.hidden
+            })
+        })
+    }
 
     handleButtonClick = () => {
         this.props.playSong(this.props.song.song_uri)
@@ -101,7 +86,7 @@ export default class SongCard extends Component {
                 {/* <div className="song-div"> */}
 
                     <Table.Row>
-                        <Table.Cell>
+                        <Table.Cell hidden = {(this.state.hidden)}>
                         <button className="song-card-button" onClick={this.handleButtonClick}  onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
                             {this.props.isPlaying && this.props.song.song_uri === this.props.currentSongUri ? <Icon name="pause circle outline" color="grey" size="large" ></Icon> : <Icon name="play circle outline" color="grey" size="large" ></Icon>}
                         </button>
@@ -111,19 +96,28 @@ export default class SongCard extends Component {
                         <Table.Cell>{this.state.album}</Table.Cell>
                         <Table.Cell>{this.milisToMinutesAndSeconds(this.state.duration)}</Table.Cell>
                         <Table.Cell>
+                        {
+                            this.props.users
+                                .filter(user => user.spotifyId === this.props.song.userId)
+                                .map(user =>
+                                    <React.Fragment key={user.spotifyId}>
+                                        <Image src={user.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />
+                                    </React.Fragment>
+                                )
+                            }
 
-                            <React.Fragment key={this.state.currentUser.spotifyId}>
-                                <Image src={this.state.currentUser.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />
-                            </React.Fragment>
+                            {/* <React.Fragment key={this.state.currentUser.spotifyId}>
+                                <Image src={this.props.user.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />
+                            </React.Fragment> */}
 
                         </Table.Cell>
-                        <Table.Cell>
-                            {this.props.song.playlistId === this.props.currentPlaylistId ?
-                                <Dropdown>
+                        <Table.Cell >
+                            {this.props.song.userId === currentUserId ?
+                                <Dropdown direction='left'>
                                     <Dropdown.Menu>
                                         {/* <Button onClick={this.handleEditButton} icon="edit" size="mini"></Button> */}
-                                        <Button onClick={() => this.props.deleteFromAPI("songsToPlaylist", this.props.song.id)}
-                                            icon="trash" size="mini"></Button>
+                                        <Dropdown.Item className="delete-song" onClick={() => this.props.deleteFromAPI("songsToPlaylist", this.props.song.id)}
+                                            icon="trash" size="mini">Delete</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown> : ""}
                         </Table.Cell>

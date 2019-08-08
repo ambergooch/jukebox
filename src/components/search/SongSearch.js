@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import { Icon } from "semantic-ui-react"
 import Spotify from "spotify-web-api-js"
+import "./SongSearch.css"
+
 const spotifyAPI = new Spotify()
+
 
 export default class SongSearch extends Component {
 
@@ -35,12 +38,12 @@ export default class SongSearch extends Component {
     addToQueue = (trackURI, trackID) => {
         // this.state.isPlaying === false &&
         // this.state.songResult.uri === data.uri &&
-        spotifyAPI.getMyCurrentPlaybackState()
-          .then(data => {
-        if (this.state.songResult.uri === data.item.uri && this.state.queue.length === 0) {
-          this.playSong(trackURI)
-        } else {
-            console.log(data)
+        // spotifyAPI.getMyCurrentPlaybackState()
+        //   .then(data => {
+        // if (this.state.songResult.uri === data.item.uri && this.state.queue.length === 0) {
+        //   this.playSong(trackURI)
+        // } else {
+            // console.log(data)
             const song = {
                 userId: sessionStorage.getItem("spotify_user_id"),
                 playlistId: this.props.currentPlaylistId,
@@ -63,10 +66,10 @@ export default class SongSearch extends Component {
         //     "artist": artistName,
         //     "cover": coverArt
         //   })
-        }
-        console.log(data)
+        // }
+        // console.log(data)
         console.log(this.state)
-      })
+    //   })
 
     }
 
@@ -80,8 +83,9 @@ export default class SongSearch extends Component {
             {
             this.props.tracks.map( (track, index) =>
                 <div key={index}>
+
                     <button className='add' onClick={(event) => { event.preventDefault();this.addToQueue(track.uri, track.id, track.name, track.artists[0].name, track.album.images[0].url)}}>
-                        <Icon  size="tiny" name="plus" />
+                        <Icon color="grey" size="large" name="plus circle" />
                     </button>
                 {track.name} by {track.artists[0].name}
                 {/* <img src={track.album.images[0].url} style={{width: 100}} alt="" /> */}

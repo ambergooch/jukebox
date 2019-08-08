@@ -127,8 +127,8 @@ class ApplicationViews extends Component {
           sessionStorage.setItem("spotify_user_id", user.id)
         })
         // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
-        .then(() => this.saveUser())
-        // console.log("user saved")
+        // .then(() => this.saveUser())
+        console.log("user saved")
       }
 
     getToken = () => {
@@ -273,7 +273,7 @@ class ApplicationViews extends Component {
         console.log("app views current playlist id", this.state.currentPlaylistId)
         // console.log(this.state.codeInput)
         // console.log(this.state.deviceId)
-        // // console.log(this.state.queue)
+        console.log(this.state.queue)
         console.log(this.state.songsToPlaylist.length)
         // console.log(sessionStorage.getItem("access_token"))
         return (
@@ -303,6 +303,7 @@ class ApplicationViews extends Component {
                             queue={this.state.queue}
                             nowPlaying={this.state.nowPlaying}
                             getNowPlaying={this.getNowPlaying}
+                            currentPlaylist={this.state.currentPlaylist}
                             currentPlaylistId={this.state.currentPlaylistId}
                             setCurrentPlaylist={this.setCurrentPlaylist}
                             setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
@@ -324,6 +325,7 @@ class ApplicationViews extends Component {
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
+                    currentPlaylist={this.state.currentPlaylist}
                     currentPlaylistId={this.state.currentPlaylistId}
                     setCurrentPlaylist={this.setCurrentPlaylist}
                     setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}

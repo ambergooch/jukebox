@@ -86,7 +86,7 @@ export default class SearchResults extends Component {
                 <div>
                     {
                     this.state.searchTerm !== null ?
-                    (<Menu pointing secondary>
+                    (<Menu pointing secondary inverted style={{border: 'none', marginBottom: '10px'}}>
                         <Menu.Item  as= {Link}
                             to="/search/"
                             name='Songs'
@@ -114,7 +114,7 @@ export default class SearchResults extends Component {
                             active={activeItem === 'Browse'}
                             onClick={this.handleItemClick}
                         /> */}
-                        </Menu> ) : <BrowseStuff />
+                        </Menu> ) : ""
                     }
                 </div>
                 <div>
@@ -126,7 +126,7 @@ export default class SearchResults extends Component {
                         (this.state.activeItem === 'Albums') ?
                         ( <AlbumList albums={this.state.albums}/>) :
                         //anything else show
-                        ( <BrowseStuff />)
+                        ( "")
                     }
                     {/* <SearchSongs {...this.props} tracks={this.state.tracks}/> */}
                 </div>

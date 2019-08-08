@@ -24,7 +24,7 @@ export default class MusicPlayer extends Component {
     connectPlayer () {
         const token = this.props.token
         // console.log(token)
-        if (window.Spotify !== null) {
+        if (window.Spotify) {
           clearInterval(this.playerCheckInterval)
           this.player = new window.Spotify.Player({
                   name: 'Web Playback SDK Quick Start Player',

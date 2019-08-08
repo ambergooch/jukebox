@@ -14,11 +14,21 @@ export default class PlaylistView extends Component {
         isPlaying: false,
         currentSongUri: "",
         currentSongId: "",
-        open: false
+        open: false,
+        hidden: true
     }
 
     handleOpen = () => this.setState({ open: true })
     handleClose = () => this.setState({ open: false })
+
+    showButtons = event => {
+        const playlist = this.props.playlists.filter(playlist => playlist.userId === currentUserId)
+        .map(playlist => {
+            this.setState({
+                hidden: !this.state.hidden
+            })
+        })
+    }
 
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
@@ -79,7 +89,7 @@ export default class PlaylistView extends Component {
         // this.getCurrentPlayback()
         // console.log(this.state.currentSongUri)
         return (
-        {}
+
         <React.Fragment>
             <Modal
                 trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px'}} negative>End session</Button>}
@@ -98,7 +108,7 @@ export default class PlaylistView extends Component {
                     <Button basic color='red' onClick={this.handleClose} inverted >
                         <Icon name='remove' /> No
                     </Button>
-                    <Button color='green' onClick={() => {this.props.deleteFromAPI("playlists", this.props.currentPlaylistId); this.handleClose()}} inverted>
+                    <Button color='green' onClick={() => {this.props.deleteFromAPI("playlists", this.props.currentPlaylist.id); this.handleClose()}} inverted>
                         <Icon name='checkmark' /> Yes
                     </Button>
                 </Modal.Actions>
@@ -108,15 +118,16 @@ export default class PlaylistView extends Component {
                     this.props.currentPlaylist ?
                 <div key={this.props.currentPlaylist.id} fluid style={{marginRight: '100px'}}>
                     <Header style={{color: 'white'}}>{this.props.currentPlaylist.title}</Header>
+                    <p style={{color: 'grey'}}>Access code: {this.props.currentPlaylist.access_code}</p>
                 </div>
                 :
                 <Header></Header>
                 }
             </Header>
-            <Table basic='very' selectable singleLine inverted>
+            <Table basic='very' selectable singleLine inverted style={{marginTop: '40px'}}>
                 <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell hidden = {(this.state.hidden)}></Table.HeaderCell>
                     <Table.HeaderCell>Title</Table.HeaderCell>
                     <Table.HeaderCell>Artist</Table.HeaderCell>
                     <Table.HeaderCell>Album</Table.HeaderCell>

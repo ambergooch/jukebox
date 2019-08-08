@@ -44,7 +44,7 @@ componentDidMount = () => {
                 active={activeItem === 'current playlist'}
                 onClick={this.handleItemClick}
                 color='green'
-                style={{marginLeft: '280px', marginBottom: '1px'}}
+                style={{marginLeft: '280px', marginBottom: '1px', fontWeight: 'bold'}}
           />
             <Menu.Item
                 as={Link} to="/search"
@@ -52,7 +52,7 @@ componentDidMount = () => {
                 active={activeItem === 'search'}
                 onClick={this.handleItemClick}
                 color='green'
-                style={{marginLeft: '30px', marginBottom: '1px'}}
+                style={{marginLeft: '30px', marginBottom: '1px', fontWeight: 'bold'}}
           />
 
                         <Container key={this.state.currentUser.spotifyId} fluid style={{marginRight: '100px'}}>

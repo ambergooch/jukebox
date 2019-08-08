@@ -23,9 +23,11 @@ export default class Home extends Component{
         return(
           <React.Fragment>
             <Navbar users={this.props.users}/>
+            {this.props.currentUser === this.props.currentPlaylist.userId ?
             <Container className="player-bar" fluid>
               <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
             </Container>
+            : ""}
              <div className="side-bar" style={{boxShadow: "6px 6px 5px black"}}>
                <SideMenu {...this.props} />
                 <PlayStatus {...this.props} token={this.props.token}
@@ -35,12 +37,19 @@ export default class Home extends Component{
 
              </div>
              <div className="main-window" style={{backgroundColor: 'rgb(2, 2, 2)'}}>
+
+            {window.location.pathname === "/" ?
+                <Container className="search">
+                  <Browse/>
+                </Container>
+
+            : "" }
             {window.location.pathname === "/search" ?
                 <Container className="search">
                   <SearchResults {...this.props} addToAPI={this.props.addToAPI}/>
                 </Container>
 
-            : <Browse /> }
+            : "" }
             {window.location.pathname === "/playlist" ?
                 <Container>
                   <PlaylistView {...this.props}
@@ -54,7 +63,7 @@ export default class Home extends Component{
                     currentPlaylistId={this.props.currentPlaylistId} />
                 </Container>
 
-            : <Browse />}
+            : ""}
 
 </div>
 

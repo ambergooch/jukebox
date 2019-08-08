@@ -150,18 +150,18 @@ class ApplicationViews extends Component {
 
     }
 
-    checkForToken() {
-        if (sessionStorage.getItem("access_token") !== null) {
-            window.close()
-            const token = sessionStorage.getItem("access_token")
-            console.log("current token", token)
-            this.getSpotifyUserId()
-        }
-    }
-    checkTokenInt = setInterval(() => {
-        console.log("checking for token")
-        this.checkForToken();
-    }, 100000 )
+    // checkForToken() {
+    //     if (sessionStorage.getItem("access_token") !== null) {
+    //         window.close()
+    //         const token = sessionStorage.getItem("access_token")
+    //         console.log("current token", token)
+    //         this.getSpotifyUserId()
+    //     }
+    // }
+    // checkTokenInt = setInterval(() => {
+    //     console.log("checking for token")
+    //     this.checkForToken();
+    // }, 100000 )
 
 
     getTokenInt = setInterval(() => {
@@ -234,7 +234,7 @@ class ApplicationViews extends Component {
     setCurrentPlaylist = () => {
         let currentPlaylist = this.state.playlists
             .find(playlist => playlist.userId === this.state.currentUser)
-
+console.log(currentPlaylist)
                 this.setState({
                   currentPlaylist: currentPlaylist,
                   currentPlaylistId: currentPlaylist.id
@@ -270,6 +270,7 @@ class ApplicationViews extends Component {
     render() {
 
         this.populateQueue()
+        console.log(this.state.currentPlaylist)
         console.log("app views current playlist id", this.state.currentPlaylistId)
         // console.log(this.state.codeInput)
         // console.log(this.state.deviceId)
@@ -303,10 +304,10 @@ class ApplicationViews extends Component {
                             queue={this.state.queue}
                             nowPlaying={this.state.nowPlaying}
                             getNowPlaying={this.getNowPlaying}
+                            currentUser={this.state.currentUser}
                             currentPlaylist={this.state.currentPlaylist}
                             currentPlaylistId={this.state.currentPlaylistId}
                             setCurrentPlaylist={this.setCurrentPlaylist}
-                            setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
                             setCode={this.setCode} />
                     } else {
                         return <Redirect to="./login" />
@@ -325,10 +326,10 @@ class ApplicationViews extends Component {
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
+                    currentUser={this.state.currentUser}
                     currentPlaylist={this.state.currentPlaylist}
                     currentPlaylistId={this.state.currentPlaylistId}
                     setCurrentPlaylist={this.setCurrentPlaylist}
-                    setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
                     setCode={this.setCode} />
                     // <SearchResults {...props} addToAPI={this.addToAPI}/>
                 }} />
@@ -345,10 +346,10 @@ class ApplicationViews extends Component {
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
+                    currentUser={this.state.currentUser}
                     currentPlaylist={this.state.currentPlaylist}
                     currentPlaylistId={this.state.currentPlaylistId}
                     setCurrentPlaylist={this.setCurrentPlaylist}
-                    setCurrentPlaylistByCode={this.setCurrentPlaylistByCode}
                     setCode={this.setCode}  />
 
                         // <PlaylistView {...props}

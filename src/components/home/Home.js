@@ -19,6 +19,8 @@ export default class Home extends Component{
 
 
   render(){
+    console.log(this.props.currentUser)
+    console.log(this.props.currentPlaylist)
     console.log("home render", this.props.currentPlaylistId)
         return(
           <React.Fragment>

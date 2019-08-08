@@ -15,11 +15,12 @@ export default class SongCard extends Component {
         // songId: this.props.song.song_id,
         currentUser: [],
         hidden: true,
+        hover: false,
         song: "",
         artist: "",
         album: "",
         duration: null,
-        hover: false
+
     }
 
     toggleHover = () => {
@@ -27,19 +28,38 @@ export default class SongCard extends Component {
             console.log("mouse")
         }
 
+        // showButtons = event => {
+    //     let currentUserId = parseInt(sessionStorage.getItem("id"))
+    //     if (currentUserId === this.props.message.userId) {
+    //         this.setState( {hiddenBtn: !this.state.hiddenBtn} )
+    //     }
+    // }
 
     showButtons = event => {
-        const playlist = this.props.playlists.filter(playlist => playlist.userId === currentUserId)
-        .map(playlist => {
+        if (this.props.currentPlaylist.userId === currentUserId) {
             this.setState({
                 hidden: !this.state.hidden
             })
-        })
+        }
     }
+
+    //     showButtons = () => {
+    //     const playlistMatch = this.props.playlists.filter(playlist => playlist.userId === currentUserId)
+    //     .map(playlist => {
+    //         this.setState({
+    //             hidden: !this.state.hidden
+    //         })
+    //         console.log(playlistMatch)
+    //     })
+
+    // }
 
     handleButtonClick = () => {
         this.props.playSong(this.props.song.song_uri)
-        if (this.props.isPlaying) {
+        // this.setState({
+        //     isPlaying: true
+        // })
+        if (this.props.isPlaying === false) {
 
             this.props.getCurrentPlayback()
         }
@@ -72,10 +92,13 @@ export default class SongCard extends Component {
                 currentUser: user[0]
             })
         })
+        this.showButtons()
     }
 
     render() {
-
+        console.log(this.props.isPlaying)
+        console.log(this.props.song.song_uri)
+        console.log(this.props.currentSongUri)
         return (
             <React.Fragment key={this.props.song.id}>
 
@@ -113,8 +136,8 @@ export default class SongCard extends Component {
                         </Table.Cell>
                         <Table.Cell >
                             {this.props.song.userId === currentUserId ?
-                                <Dropdown direction='left'>
-                                    <Dropdown.Menu>
+                                <Dropdown direction='left' className="inverted" style={{border: 'none'}}>
+                                    <Dropdown.Menu inverted>
                                         {/* <Button onClick={this.handleEditButton} icon="edit" size="mini"></Button> */}
                                         <Dropdown.Item className="delete-song" onClick={() => this.props.deleteFromAPI("songsToPlaylist", this.props.song.id)}
                                             icon="trash" size="mini">Delete</Dropdown.Item>

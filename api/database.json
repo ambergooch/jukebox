@@ -25,55 +25,55 @@
   "playlists": [
     {
       "userId": "124771983",
-      "title": "Party Mix",
-      "description": "jfklaj",
-      "access_code": 1788,
+      "title": "90's Party Mix",
+      "description": "Party like it's 1999",
+      "access_code": 4635,
       "locationId": 1,
       "id": 1
     }
   ],
   "songsToPlaylist": [
     {
-      "userId": "septembershades10",
+      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:22oEJW6r2rMb9z4IntfyEa",
-      "song_id": "22oEJW6r2rMb9z4IntfyEa",
+      "song_uri": "spotify:track:6e40mgJiCid5HRAGrbpGA6",
+      "song_id": "6e40mgJiCid5HRAGrbpGA6",
       "id": 1
     },
     {
-      "userId": "septembershades10",
+      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:4HlFJV71xXKIGcU3kRyttv",
-      "song_id": "4HlFJV71xXKIGcU3kRyttv",
+      "song_uri": "spotify:track:00WvmRXTkPBZNhhRK3xfdy",
+      "song_id": "00WvmRXTkPBZNhhRK3xfdy",
       "id": 2
     },
     {
-      "userId": "septembershades10",
+      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:4RCWB3V8V0dignt99LZ8vH",
-      "song_id": "4RCWB3V8V0dignt99LZ8vH",
+      "song_uri": "spotify:track:5WTxbyWTpoqhdxEN2szOnl",
+      "song_id": "5WTxbyWTpoqhdxEN2szOnl",
       "id": 3
     },
     {
-      "userId": "septembershades10",
+      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:1jkEorRvoRQNo1WZfD1X5q",
-      "song_id": "1jkEorRvoRQNo1WZfD1X5q",
+      "song_uri": "spotify:track:62bOmKYxYg7dhrC6gH9vFn",
+      "song_id": "62bOmKYxYg7dhrC6gH9vFn",
       "id": 4
     },
     {
-      "userId": "septembershades10",
+      "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:2PpruBYCo4H7WOBJ7Q2EwM",
-      "song_id": "2PpruBYCo4H7WOBJ7Q2EwM",
+      "song_uri": "spotify:track:2AW37v0bDyuOzGP3XnmFuA",
+      "song_id": "2AW37v0bDyuOzGP3XnmFuA",
       "id": 5
     },
     {
       "userId": "124771983",
       "playlistId": 1,
-      "song_uri": "spotify:track:4RXpgGM7A4Hg7cFBoH5KyF",
-      "song_id": "4RXpgGM7A4Hg7cFBoH5KyF",
-      "id": 11
+      "song_uri": "spotify:track:594M0rqYMOo8BhMGEdoi5C",
+      "song_id": "594M0rqYMOo8BhMGEdoi5C",
+      "id": 6
     }
   ],
   "locations": [

@@ -21,15 +21,6 @@ export default class PlaylistView extends Component {
     handleOpen = () => this.setState({ open: true })
     handleClose = () => this.setState({ open: false })
 
-    showButtons = event => {
-        const playlist = this.props.playlists.filter(playlist => playlist.userId === currentUserId)
-        .map(playlist => {
-            this.setState({
-                hidden: !this.state.hidden
-            })
-        })
-    }
-
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
         spotifyAPI.createPlaylist(spotifyId)
@@ -81,18 +72,20 @@ export default class PlaylistView extends Component {
 
     componentDidMount = () => {
         // this.createNewPlaylist()
+
+
     }
 
     render() {
         console.log("playlist view", this.props.currentPlaylist)
         // console.log(this.props)
         // this.getCurrentPlayback()
-        // console.log(this.state.currentSongUri)
+        console.log(this.state.currentSongUri)
         return (
 
         <React.Fragment>
             <Modal
-                trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px'}} negative>End session</Button>}
+                trigger={<Button onClick={this.handleOpen} hidden = {(this.state.hidden)} size="tiny" style={{float: 'right', marginBottom: '30px', borderRadius: 20}} negative>End session</Button>}
                 open={this.state.open}
                 onClose={this.handleClose}
                 basic
@@ -118,7 +111,7 @@ export default class PlaylistView extends Component {
                     this.props.currentPlaylist ?
                 <div key={this.props.currentPlaylist.id} fluid style={{marginRight: '100px'}}>
                     <Header style={{color: 'white'}}>{this.props.currentPlaylist.title}</Header>
-                    <p style={{color: 'grey'}}>Access code: {this.props.currentPlaylist.access_code}</p>
+                    <p style={{color: 'grey', fontSize: '14px'}}>Access code: {this.props.currentPlaylist.access_code}</p>
                 </div>
                 :
                 <Header></Header>

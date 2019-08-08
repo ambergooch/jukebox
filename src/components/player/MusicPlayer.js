@@ -178,7 +178,6 @@ export default class MusicPlayer extends Component {
     onPlayClick = (event) => {
       event.preventDefault()
       this.player.togglePlay();
-      // this.playSong("spotify:track:22oEJW6r2rMb9z4IntfyEa")
     }
 
     onNextClick = (event) => {

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Grid, Segment } from 'semantic-ui-react';
+import { Button, Grid, Segment, Form, Container } from 'semantic-ui-react';
 import appKey from "../key"
 import Spotify from "spotify-web-api-js"
 
 
 const spotifyAPI = new Spotify();
 
-const authURL = `https://accounts.spotify.com/authorize?client_id=${appKey.client_id}&redirect_uri=http://localhost:3000/callback/&scope=${appKey.scope}&response_type=token`
+const authURL = `https://accounts.spotify.com/authorize?client_id=${appKey.client_id}&redirect_uri=http://localhost:3000/callback/&scope=${appKey.scope}&response_type=token&show_dialog=true`
 // Probably won't need this later
 // const loginURL = "http://localhost:3000/login"
 
@@ -76,33 +76,26 @@ export default class Login extends Component {
       // console.log(window)
       // console.log(this.props.getUserId)
         return (
-          <div>
-              <Segment>
-              <Grid columns={1} relaxed='very' stackable textAlign='center'>
-                <Grid.Row verticalAlign='middle'>
-                {/* <Grid.Column>
-                  <Form>
-                    <Form.Input icon='user' iconPosition='left' label='Username' placeholder='Username' />
-                    <Form.Input icon='lock' iconPosition='left' label='Password' type='password' />
+          <div className="login-page" >
+              <Container inverted >
+              <Grid columns={1} relaxed='very' stackable textAlign='center' fluid>
+                {/* <Grid.Row verticalAlign='middle'  fluid > */}
 
-                    <Button content='Login' primary />
-                  </Form>
-                </Grid.Column> */}
 
-                <Grid.Column verticalAlign='middle'>
+                <Container verticalAlign='middle' inverted style={{marginTop: '200px', width: '2000px'}} fluid >
                   {/* <Header icon>
                     <Icon name='world' />
                     Sign in with Spotify
                   </Header> */}
 
-                  <Button onClick={this.handleLoginClick} content='Connect' size='big' />
+                  <Button  onClick={this.handleLoginClick} content='Connect to Spotify' size='big' color='green' style={{marginLeft: '500px', borderRadius: 20}}/>
 
-                </Grid.Column>
-                </Grid.Row>
+                </Container>
+                {/* </Grid.Row> */}
               </Grid>
 
-              {/* <Divider vertical>Or</Divider> */}
-            </Segment>
+
+            </Container>
             </div>
         )
     }

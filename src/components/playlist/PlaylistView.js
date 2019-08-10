@@ -21,6 +21,14 @@ export default class PlaylistView extends Component {
     handleOpen = () => this.setState({ open: true })
     handleClose = () => this.setState({ open: false })
 
+    showButton = event => {
+        if (this.props.currentPlaylist.spotifyId === currentUserId) {
+            this.setState({
+                hidden: !this.state.hiddenBtn
+            })
+        }
+    }
+
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
         spotifyAPI.createPlaylist(spotifyId)
@@ -40,8 +48,13 @@ export default class PlaylistView extends Component {
                     currentSongId: data.item.id
                 })
 
-            console.log("got currently playing", data)
+            // console.log("got currently playing", data)
         })
+    }
+
+    deletePlaylist = () => {
+        this.props.deleteFromAPI("playlists", this.props.currentPlaylist.id)
+        .then(this.props.history.push("/"))
     }
 
 
@@ -72,24 +85,25 @@ export default class PlaylistView extends Component {
 
     componentDidMount = () => {
         // this.createNewPlaylist()
-
+        this.showButton()
 
     }
 
     render() {
-        console.log("playlist view", this.props.currentPlaylist)
         // console.log(this.props)
         // this.getCurrentPlayback()
-        console.log(this.state.currentSongUri)
+        // console.log(this.state.currentSongUri)
         return (
 
         <React.Fragment>
+            {this.props.currentPlaylist.spotifyId === currentUserId ?
             <Modal
-                trigger={<Button onClick={this.handleOpen} hidden = {(this.state.hidden)} size="tiny" style={{float: 'right', marginBottom: '30px', borderRadius: 20}} negative>End session</Button>}
+                trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px', borderRadius: 20}} negative>End session</Button>}
                 open={this.state.open}
                 onClose={this.handleClose}
                 basic
                 size='tiny'
+
             >
                 <Header icon='exclamation circle' content='End Your Session' />
                 <Modal.Content>
@@ -101,11 +115,12 @@ export default class PlaylistView extends Component {
                     <Button basic color='red' onClick={this.handleClose} inverted >
                         <Icon name='remove' /> No
                     </Button>
-                    <Button color='green' onClick={() => {this.props.deleteFromAPI("playlists", this.props.currentPlaylist.id); this.handleClose()}} inverted>
+                    <Button color='green' onClick={() => {this.deletePlaylist(); this.handleClose()}} inverted>
                         <Icon name='checkmark' /> Yes
                     </Button>
                 </Modal.Actions>
             </Modal>
+            : "" }
             <Header >
                 {
                     this.props.currentPlaylist ?

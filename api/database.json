@@ -22,8 +22,117 @@
       "id": 3
     }
   ],
-  "playlists": [],
-  "songsToPlaylist": [],
+  "playlists": [
+    {
+      "spotifyId": "septembershades10",
+      "title": "Dinner Party",
+      "description": "Jazzy tunes to listen to while we stuff our faces",
+      "access_code": 4652,
+      "locationId": 1,
+      "id": 1
+    },
+    {
+      "spotifyId": "124771983",
+      "title": "Party Mix",
+      "description": "reqrq",
+      "access_code": 9470,
+      "locationId": 1,
+      "id": 2
+    }
+  ],
+  "songsToPlaylist": [
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:2FKbisOVZcinq7VtYUFD4H",
+      "song_id": "2FKbisOVZcinq7VtYUFD4H",
+      "id": 2
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:03CMUlyOZzrNXJnb8Vzm4l",
+      "song_id": "03CMUlyOZzrNXJnb8Vzm4l",
+      "id": 4
+    },
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:5cf1ZfI16kHp3S1ySpQ36G",
+      "song_id": "5cf1ZfI16kHp3S1ySpQ36G",
+      "id": 5
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:0dPv2pSm2WNtJUvdUJdMjJ",
+      "song_id": "0dPv2pSm2WNtJUvdUJdMjJ",
+      "id": 7
+    },
+    {
+      "spotifyId": "1271787056",
+      "playlistId": 1,
+      "song_uri": "spotify:track:6WDAtzaXY7d31CkuoxYFcb",
+      "song_id": "6WDAtzaXY7d31CkuoxYFcb",
+      "id": 8
+    },
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:43Fd2LMelrD0HU01n4g4cw",
+      "song_id": "43Fd2LMelrD0HU01n4g4cw",
+      "id": 9
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:4fbvXwMTXPWaFyaMWUm9CR",
+      "song_id": "4fbvXwMTXPWaFyaMWUm9CR",
+      "id": 10
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:7ABE6G4uQxbNtYgVrpBBPA",
+      "song_id": "7ABE6G4uQxbNtYgVrpBBPA",
+      "id": 11
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:0X5C4WjQNubRysTkHOubz3",
+      "song_id": "0X5C4WjQNubRysTkHOubz3",
+      "id": 12
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:22oEJW6r2rMb9z4IntfyEa",
+      "song_id": "22oEJW6r2rMb9z4IntfyEa",
+      "id": 13
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:4HlFJV71xXKIGcU3kRyttv",
+      "song_id": "4HlFJV71xXKIGcU3kRyttv",
+      "id": 14
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:4RCWB3V8V0dignt99LZ8vH",
+      "song_id": "4RCWB3V8V0dignt99LZ8vH",
+      "id": 15
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 2,
+      "song_uri": "spotify:track:1jkEorRvoRQNo1WZfD1X5q",
+      "song_id": "1jkEorRvoRQNo1WZfD1X5q",
+      "id": 16
+    }
+  ],
   "locations": [
     {
       "id": 1,

@@ -22,7 +22,7 @@ export default class PlayStatus extends Component {
       progressBarValue: 1,
       tracks: [],
       nowPlaying: {
-        name: "Not checked",
+        name: "",
         artist: "",
         album: "",
         image: "",

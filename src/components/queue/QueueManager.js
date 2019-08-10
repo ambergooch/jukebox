@@ -62,7 +62,6 @@ export default class QueueManager {
     }
 
     play() {
-    console.log('api.js > play');
     if (this.queue.length > 0) {
         console.log('api.js > play has queue');
         // something to play!

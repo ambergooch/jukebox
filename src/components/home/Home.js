@@ -19,13 +19,11 @@ export default class Home extends Component{
 
 
   render(){
-    console.log(this.props.currentUser)
-    console.log(this.props.currentPlaylist)
-    console.log("home render", this.props.currentPlaylistId)
+
         return(
           <React.Fragment>
             <Navbar users={this.props.users}/>
-            {this.props.currentUser === this.props.currentPlaylist.userId ?
+            {this.props.currentUser === this.props.currentPlaylist.spotifyId ?
             <Container className="player-bar" fluid>
               <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
             </Container>
@@ -35,6 +33,7 @@ export default class Home extends Component{
                 <PlayStatus {...this.props} token={this.props.token}
                   queue={this.props.queue}
                   playSong={this.props.playSong}
+                  playNext={this.playNext}
                   nowPlaying={this.props.nowPlaying} />
 
              </div>
@@ -62,6 +61,7 @@ export default class Home extends Component{
                     deleteFromAPI={this.props.deleteFromAPI}
                     deleteSongsFromAPI={this.props.deleteSongsFromAPI}
                     playSong={this.props.playSong}
+                    playNext={this.playNext}
                     currentPlaylistId={this.props.currentPlaylistId} />
                 </Container>
 

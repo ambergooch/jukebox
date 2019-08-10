@@ -59,7 +59,7 @@ export default class MusicPlayer extends Component {
         this.player.on("player_state_changed", state => {
           // console.log("player state", state)
           if (state.paused === true && state.position === 0 && state.disallows.pausing){
-            this.playNext();
+            this.props.playNext();
           }
           this.onStateChanged(state)
           this.props.getNowPlaying()
@@ -94,14 +94,14 @@ export default class MusicPlayer extends Component {
   //     this.setState({isPlaying: true})
   // }
 
-  playNext () {
-    if (this.props.queue.length > 0){
-      // console.log("Playing next song");
-      this.props.playSong(this.props.queue[1].song_uri);
-      this.props.queue.shift();
-    //Changed index to 1 to play second song after clicking first play button. Using reduce is and option to add more control
-    }
-  }
+  // playNext = () => {
+  //   if (this.props.queue.length > 0){
+  //     // console.log("Playing next song");
+  //     this.props.playSong(this.props.queue[1].song_uri);
+  //     this.props.queue.shift();
+  //   //Changed index to 1 to play second song after clicking first play button. Using reduce is and option to add more control
+  //   }
+  // }
 
   onSeekChange = (e, val) => {
     // duration = 100%
@@ -182,7 +182,7 @@ export default class MusicPlayer extends Component {
 
     onNextClick = (event) => {
       event.preventDefault()
-      this.playNext()
+      this.props.playNext()
       // this.player.nextTrack();
     }
     // transferPlaybackHere() {

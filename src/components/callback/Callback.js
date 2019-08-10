@@ -41,8 +41,7 @@ export default class Callback extends Component {
   componentDidMount () {
     const token = window.location.hash.substr(1).split('&')[0].split('=')[1]
     if (token) {
-      console.log(window)
-      console.log(token)
+
       window.opener.sessionStorage.setItem("access_token", token)
       this.props.getUserId()
       window.close()
@@ -51,7 +50,6 @@ export default class Callback extends Component {
   }
 
     render() {
-      console.log(spotifyAPI.getAccessToken())
         return (
             <div>
             <p>Getting Token...</p>

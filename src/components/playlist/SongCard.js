@@ -25,7 +25,6 @@ export default class SongCard extends Component {
 
     toggleHover = () => {
             this.setState({hover: !this.state.hover})
-            console.log("mouse")
         }
 
         // showButtons = event => {
@@ -36,7 +35,7 @@ export default class SongCard extends Component {
     // }
 
     showButtons = event => {
-        if (this.props.currentPlaylist.userId === currentUserId) {
+        if (this.props.currentPlaylist.spotifyId === currentUserId) {
             this.setState({
                 hidden: !this.state.hidden
             })
@@ -96,9 +95,10 @@ export default class SongCard extends Component {
     }
 
     render() {
-        console.log(this.props.isPlaying)
-        console.log(this.props.song.song_uri)
-        console.log(this.props.currentSongUri)
+        // console.log(this.props.isPlaying)
+        // console.log(this.props.song.song_uri)
+        // console.log(this.props.currentSongUri)
+        // console.log(this.props.song.spotifyId)
         return (
             <React.Fragment key={this.props.song.id}>
 
@@ -121,7 +121,7 @@ export default class SongCard extends Component {
                         <Table.Cell>
                         {
                             this.props.users
-                                .filter(user => user.spotifyId === this.props.song.userId)
+                                .filter(user => user.spotifyId === this.props.song.spotifyId)
                                 .map(user =>
                                     <React.Fragment key={user.spotifyId}>
                                         <Image src={user.image} style={{ marginRight: '.5em', borderRadius: 100, width: 24 }} />

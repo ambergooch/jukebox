@@ -48,14 +48,14 @@ export default class SideMenu extends Component {
   playlistAuth = (event) => {
     event.preventDefault()
     let playlistMatch = this.props.playlists.filter(playlist =>
-        (playlist.userId === this.state.userId && playlist.id === this.props.currentPlaylistId))
+        (playlist.spotifyId === this.state.userId && playlist.id === this.props.currentPlaylistId))
 
   }
 
 createPlaylist = (event) => {
   event.preventDefault()
   const playlist = {
-    userId: this.state.userId,
+    spotifyId: this.state.userId,
     title: this.state.title,
     description: this.state.description,
     access_code: this.state.accessCode,
@@ -64,7 +64,7 @@ createPlaylist = (event) => {
 
   this.props.addToAPI("playlists", playlist)
   .then(this.props.setCurrentPlaylist)
-  // .then(() => this.props.history.push("/playlist"))
+  .then(() => this.props.history.push("/playlist"))
 }
 
 

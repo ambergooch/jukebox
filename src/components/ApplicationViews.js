@@ -32,12 +32,13 @@ class ApplicationViews extends Component {
         currentPlaylist: "",
         codeInput: null,
         nowPlaying: {
-            name: "Not checked",
+            name: "",
             artist: "",
             album: "",
             image: "",
             position: 0,
-            duration: 0
+            duration: 0,
+            song_id: ""
           },
         queue: []
     }
@@ -88,7 +89,6 @@ class ApplicationViews extends Component {
             })
 
         })
-        .then(this.props.history.push("/"))
     }
 
    updateAPI = (resource, object) => {
@@ -104,7 +104,6 @@ class ApplicationViews extends Component {
     saveUser() {
         if (this.state.currentUser ) {
           // if (sessionStorage.getItem("access_token") !== undefined) {
-              console.log("save user")
 
               spotifyAPI.getMe()
               .then(user => {
@@ -130,7 +129,6 @@ class ApplicationViews extends Component {
         })
         // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
         // .then(() => this.saveUser())
-        console.log("user saved")
       }
 
     getToken = () => {
@@ -148,7 +146,6 @@ class ApplicationViews extends Component {
             authURL: this.authURL
 
         })
-        console.log("new token", this.state.token)
 
     }
 
@@ -171,7 +168,6 @@ class ApplicationViews extends Component {
         const token = this.state.token;
         sessionStorage.setItem('access_token', token);
         this.getSpotifyUserId()
-        console.log(token)
     }, 3000000);
 
     getHashParams = () => {
@@ -198,13 +194,11 @@ class ApplicationViews extends Component {
         this.setState({
             isPlaying: true
         })
-        console.log("clicked play")
     }
 
     getNowPlaying = () => {
-        spotifyAPI.getMyCurrentPlaybackState()
+        return spotifyAPI.getMyCurrentPlaybackState()
           .then((response) => {
-            console.log("Now playing response item", response.item)
             if(response) {
               this.setState({
                 nowPlaying: {
@@ -214,47 +208,79 @@ class ApplicationViews extends Component {
                     name: response.item.name,
                     artist: response.item.album.artists[0].name,
                     album: response.item.album.name,
-                    image: response.item.album.images[0].url
+                    image: response.item.album.images[0].url,
+                    song_id: response.item.id
+
                   }
+
               });
-            } else {
-              // console.log("no track currently playing")
-              this.setState({nowPlaying: {
-                name: "no song currently playing"
-              }})
+              let currentId = response.item.id
+              console.log("get now playing has fired")
+              return currentId
+
             }
+            // else {
+            //   // console.log("no track currently playing")
+            //   this.setState({nowPlaying: {
+            //     name: "no song currently playing"
+            //   }})
+            // }
           })
+
       }
 
     // Copies songsToPlaylist array from database to new array
     populateQueue = () => {
         this.state.queue = []
-        this.state.queue.push.apply(this.state.queue, this.state.songsToPlaylist)
-        console.log("queue populated")
+        let songsToQueue = this.state.songsToPlaylist
+            .filter(song => song.playlistId === this.state.currentPlaylistId)
+        this.state.queue.push.apply(this.state.queue, songsToQueue)
     }
 
     setCurrentPlaylist = () => {
         let currentPlaylist = this.state.playlists
-            .find(playlist => playlist.userId === this.state.currentUser)
-console.log(currentPlaylist)
+            .find(playlist => playlist.spotifyId === this.state.currentUser)
                 this.setState({
                   currentPlaylist: currentPlaylist,
                   currentPlaylistId: currentPlaylist.id
                 })
 
-                  console.log("current playlist set", currentPlaylist)
     }
 
     setCode = (value) => {
         APIManager.getPlaylist(value)
         .then((currentPlaylist) => {
-            console.log("currentPlaylist from setCode", currentPlaylist)
         this.setState({
             currentPlaylist: currentPlaylist[0],
             currentPlaylistId: currentPlaylist[0].id
         })
         })
+        this.props.history.push("/playlist")
     }
+
+    playNext = () => {
+        if (this.state.queue.length > 0){
+
+          let songId = this.getNowPlaying()
+          Promise.all([songId]).then((res) => {
+
+            let currentQueue = this.state.queue;
+            for (let index = 0; index < currentQueue.length; index++) {
+                console.log(res[0])
+                if ( res[0] === currentQueue[index].song_id){
+                    console.log("we are in the if logic of play next")
+                    let newIndex = index + 1
+                    console.log(newIndex)
+                    this.playSong(this.state.queue[newIndex].song_uri)
+
+                }
+
+            }
+   })
+
+        //Changed index to 1 to play second song after clicking first play button. Using reduce is and option to add more control
+        }
+      }
 
 
     // setCurrentPlaylistByCode = (value) => {
@@ -270,15 +296,8 @@ console.log(currentPlaylist)
     isAuthenticated = () => sessionStorage.getItem("access_token") !== undefined
 
     render() {
-
         this.populateQueue()
-        console.log(this.state.currentPlaylist)
-        console.log("app views current playlist id", this.state.currentPlaylistId)
-        // console.log(this.state.codeInput)
-        // console.log(this.state.deviceId)
-        console.log(this.state.queue)
-        console.log(this.state.songsToPlaylist.length)
-        // console.log(sessionStorage.getItem("access_token"))
+
         return (
             <React.Fragment>
                 <Route exact path="/callback" render={props => {
@@ -303,6 +322,7 @@ console.log(currentPlaylist)
                             playlists={this.state.playlists}
                             songs={this.state.songsToPlaylist}
                             playSong={this.playSong}
+                            playNext={this.playNext}
                             queue={this.state.queue}
                             nowPlaying={this.state.nowPlaying}
                             getNowPlaying={this.getNowPlaying}
@@ -325,6 +345,7 @@ console.log(currentPlaylist)
                     playlists={this.state.playlists}
                     songs={this.state.songsToPlaylist}
                     playSong={this.playSong}
+                    playNext={this.playNext}
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
@@ -345,6 +366,7 @@ console.log(currentPlaylist)
                     playlists={this.state.playlists}
                     songs={this.state.songsToPlaylist}
                     playSong={this.playSong}
+                    playNext={this.playNext}
                     queue={this.state.queue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}

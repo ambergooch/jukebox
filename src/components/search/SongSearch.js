@@ -45,7 +45,7 @@ export default class SongSearch extends Component {
         // } else {
             // console.log(data)
             const song = {
-                userId: sessionStorage.getItem("spotify_user_id"),
+                spotifyId: sessionStorage.getItem("spotify_user_id"),
                 playlistId: this.props.currentPlaylistId,
                 song_uri: trackURI,
                 song_id: trackID
@@ -68,7 +68,6 @@ export default class SongSearch extends Component {
         //   })
         // }
         // console.log(data)
-        console.log(this.state)
     //   })
 
     }
@@ -77,7 +76,6 @@ export default class SongSearch extends Component {
 
 
     render() {
-        console.log(this.props)
         return (
             <div className="song-results">
             {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom"
 import { Button, Icon, Input, Menu, Sidebar, Modal, Container, Form, Checkbox, TextArea, Header } from 'semantic-ui-react'
 import randomize from 'randomatic'
 import SingleCharInput from 'react-single-char-input'
@@ -15,16 +16,13 @@ export default class SideMenu extends Component {
     activeItem: "",
     codeInput: "",
 
-    location: {
-      longitude: 0,
-      latitude: 0
-    },
 
     userId: sessionStorage.getItem("spotify_user_id"),
     title: "",
     description: "",
     accessCode: parseInt(randomize('0', 4)),
-    locationId: 1
+    latitude: 0,
+    longitude: 0
 
   }
   //Go back and refactor for location info
@@ -70,10 +68,8 @@ export default class SideMenu extends Component {
   }
   getPosition = (position) => {
     this.setState({
-      location: {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      }
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
     })
 
   }
@@ -87,16 +83,11 @@ createPlaylist = (event) => {
     title: this.state.title,
     description: this.state.description,
     access_code: this.state.accessCode,
-    locationId: 1
+    latitude: this.state.latitude,
+    longitude: this.state.longitude
   }
 
-  const location = {
-    latitude: this.state.location.latitude,
-    longitude: this.state.location.longitude
-  }
- console.log(location)
   this.props.addToAPI("playlists", playlist)
-  .then(this.props.addToAPI("locations", location))
   .then(this.props.setCurrentPlaylist)
   .then(() => this.props.history.push("/playlist"))
 
@@ -122,7 +113,7 @@ componentDidMount () {
           <Icon name='add circle' size='large'/>
           Create new session
         </Menu.Item>
-        <Menu.Item as='a' name='find' className='green' color='green' style={{marginBottom: '15px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
+        <Menu.Item as={Link} to='/map' name='find' className='green' color='green' style={{marginBottom: '15px'}} active={activeItem === 'find'} onClick={this.handleItemClick}>
           <Icon name='map marker alternate' size='large'/>
           Find a nearby session
         </Menu.Item>

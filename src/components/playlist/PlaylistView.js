@@ -23,7 +23,8 @@ export default class PlaylistView extends Component {
         title: "",
         description: "",
         access_code: "",
-        locationId: ""
+        latitude: "",
+        longitude: ""
     }
 
 
@@ -80,7 +81,8 @@ export default class PlaylistView extends Component {
             title: event,
             description: this.state.description,
             access_code: this.state.access_code,
-            locationId: this.state.locationId
+            latitude: this.state.latitude,
+            longitude: this.state.longitude
 
         }
         console.log(editedPlaylist)
@@ -109,7 +111,8 @@ export default class PlaylistView extends Component {
                 title: this.props.currentPlaylist.title,
                 description: this.props.currentPlaylist.description,
                 access_code: this.props.currentPlaylist.access_code,
-                locationId: this.props.currentPlaylist.locationId
+                latitude: this.props.currentPlaylist.latitude,
+                longitude: this.props.currentPlaylist.longitude
             })
         }
     }

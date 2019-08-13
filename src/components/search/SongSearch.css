@@ -5,3 +5,7 @@
     margin-bottom: 10px;
     margin-top: -8px;
 }
+
+.add:hover {
+    transform: scale(1.2)
+}

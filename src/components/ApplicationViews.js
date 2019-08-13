@@ -375,41 +375,27 @@ class ApplicationViews extends Component {
                     currentPlaylistId={this.state.currentPlaylistId}
                     setCurrentPlaylist={this.setCurrentPlaylist}
                     setCode={this.setCode}  />
-
-                        // <PlaylistView {...props}
-                        // users={this.state.users}
-                        // currentUser={this.state.currentUser}
-                        // playlists={this.state.playlists}
-                        // songs={this.state.songsToPlaylist}
-                        // deleteFromAPI={this.deleteFromAPI}
-                        // deleteSongsFromAPI={this.deleteSongsFromAPI} />
                 }} />
-                {/* <Route path="/nav" render={(props) => {
-                    return <Navbar />
-                }} /> */}
-                {/* <Route path="/search/artists" render={(props) => {
-                    return <ArtistList />
+                <Route exact path="/map" render={(props) => {
+                    return <Home {...props} token={this.state.token}
+                    addToAPI={this.addToAPI}
+                    deleteFromAPI={this.deleteFromAPI}
+                    deleteSongsFromAPI={this.deleteSongsFromAPI}
+                    updateAPI={this.updateAPI}
+                    users={this.state.users}
+                    playlists={this.state.playlists}
+                    songs={this.state.songsToPlaylist}
+                    playSong={this.playSong}
+                    playNext={this.playNext}
+                    queue={this.state.queue}
+                    nowPlaying={this.state.nowPlaying}
+                    getNowPlaying={this.getNowPlaying}
+                    currentUser={this.state.currentUser}
+                    currentPlaylist={this.state.currentPlaylist}
+                    currentPlaylistId={this.state.currentPlaylistId}
+                    setCurrentPlaylist={this.setCurrentPlaylist}
+                    setCode={this.setCode}  />
                 }} />
-                <Route path="/search/albums" render={(props) => {
-                    return <AlbumList />
-                }} /> */}
-
-
-
-
-                {/* <Route exact path="/animals" render={(props) => {
-                    return <AnimalList {...props}
-                        animals={this.state.animals}
-                        owners={this.state.owners}
-                        deleteAnimal={this.deleteAnimal} />
-                }} />
-                <Route path="/animals/new" render={(props) => {
-                    return <AnimalForm {...props}
-                       addAnimal={this.addAnimal}
-                       employees={this.state.employees} />
-                }} />   */}
-
-
             </React.Fragment>
         )
     }

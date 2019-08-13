@@ -20,20 +20,6 @@ export default class SongSearch extends Component {
 
         }
     }
-    // playSong = (trackURI) => {
-    //     // spotifyAPI.play(this.state.deviceId)
-    //     const deviceId = "81d72cef4cbedfc3151083eadfee7a503c14857a"
-    //     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-    //       method: 'PUT',
-    //       body: JSON.stringify({ uris: [trackURI] }),
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${this.props.token}`
-    //       },
-    //     });
-    //     this.setState({isPlaying: true})
-    //     this.playNext()
-    // }
 
     addToQueue = (trackURI, trackID) => {
         // this.state.isPlaying === false &&

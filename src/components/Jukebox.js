@@ -4,6 +4,7 @@ import SideMenu from "./menu/SideMenu"
 import ApplicationViews from './ApplicationViews'
 // import Home from './home/Home'
 import Navbar from "./nav/Navbar"
+// import 'mapbox-gl/dist/mapbox-gl.css'
 import "spotify-web-api-js"
 import './Jukebox.css'
 

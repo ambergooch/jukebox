@@ -10,6 +10,7 @@ import Navbar from "../nav/Navbar"
 import SideMenu from "../menu/SideMenu"
 import PlaylistView from '../playlist/PlaylistView'
 import Browse from "../search/Browse"
+import SessionMap from '../geolocation/SessionMap'
 import "./Home.css"
 
 
@@ -40,7 +41,7 @@ export default class Home extends Component{
              <div className="main-window" style={{backgroundColor: 'rgb(2, 2, 2)'}}>
 
             {window.location.pathname === "/" ?
-                <Container className="search">
+                <Container className="home">
                   <Browse/>
                 </Container>
 
@@ -48,6 +49,12 @@ export default class Home extends Component{
             {window.location.pathname === "/search" ?
                 <Container className="search">
                   <SearchResults {...this.props} addToAPI={this.props.addToAPI}/>
+                </Container>
+
+            : "" }
+            {window.location.pathname === "/map" ?
+                <Container className="map">
+                  <SessionMap {...this.props} />
                 </Container>
 
             : "" }

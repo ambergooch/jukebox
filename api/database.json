@@ -32,12 +32,12 @@
       "id": 1
     },
     {
+      "id": 2,
       "spotifyId": "124771983",
-      "title": "Party Mix",
+      "title": "Party Mix123",
       "description": "reqrq",
       "access_code": 9470,
-      "locationId": 1,
-      "id": 2
+      "locationId": 1
     }
   ],
   "songsToPlaylist": [
@@ -135,9 +135,14 @@
   ],
   "locations": [
     {
-      "id": 1,
-      "longitude": 1,
-      "latitude": 1
+      "latitude": 36.2486197,
+      "longitude": -86.7234122,
+      "id": 1
+    },
+    {
+      "latitude": 36.2486197,
+      "longitude": -86.7234122,
+      "id": 2
     }
   ],
   "collaborators": [

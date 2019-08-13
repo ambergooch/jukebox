@@ -37,7 +37,7 @@ componentDidMount = () => {
     {
         const { activeItem } = this.state
         return (
-        <Menu inverted pointing secondary style={{position: 'sticky', top: 0, zIndex: 5, backgroundColor: '#141413', marginBottom: 0, boxShadow: "6px 6px 5px black", border: 'none' }}>
+        <Menu inverted pointing secondary color='green' style={{position: 'sticky', top: 0, zIndex: 5, backgroundColor: '#141413', marginBottom: 0, boxShadow: "6px 6px 5px black", border: 'none' }}>
             <Menu.Item
                 as={Link} to="/playlist"
                 name='current playlist'

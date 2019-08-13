@@ -30,6 +30,11 @@
     margin-top: -8px;
   }
 
+  .player-button:hover {
+    transform: scale(1.1);
+    color: white;
+}
+
   .control-container {
     margin-top: 0;
     background-color: black;

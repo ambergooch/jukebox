@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Comment, Input, Dropdown, Image, Table, Icon } from 'semantic-ui-react'
+import { Button, Comment, Input, Dropdown, Image, Table, Icon, TableCell } from 'semantic-ui-react'
 import "./SongCard.css"
 import Spotify from "spotify-web-api-js";
 
@@ -118,6 +118,15 @@ export default class SongCard extends Component {
                         <Table.Cell>{this.state.artist}</Table.Cell>
                         <Table.Cell>{this.state.album}</Table.Cell>
                         <Table.Cell>{this.milisToMinutesAndSeconds(this.state.duration)}</Table.Cell>
+                        <TableCell>
+                            <button className="vote-button">
+                                <Icon name='thumbs up outline' color='grey'></Icon>
+                            </button>
+                            1
+                            <button className='vote-button'>
+                                <Icon name='thumbs down outline' color='grey'></Icon>
+                            </button>
+                        </TableCell>
                         <Table.Cell>
                         {
                             this.props.users
@@ -137,10 +146,10 @@ export default class SongCard extends Component {
                         <Table.Cell >
                             {this.props.song.spotifyId === currentUserId ?
                                 <Dropdown direction='left' className="inverted" style={{border: 'none'}}>
-                                    <Dropdown.Menu inverted>
+                                    <Dropdown.Menu>
                                         {/* <Button onClick={this.handleEditButton} icon="edit" size="mini"></Button> */}
                                         <Dropdown.Item className="delete-song" onClick={() => this.props.deleteFromAPI("songsToPlaylist", this.props.song.id)}
-                                            icon="trash" size="mini">Delete</Dropdown.Item>
+                                             size="mini">Delete</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown> : ""}
                         </Table.Cell>

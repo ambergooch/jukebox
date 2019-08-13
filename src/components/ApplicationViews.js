@@ -181,9 +181,9 @@ class ApplicationViews extends Component {
     }
 
     playSong = (trackURI) => {
-
+        const deviceId = sessionStorage.getItem("device_id")
         // spotifyAPI.play(this.state.deviceId)
-        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.state.deviceId}`, {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
           method: 'PUT',
           body: JSON.stringify({ uris: [trackURI] }),
           headers: {

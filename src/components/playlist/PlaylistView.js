@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Spotify from "spotify-web-api-js"
 import SongCard from "./SongCard"
-import { Message, Table, Button, Modal, Header, Icon } from 'semantic-ui-react'
+import { Message, Table, Button, Modal, Header, Icon, Popup } from 'semantic-ui-react'
+import EdiText from 'react-editext'
+import './SongCard.css'
 
 const spotifyAPI = new Spotify();
 const currentUserId = sessionStorage.getItem("spotify_user_id")
@@ -15,8 +17,15 @@ export default class PlaylistView extends Component {
         currentSongUri: "",
         currentSongId: "",
         open: false,
-        hidden: true
+        hidden: true,
+        id: "",
+        spotifyId: "",
+        title: "",
+        description: "",
+        access_code: "",
+        locationId: ""
     }
+
 
     handleOpen = () => this.setState({ open: true })
     handleClose = () => this.setState({ open: false })
@@ -28,6 +37,7 @@ export default class PlaylistView extends Component {
             })
         }
     }
+
 
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
@@ -57,22 +67,26 @@ export default class PlaylistView extends Component {
         .then(this.props.history.push("/"))
     }
 
+    editPlaylistTitle = event => {
+        console.log(event)
 
-    // playSong = (trackURI) => {
-    //     // spotifyAPI.play(this.state.deviceId)
-    //     const deviceId = "81d72cef4cbedfc3151083eadfee7a503c14857a"
-    //     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-    //       method: 'PUT',
-    //       body: JSON.stringify({ uris: [trackURI] }),
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${this.props.token}`
-    //       },
-    //     });
-    //     this.setState({isPlaying: true})
-    //     this.playNext()
-    // }
+        this.setState({
+            title: event
+        });
 
+        const editedPlaylist = {
+            id: this.state.id,
+            spotifyId: this.state.spotifyId,
+            title: event,
+            description: this.state.description,
+            access_code: this.state.access_code,
+            locationId: this.state.locationId
+
+        }
+        console.log(editedPlaylist)
+        this.props.updateAPI("playlists", editedPlaylist)
+        .then(() => this.props.history.push("/playlist"))
+    }
     // addToPlaylist = (event) => {
     //     event.preventDefault()
     //     let playlist = this.state.playlist
@@ -84,17 +98,29 @@ export default class PlaylistView extends Component {
     // }
 
     componentDidMount = () => {
-        // this.createNewPlaylist()
         this.showButton()
 
     }
+    componentDidUpdate = (prevProps) => {
+        if(this.props.currentPlaylist !== prevProps.currentPlaylist) {
+            this.setState({
+                id: this.props.currentPlaylist.id,
+                spotifyId: this.props.currentPlaylist.spotifyId,
+                title: this.props.currentPlaylist.title,
+                description: this.props.currentPlaylist.description,
+                access_code: this.props.currentPlaylist.access_code,
+                locationId: this.props.currentPlaylist.locationId
+            })
+        }
+    }
+
 
     render() {
-        // console.log(this.props)
-        // this.getCurrentPlayback()
-        // console.log(this.state.currentSongUri)
-        return (
+        console.log(this.props)
+        console.log(this.props.currentPlaylist.title)
 
+
+        return (
         <React.Fragment>
             {this.props.currentPlaylist.spotifyId === currentUserId ?
             <Modal
@@ -124,9 +150,43 @@ export default class PlaylistView extends Component {
             <Header >
                 {
                     this.props.currentPlaylist ?
-                <div key={this.props.currentPlaylist.id} fluid style={{marginRight: '100px'}}>
-                    <Header style={{color: 'white'}}>{this.props.currentPlaylist.title}</Header>
-                    <p style={{color: 'grey', fontSize: '14px'}}>Access code: {this.props.currentPlaylist.access_code}</p>
+                <div key={this.props.currentPlaylist.id} style={{marginRight: '100px'}}>
+                    <Popup content={this.props.currentPlaylist.description} trigger={
+                    <EdiText
+                        type='text'
+                        id="title"
+                        value={this.state.title}
+                        // onChange= {this.handleFieldChange}
+                        onSave={this.editPlaylistTitle}
+                        editOnViewClick={true}
+                        editButtonClassName="edit-button"
+                        editButtonContent={<Icon name='pencil' color='grey' style={{marginBottom: '20px'}}></Icon>}
+                        viewProps={{
+                            className: 'header',
+                            style: {
+                                color: 'white',
+                                fontSize: '24px',
+                                marginBottom: '20px'
+                            }
+                        }}
+                        inputProps={{
+                            // onChange: this.handleFieldChange,
+                            id: "title",
+                            value: this.state.title,
+                            style: {
+                                backgroundColor: 'black',
+                                color: '#E6ECF1',
+                                fontWeight: 500,
+                                width: 250
+                            }
+                        }}/>
+                    }/>
+                    <Popup content={this.props.currentPlaylist.description}
+                        inverted
+                        position='bottom left'
+                        trigger={
+                            <p style={{color: 'grey', fontSize: '14px'}}>Access code: {this.props.currentPlaylist.access_code}</p>
+                    } />
                 </div>
                 :
                 <Header></Header>
@@ -136,10 +196,12 @@ export default class PlaylistView extends Component {
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell hidden = {(this.state.hidden)}></Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
                     <Table.HeaderCell>Title</Table.HeaderCell>
                     <Table.HeaderCell>Artist</Table.HeaderCell>
                     <Table.HeaderCell>Album</Table.HeaderCell>
                     <Table.HeaderCell>Duration</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
                 </Table.Header>

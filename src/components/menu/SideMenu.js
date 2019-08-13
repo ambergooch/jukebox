@@ -15,6 +15,11 @@ export default class SideMenu extends Component {
     activeItem: "",
     codeInput: "",
 
+    location: {
+      longitude: 0,
+      latitude: 0
+    },
+
     userId: sessionStorage.getItem("spotify_user_id"),
     title: "",
     description: "",
@@ -52,8 +57,31 @@ export default class SideMenu extends Component {
 
   }
 
+  getLocation = () => {
+    // Check whether browser supports Geolocation API or not
+    if (navigator.geolocation) { // Supported
+
+      // To add PositionOptions
+
+    navigator.geolocation.getCurrentPosition(this.getPosition);
+    } else { // Not supported
+    alert("Oops! This browser does not support HTML Geolocation.");
+    }
+  }
+  getPosition = (position) => {
+    this.setState({
+      location: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      }
+    })
+
+  }
+
+
 createPlaylist = (event) => {
   event.preventDefault()
+
   const playlist = {
     spotifyId: this.state.userId,
     title: this.state.title,
@@ -62,19 +90,31 @@ createPlaylist = (event) => {
     locationId: 1
   }
 
+  const location = {
+    latitude: this.state.location.latitude,
+    longitude: this.state.location.longitude
+  }
+ console.log(location)
   this.props.addToAPI("playlists", playlist)
+  .then(this.props.addToAPI("locations", location))
   .then(this.props.setCurrentPlaylist)
   .then(() => this.props.history.push("/playlist"))
+
+}
+
+componentDidMount () {
+  this.getLocation()
+  console.log(this.state.location)
 }
 
 
-
   render() {
-    // this.setCurrentPlaylist()
+    // this.getLocation()
+
+
     const { openAdd, openUnlock, dimmer, activeItem } = this.state
-    // console.log(this.state.currentPlaylistId)
     console.log(this.state.codeInput)
-    // console.log(this.props)
+
 
     return (
       <Menu className='side-menu' size='large' pointing secondary vertical inverted style={{width: 250, marginTop: '50px', border: 'none'}}>

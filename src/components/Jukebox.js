@@ -7,9 +7,20 @@ import Navbar from "./nav/Navbar"
 import "spotify-web-api-js"
 import './Jukebox.css'
 
-
-
 class Jukebox extends Component {
+
+  state = {
+    authenticated: sessionStorage.getItem("spotify_user_id")
+  }
+
+  setAuthState = () => {
+    if( sessionStorage.getItem("spotify_user_id")) {
+      this.setState({authenticated: true})
+    } else {
+      this.setState({authenticated: false})
+    }
+  }
+
   render() {
     return (
       <React.Fragment >

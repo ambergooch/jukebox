@@ -39,7 +39,6 @@ export default class PlaylistView extends Component {
         }
     }
 
-
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
         spotifyAPI.createPlaylist(spotifyId)
@@ -49,6 +48,15 @@ export default class PlaylistView extends Component {
             // this is when to set location
         })
     }
+// addToPlaylist = (event) => {
+    //     event.preventDefault()
+    //     let playlist = this.state.playlist
+    //     let addSong = this.state.addSong
+    //     playlist.push({name:addSong})
+    //     this.setState({
+    //         trackURI: track.uri
+    //     })
+    // }
 
     getCurrentPlayback = () => {
         spotifyAPI.getMyCurrentPlaybackState()
@@ -89,15 +97,7 @@ export default class PlaylistView extends Component {
         this.props.updateAPI("playlists", editedPlaylist)
         .then(() => this.props.history.push("/playlist"))
     }
-    // addToPlaylist = (event) => {
-    //     event.preventDefault()
-    //     let playlist = this.state.playlist
-    //     let addSong = this.state.addSong
-    //     playlist.push({name:addSong})
-    //     this.setState({
-    //         trackURI: track.uri
-    //     })
-    // }
+
 
     componentDidMount = () => {
         this.showButton()

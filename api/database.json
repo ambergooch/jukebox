@@ -34,12 +34,21 @@
     },
     {
       "id": 5,
-      "spotifyId": "124771983",
+      "spotifyId": "124771982",
       "title": "Today's playlist",
       "description": "A playlist for today, August 13th",
       "access_code": 1983,
       "latitude": 36.1327571,
       "longitude": -86.7565817
+    },
+    {
+      "spotifyId": "124771983",
+      "title": "Library Party",
+      "description": "Shhh! Quiet! This is a library",
+      "access_code": 2841,
+      "latitude": 36.2260291,
+      "longitude": -86.7249731,
+      "id": 6
     }
   ],
   "songsToPlaylist": [

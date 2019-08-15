@@ -27,7 +27,7 @@ class Jukebox extends Component {
       <React.Fragment >
         {/* <SideMenu /> */}
         {/* <PlayStatus/> */}
-        {/* <Navbar /> */}
+        <Navbar />
         <ApplicationViews />
       </React.Fragment>
     );

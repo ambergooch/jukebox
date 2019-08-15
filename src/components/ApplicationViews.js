@@ -248,6 +248,7 @@ class ApplicationViews extends Component {
     }
 
     setCode = (value) => {
+        console.log("set code")
         APIManager.getPlaylist(value)
         .then((currentPlaylist) => {
         this.setState({

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from 'semantic-ui-react'
+import { Container, Segment, Header, Icon, Button } from 'semantic-ui-react'
 // import Spotify from "spotify-web-api-js"
 // import TaskList from "../task/TaskList"
 // import "./Home.css"
@@ -23,7 +23,7 @@ export default class Home extends Component{
 
         return(
           <React.Fragment>
-            <Navbar users={this.props.users}/>
+            {/* <Navbar users={this.props.users}/> */}
             {this.props.currentUser === this.props.currentPlaylist.spotifyId ?
             <Container className="player-bar" fluid>
               <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
@@ -58,20 +58,29 @@ export default class Home extends Component{
                 </Container>
 
             : "" }
-            {window.location.pathname === "/playlist" ?
-                <Container>
-                  <PlaylistView {...this.props}
-                    users={this.props.users}
-                    currentUser={this.props.currentUser}
-                    playlists={this.props.playlists}
-                    songs={this.props.songs}
-                    deleteFromAPI={this.props.deleteFromAPI}
-                    deleteSongsFromAPI={this.props.deleteSongsFromAPI}
-                    playSong={this.props.playSong}
-                    playNext={this.playNext}
-                    currentPlaylistId={this.props.currentPlaylistId} />
-                </Container>
+            {window.location.pathname === "/playlist" && this.props.currentPlaylist ?
+              <Container>
+                <PlaylistView {...this.props}
+                  users={this.props.users}
+                  currentUser={this.props.currentUser}
+                  playlists={this.props.playlists}
+                  songs={this.props.songs}
+                  deleteFromAPI={this.props.deleteFromAPI}
+                  deleteSongsFromAPI={this.props.deleteSongsFromAPI}
+                  playSong={this.props.playSong}
+                  playNext={this.playNext}
+                  currentPlaylistId={this.props.currentPlaylistId} />
+              </Container>
 
+            : ""}
+            {window.location.pathname === "/playlist" && !this.props.currentPlaylist ?
+              <Segment placeholder inverted>
+                <Header icon>
+                  <Icon name='music' color='green' />
+                  <br />
+                  To get started, either create a new session or enter the access code of an existing session.
+                </Header>
+              </Segment>
             : ""}
 
 </div>

@@ -1,28 +1,43 @@
 import React, {Component} from 'react'
-import { Icon, Button, Segment, Header } from "semantic-ui-react"
+import Spotify from "spotify-web-api-js"
+import { Icon, Button, Segment, Header, Grid } from "semantic-ui-react"
+import BrowseCard from "./BrowseCard"
 
-// const spotifyAPI = new Spotify();
+const spotifyAPI = new Spotify();
 
-export default class BrowseStuff extends Component {
+export default class Browse extends Component {
 
- addToPlaylist = () => {
+    state = {
+        topTracks: []
+    }
 
- }
+    getTopTracks = () => {
+        spotifyAPI.getMyTopTracks({time_range: 'short_term', limit: 8})
+        .then(data => {
+                this.setState({
+                    topTracks: data.items
+                })
+
+            // console.log("got currently playing", data)
+        })
+    }
+
+    componentDidMount () {
+        this.getTopTracks()
+    }
 
     render() {
+        console.log(this.state)
         return (
             <div className="browse">
-                <Segment placeholder inverted>
-                    <Header icon>
-                    <Icon name='music' color='green' />
-                    <br />
-                    To get started, either create a new session or enter the access code of an existing session.
-                    </Header>
-                    <Segment.Inline>
-                    {/* <Button primary>Clear Query</Button>
-                    <Button>Add Document</Button> */}
-                    </Segment.Inline>
-                </Segment>
+                <Header size='huge' style={{color: 'white'}}>Top Tracks</Header>
+                <Grid relaxed centered columns={4}>
+                {
+                    this.state.topTracks.map((track, index) =>
+                        <BrowseCard key={index} track={track} {...this.props} />
+                    )
+                }
+                </Grid>
             </div>
         )
     }

@@ -25,7 +25,7 @@ export default class SideMenu extends Component {
     longitude: 0
 
   }
-  //Go back and refactor for location info
+
 
   showAdd = () => this.setState({ openAdd: true })
   showUnlock = () => this.setState({ openUnlock: true })
@@ -58,9 +58,7 @@ export default class SideMenu extends Component {
   getLocation = () => {
     // Check whether browser supports Geolocation API or not
     if (navigator.geolocation) { // Supported
-
       // To add PositionOptions
-
     navigator.geolocation.getCurrentPosition(this.getPosition);
     } else { // Not supported
     alert("Oops! This browser does not support HTML Geolocation.");
@@ -204,13 +202,13 @@ componentDidMount () {
               <Modal.Description>
                 <p>If you have a code for an existing private session, enter it below.</p>
                 <div className='code-input-box-div'>
-                  <input
+                  <RICIBs
                     id="codeInput"
                     amount={4}
                     autoFocus
                     onChange={this.handleFieldChange}
-                    // handleOutputString={this.handleInput}
-                    // inputRegExp={/^[0-9]$/}
+                    handleOutputString={this.handleInput}
+                    inputRegExp={/^[0-9]$/}
                     // password
                   />
                 </div>

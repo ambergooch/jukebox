@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
-import { Button, Icon, Input, Menu, Sidebar, Modal, Container, Form, Checkbox, TextArea, Header } from 'semantic-ui-react'
+import { Button, Icon, Menu, Modal, Form, Checkbox, TextArea, Header } from 'semantic-ui-react'
 import randomize from 'randomatic'
-import SingleCharInput from 'react-single-char-input'
-import RICIBs from 'react-individual-character-input-boxes';
-import ApplicationViews from '../ApplicationViews';
+import ReactCodeInput from 'react-code-input'
+// import { reactCodeInput } from 'CodeInputField.scss'
+// import SingleCharInput from 'react-single-char-input'
+// import {RICIBs} from 'react-individual-character-input-boxes';
 import './SideMenu.css'
-import APIManager from "../modules/APIManager"
+
 
 export default class SideMenu extends Component {
   state = {
@@ -48,12 +49,12 @@ export default class SideMenu extends Component {
   }
 
 
-  playlistAuth = (event) => {
-    event.preventDefault()
-    let playlistMatch = this.props.playlists.filter(playlist =>
-        (playlist.spotifyId === this.state.userId && playlist.id === this.props.currentPlaylistId))
+  // playlistAuth = (event) => {
+  //   event.preventDefault()
+  //   let playlistMatch = this.props.playlists.filter(playlist =>
+  //       (playlist.spotifyId === this.state.userId && playlist.id === this.props.currentPlaylistId))
 
-  }
+  // }
 
   getLocation = () => {
     // Check whether browser supports Geolocation API or not
@@ -87,9 +88,16 @@ createPlaylist = (event) => {
 
   this.props.addToAPI("playlists", playlist)
   .then(this.props.setCurrentPlaylist)
-  .then(() => this.props.history.push("/playlist"))
+
 
 }
+
+confirmCodeClick = () => {
+  this.closeCode()
+  this.closeAdd()
+  this.props.history.push("/playlist")
+}
+
 
 componentDidMount () {
   this.getLocation()
@@ -168,7 +176,7 @@ componentDidMount () {
                 <Modal
                   // open={open}
                   onOpen={this.open}
-                  onClose={this.close}
+                  // onClose={this.close}
                   size='tiny'
                   trigger={
                     <Button
@@ -187,7 +195,7 @@ componentDidMount () {
                     </div>
                   </Modal.Content>
                   <Modal.Actions>
-                    <Button icon='check' content='Got it!' onClick={()=> {this.closeCode(); this.closeAdd()}} />
+                    <Button icon='check' content='Got it!' onClick={this.confirmCodeClick} />
                   </Modal.Actions>
                 </Modal>
               </Modal.Actions>
@@ -202,14 +210,24 @@ componentDidMount () {
               <Modal.Description>
                 <p>If you have a code for an existing private session, enter it below.</p>
                 <div className='code-input-box-div'>
-                  <RICIBs
-                    id="codeInput"
-                    amount={4}
+                  <ReactCodeInput
+                    fields={4}
+                    type='password'
+                    onChange={this.handleInput}
                     autoFocus
-                    onChange={this.handleFieldChange}
-                    handleOutputString={this.handleInput}
-                    inputRegExp={/^[0-9]$/}
-                    // password
+                    inputStyle={{
+                      borderRadius: '8px',
+                      border: '1px solid lightgrey',
+                      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 10px 0px',
+                      margin: '10px',
+                      paddingLeft: '16px',
+                      width: '60px',
+                      height: '70px',
+                      fontSize: '40px',
+                      boxSizing: 'border-box'
+                    }}
+                    style={{marginLeft: '90px'}}
+                    // // handleOutputString={this.handleInput}
                   />
                 </div>
 
@@ -229,154 +247,7 @@ componentDidMount () {
               />
             </Modal.Actions>
           </Modal>
-
-
       </Menu>
-
-// const {
-//   Modal,
-//   Button,
-//   Image,
-//   Divider,
-//   TransitionablePortal
-// } = semanticUIReact
-
-// class App extends React.Component {
-//   state = { open: false }
-
-//   handleOpen = () => {
-//     this.setState({ open: true })
-//   }
-
-//   handleClose = () => {
-//     this.setState({ open: false })
-//   }
-
-//   render() {
-//     const { open } = this.state
-
-//     return (
-//       <div>
-//         <style>{`
-//           .ui.dimmer {
-//             transition: background-color 0.5s ease;
-//             background-color: transparent;
-//           }
-
-//           .modal-fade-in .ui.dimmer {
-//             background-color: orange;
-//           }
-//         `}</style>
-
-//         <Button content='Open' onClick={this.handleOpen} />
-
-//         <TransitionablePortal
-//           open={this.state.open}
-//           onOpen={() => setTimeout(() => document.body.classList.add('modal-fade-in'), 0)}
-//           transition={{ animation: 'scale', duration: 500 }}
-//         >
-//           <Modal
-//             open={true}
-//             onClose={(event) => {
-//               document.body.classList.remove('modal-fade-in')
-//               this.handleClose()
-//             }}
-//             closeIcon
-//           >
-//             <Modal.Header>
-//               Resize test
-//             </Modal.Header>
-//             <Modal.Content>
-//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
-//               <Divider />
-//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
-//               <Divider />
-//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
-//               <Divider />
-//               <Image src='https://semantic-ui.com/images/wireframe/paragraph.png' />
-//             </Modal.Content>
-//           </Modal>
-//         </TransitionablePortal>
-//       </div>
-//     )
-//   }
-// }
-
-// ReactDOM.render(<App />, document.getElementById('app'));
-
-      // <Sidebar.Pushable className="body-div" as={Container} style={{height: '100vh'}}>
-      //   <Button.Group>
-      //     <Button disabled={visible} onClick={this.handleShowClick}>
-      //       Show sidebar
-      //     </Button>
-      //     <Button disabled={!visible} onClick={this.handleHideClick}>
-      //       Hide sidebar
-      //     </Button>
-      //   </Button.Group>
-
-
-      //     <Sidebar
-      //       as={Menu}
-      //       animation='slide along'
-      //       icon='labeled'
-      //       inverted
-      //       onHide={this.handleSidebarHide}
-      //       vertical
-      //       visible={visible}
-      //       width='thin'
-      //     >
-      //       <Menu.Item as='a'>
-      //         <Icon name='add circle' />
-      //         Create new session
-      //       </Menu.Item>
-      //       <Menu.Item as='a'>
-      //         <Icon name='map marker alternate' />
-      //         Find a nearby session
-      //       </Menu.Item>
-      //       <Menu.Item as='a' onClick={this.show(true)}>
-
-      //         <Icon name='unlock alternate' />
-      //         Enter existing session code
-      //       </Menu.Item>
-      //     </Sidebar>
-
-      //     <Sidebar.Pusher dimmed={visible}>
-      //       <Container>
-      //         <ApplicationViews />
-      //       </Container>
-      //     </Sidebar.Pusher>
-
-        // <Modal size='tiny' dimmer={dimmer} open={open} onClose={this.close}>
-        //   <Modal.Header>Enter a code to join a private session</Modal.Header>
-        //   <Modal.Content image>
-        //     <Modal.Description>
-        //       <p>If you have a code for an existing private session, enter it below.</p>
-        //     <Input className='code-input' size='massive' type='text' maxLength="1"
-        //      value={this.state.inputValue[0]} onChange={(event) => {this.handleInputValueChange(0); this.changeFocus(0)}}/>
-        //     <Input className='code-input' size='massive' type='text' maxLength="1"
-        //      value={this.state.inputValue[1]} onChange={this.handleInputValueChange}/>
-        //     <Input className='code-input' size='massive' type='text' maxLength="1"
-        //      value={this.state.inputValue[2]} onChange={this.handleInputValueChange}/>
-        //     <Input className='code-input' size='massive' type='text' maxLength="1"
-        //      value={this.state.inputValue[3]} onChange={this.handleInputValueChange}/>
-
-
-        //     </Modal.Description>
-        //   </Modal.Content>
-        //   <Modal.Actions>
-        //     {/* <Button color='black' onClick={this.close}>
-        //       Nope
-        //     </Button> */}
-        //     <Button
-        //       positive
-        //       icon='checkmark'
-        //       labelPosition='right'
-        //       content="Join session"
-        //       onClick={() => {this.close(); this.handleInputValueChange()}}
-        //     />
-        //   </Modal.Actions>
-        // </Modal>
-      // </Sidebar.Pushable>
     )
   }
 }

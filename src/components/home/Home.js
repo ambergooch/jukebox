@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Container, Segment, Header, Icon, Button } from 'semantic-ui-react'
+import { Container, Segment, Header, Icon } from 'semantic-ui-react'
 // import Spotify from "spotify-web-api-js"
 // import TaskList from "../task/TaskList"
 // import "./Home.css"
 import MusicPlayer from "../player/MusicPlayer";
 import PlayStatus from "../player/PlayStatus";
 import SearchResults from "../search/SearchResults"
-import Navbar from "../nav/Navbar"
 import SideMenu from "../menu/SideMenu"
 import PlaylistView from '../playlist/PlaylistView'
 import Browse from "../search/Browse"
@@ -15,9 +14,6 @@ import "./Home.css"
 
 
 export default class Home extends Component{
-
-
-
 
   render(){
 
@@ -42,7 +38,7 @@ export default class Home extends Component{
 
             {window.location.pathname === "/" ?
                 <Container className="home">
-                  <Browse/>
+                  <Browse {...this.props} />
                 </Container>
 
             : "" }

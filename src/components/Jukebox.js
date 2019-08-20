@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import SideMenu from "./menu/SideMenu"
-// import PlayStatus from "./player/PlayStatus"
 import ApplicationViews from './ApplicationViews'
-// import Home from './home/Home'
 import Navbar from "./nav/Navbar"
 // import 'mapbox-gl/dist/mapbox-gl.css'
-import "spotify-web-api-js"
 import './Jukebox.css'
+import Login from './authentication/Login'
+
 
 class Jukebox extends Component {
 
   state = {
-    authenticated: sessionStorage.getItem("spotify_user_id")
+    authenticated: sessionStorage.getItem("spotify_user_id"),
+    currentUser: ""
   }
 
   setAuthState = () => {
@@ -22,15 +21,34 @@ class Jukebox extends Component {
     }
   }
 
+//   render() {
+//     return (
+//       <React.Fragment >
+//         {/* <SideMenu /> */}
+//         {/* <PlayStatus/> */}
+//         {/* <Navbar /> */}
+//         <ApplicationViews />
+//       </React.Fragment>
+//     );
+//   }
+// }
+
   render() {
-    return (
-      <React.Fragment >
-        {/* <SideMenu /> */}
-        {/* <PlayStatus/> */}
-        <Navbar />
+    if(this.state.authenticated) {
+      return(
+        <React.Fragment>
+          <Navbar {...this.props} />
+          <ApplicationViews />
+        </React.Fragment>
+      )
+    } else {
+      return (
+        // <Redirect to="../login" />
+      <React.Fragment>
         <ApplicationViews />
       </React.Fragment>
-    );
+      )
+    }
   }
 }
 

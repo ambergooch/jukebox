@@ -81,18 +81,7 @@ export default class MusicPlayer extends Component {
           }, 1000)
         });
     }
-  //   playSong = (trackURI) => {
-  //     // spotifyAPI.play(this.state.deviceId)
-  //     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.state.deviceId}`, {
-  //       method: 'PUT',
-  //       body: JSON.stringify({ uris: [trackURI] }),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${this.props.token}`
-  //       },
-  //     });
-  //     this.setState({isPlaying: true})
-  // }
+
 
   // playNext = () => {
   //   if (this.props.queue.length > 0){
@@ -104,9 +93,6 @@ export default class MusicPlayer extends Component {
   // }
 
   onSeekChange = (e, val) => {
-    // duration = 100%
-    // ? = val%
-
     let dur = this.state.duration;
     let seek = Math.floor((val * dur) / 100); // round number
     this.setState({ progressBarValue: val });
@@ -115,24 +101,10 @@ export default class MusicPlayer extends Component {
     });
   }
 
-
-
-  // addToQueue = () => {
-  //   if (this.state.isPlaying === false && this.state.queue.length === 0) {
-  //     this.playSong(this.state.trackURI)
-  //   } else {
-  //     this.state.queue.push({
-  //       "uri": this.state.trackURI,
-  //       "name": openSong.name,
-  //       "artist": openSong.artist,
-  //       "cover": openSong.cover
-  //     })
-  //   }
-  // }
     checkPositionChange = () => {
         spotifyAPI.getMyCurrentPlaybackState()
           .then(data => {
-            if (this.state.isPlaying) {
+            if (this.state.isPlaying === true) {
               // console.log("get current playback state - player", data)
               let duration = data.item.duration_ms
               let progress = data.progress_ms
@@ -220,7 +192,7 @@ export default class MusicPlayer extends Component {
         // )
       }
     render () {
-
+      console.log(this.state.isPlaying)
         // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
         return (
             <Grid.Row className="control-container">

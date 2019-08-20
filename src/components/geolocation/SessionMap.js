@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import { Route, Redirect } from 'react-router-dom'
-import { Icon, Button, Header } from "semantic-ui-react"
+import { Button, Header } from "semantic-ui-react"
 import ReactMapGL, {GeolocateControl, Marker, Popup} from "react-map-gl"
 import appKey from "../key"
 import marker from './marker.png'
@@ -43,7 +42,7 @@ export default class SessionMap extends Component {
       }
 
       calculateDistance = (lat1, lon1, lat2, lon2, unit) => {
-        if ((lat1 == lat2) && (lon1 == lon2)) {
+        if ((lat1 === lat2) && (lon1 === lon2)) {
             return 0;
         }
         else {
@@ -58,8 +57,8 @@ export default class SessionMap extends Component {
             dist = Math.acos(dist);
             dist = dist * 180/Math.PI;
             dist = dist * 60 * 1.1515;
-            if (unit=="K") { dist = dist * 1.609344 }
-            if (unit=="N") { dist = dist * 0.8684 }
+            if (unit==="K") { dist = dist * 1.609344 }
+            if (unit==="N") { dist = dist * 0.8684 }
             console.log(dist)
             // return dist;
             if(dist <= .05) {
@@ -83,18 +82,19 @@ export default class SessionMap extends Component {
             <ReactMapGL {...viewport}
                 mapboxApiAccessToken={appKey.mbToken}
                 width="65vw"
-                height="80vh"
+                height="70vh"
                 onViewportChange={viewport => {this.setState({viewport}); this.getLocation()}}>
                 {
                     this.props.playlists.map(playlist =>
                         <div key={playlist.id}>
                             {/* {this.calculateDistance(userLocation.latitude, userLocation.longitude, playlist.latitude, playlist.longitude)} */}
                             <Marker key={playlist.id} latitude={playlist.latitude} longitude={playlist.longitude} offsetLeft={-20} offsetTop={-10}>
-                                <img className="map-marker" src={marker} alt="marker" onClick={(event) => {event.preventDefault(); this.setState({showPopup: true})}}/>
+                                <img className="map-marker" src={marker} alt="marker" onClick={(event) => {event.preventDefault(); this.setState({showPopup: playlist.id})}}/>
                               {/* <Icon size='large' color='green' name='map marker alternate' onClick={(event) => {event.preventDefault(); this.setState({showPopup: true})}}/> */}
                             </Marker>
-                            {this.calculateDistance(userLocation.latitude, userLocation.longitude, playlist.latitude, playlist.longitude) ?
-                                showPopup && <Popup
+                            {this.calculateDistance(userLocation.latitude, userLocation.longitude, playlist.latitude, playlist.longitude) && showPopup === playlist.id ?
+                                <Popup
+                                    id={playlist.id}
                                     tipSize={6}
                                     latitude={playlist.latitude}
                                     longitude={playlist.longitude}
@@ -120,7 +120,7 @@ export default class SessionMap extends Component {
                                     </div>
                                 </Popup>
                                 :
-                                showPopup && <Popup
+                                showPopup === playlist.id && <Popup
                                     tipSize={6}
                                     latitude={playlist.latitude}
                                     longitude={playlist.longitude}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Spotify from "spotify-web-api-js"
 import SongCard from "./SongCard"
-import { Message, Table, Button, Modal, Header, Icon, Popup } from 'semantic-ui-react'
+import { Table, Button, Modal, Header, Icon, Popup } from 'semantic-ui-react'
 import EdiText from 'react-editext'
 import './SongCard.css'
 
@@ -16,8 +16,9 @@ export default class PlaylistView extends Component {
         isPlaying: false,
         currentSongUri: "",
         currentSongId: "",
+        queueURIs: [],
+        addOpen: false,
         open: false,
-        hidden: true,
         id: "",
         spotifyId: "",
         title: "",
@@ -30,33 +31,32 @@ export default class PlaylistView extends Component {
 
     handleOpen = () => this.setState({ open: true })
     handleClose = () => this.setState({ open: false })
+    handleAddOpen = () => this.setState({ addOpen: true })
+    handleAddClose = () => this.setState({ addOpen: false })
 
-    showButton = event => {
-        if (this.props.currentPlaylist.spotifyId === currentUserId) {
-            this.setState({
-                hidden: !this.state.hiddenBtn
-            })
-        }
+    handleAddClick = (event) => {
+        this.handleAddOpen()
+        setTimeout(() => this.handleAddClose(), 2000)
+    }
+
+    getQueueURIs = () => {
+        this.props.queue.map(track => {
+            this.state.queueURIs.push(track.song_uri)
+        })
     }
 
     createNewPlaylist = () => {
         const spotifyId = sessionStorage.getItem("spotify_user_id")
-        spotifyAPI.createPlaylist(spotifyId)
-        .then(response => response.json())
+        spotifyAPI.createPlaylist(spotifyId, {name: this.props.currentPlaylist.title})
+        // .then(response => response.json())
         .then(data => {
-            // console.log(data)
-            // this is when to set location
+            console.log("playlist id", data.id)
+            spotifyAPI.addTracksToPlaylist(data.id, this.state.queueURIs)
+            .then( data => {
+                console.log("add tracks data", data)
+            })
         })
     }
-// addToPlaylist = (event) => {
-    //     event.preventDefault()
-    //     let playlist = this.state.playlist
-    //     let addSong = this.state.addSong
-    //     playlist.push({name:addSong})
-    //     this.setState({
-    //         trackURI: track.uri
-    //     })
-    // }
 
     getCurrentPlayback = () => {
         spotifyAPI.getMyCurrentPlaybackState()
@@ -100,7 +100,16 @@ export default class PlaylistView extends Component {
 
 
     componentDidMount = () => {
-        this.showButton()
+        this.getQueueURIs()
+        this.setState({
+            id: this.props.currentPlaylist.id,
+            spotifyId: this.props.currentPlaylist.spotifyId,
+            title: this.props.currentPlaylist.title,
+            description: this.props.currentPlaylist.description,
+            access_code: this.props.currentPlaylist.access_code,
+            latitude: this.props.currentPlaylist.latitude,
+            longitude: this.props.currentPlaylist.longitude
+        })
 
     }
     componentDidUpdate = (prevProps) => {
@@ -114,17 +123,18 @@ export default class PlaylistView extends Component {
                 latitude: this.props.currentPlaylist.latitude,
                 longitude: this.props.currentPlaylist.longitude
             })
+
         }
     }
 
 
     render() {
         console.log(this.props)
-        console.log(this.props.currentPlaylist.title)
-
-
+        console.log(this.state.queueURIs)
+        const {open, addOpen} = this.state
         return (
         <React.Fragment>
+            {/* <Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px', borderRadius: 20}} positive>Save to Spotify</Button> */}
             {this.props.currentPlaylist.spotifyId === currentUserId ?
             <Modal
                 trigger={<Button onClick={this.handleOpen} size="tiny" style={{float: 'right', marginBottom: '30px', borderRadius: 20}} negative>End session</Button>}
@@ -150,56 +160,74 @@ export default class PlaylistView extends Component {
                 </Modal.Actions>
             </Modal>
             : "" }
+            <Button
+                onClick={() => {this.createNewPlaylist(); this.handleAddClick()}}
+                size="tiny" style={{float: 'right', marginRight: '10px', marginBottom: '30px', borderRadius: 20}}
+                positive>
+                    Save to Spotify
+            </Button>
+            <Modal className='inverted' size='mini' open={addOpen} onClose={this.close}>
+                <Modal.Header>Playlist Saved to Your Spotify Account!</Modal.Header>
+                <Modal.Content>
+                <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                </Modal.Content>
+            </Modal>
             <Header >
-                {
-                    this.props.currentPlaylist ?
-                <div key={this.props.currentPlaylist.id} style={{marginRight: '100px'}}>
-                    <Popup content={this.props.currentPlaylist.description} trigger={
-                    <EdiText
-                        type='text'
-                        id="title"
-                        value={this.state.title}
-                        // onChange= {this.handleFieldChange}
-                        onSave={this.editPlaylistTitle}
-                        editOnViewClick={true}
-                        editButtonClassName="edit-button"
-                        editButtonContent={<Icon name='pencil' color='grey' style={{marginBottom: '20px'}}></Icon>}
-                        viewProps={{
-                            className: 'header',
-                            style: {
-                                color: 'white',
-                                fontSize: '24px',
-                                marginBottom: '20px'
-                            }
-                        }}
-                        inputProps={{
-                            // onChange: this.handleFieldChange,
-                            id: "title",
-                            value: this.state.title,
-                            style: {
-                                backgroundColor: 'black',
-                                color: '#E6ECF1',
-                                fontWeight: 500,
-                                width: 250
-                            }
-                        }}/>
-                    }/>
-                    <Popup content={this.props.currentPlaylist.description}
-                        inverted
-                        position='bottom left'
-                        trigger={
-                            <p style={{color: 'grey', fontSize: '14px'}}>Access code: {this.props.currentPlaylist.access_code}</p>
-                    } />
-                </div>
-                :
-                <Header></Header>
+                {this.props.currentPlaylist.spotifyId === currentUserId ?
+                    <div key={this.props.currentPlaylist.id} style={{marginRight: '100px'}}>
+
+                        <Popup content={this.props.currentPlaylist.description} trigger={
+                        <EdiText
+                            type='text'
+                            id="title"
+                            value={this.state.title}
+                            // onChange= {this.handleFieldChange}
+                            onSave={this.editPlaylistTitle}
+                            editOnViewClick={true}
+                            editButtonClassName="edit-button"
+                            editButtonContent={<Icon name='pencil' color='grey' style={{marginBottom: '20px'}}></Icon>}
+                            viewProps={{
+                                className: 'header',
+                                style: {
+                                    color: 'white',
+                                    fontSize: '24px',
+                                    marginBottom: '20px'
+                                }
+                            }}
+                            inputProps={{
+                                // onChange: this.handleFieldChange,
+                                id: "title",
+                                value: this.state.title,
+                                style: {
+                                    backgroundColor: 'black',
+                                    color: '#E6ECF1',
+                                    fontWeight: 500,
+                                    width: 250
+                                }
+                            }}/>
+                        }/>
+                    </div>
+                    :
+                    <Header style= {{color: 'white', fontSize: '24px', marginBottom: '20px'}}>
+                        {this.props.currentPlaylist.title}
+                    </Header>
                 }
+                 <Popup content={this.props.currentPlaylist.description}
+                            inverted
+                            position='bottom left'
+                            trigger={
+                                <p style={{color: 'grey', fontSize: '14px'}}>Access code: {this.props.currentPlaylist.access_code}</p>
+                } />
             </Header>
             <Table basic='very' selectable singleLine inverted style={{marginTop: '40px'}}>
                 <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell hidden = {(this.state.hidden)}></Table.HeaderCell>
+                {this.props.currentPlaylist.spotifyId === currentUserId ?
                     <Table.HeaderCell></Table.HeaderCell>
+                : ""}
                     <Table.HeaderCell>Title</Table.HeaderCell>
                     <Table.HeaderCell>Artist</Table.HeaderCell>
                     <Table.HeaderCell>Album</Table.HeaderCell>

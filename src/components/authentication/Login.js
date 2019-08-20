@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Grid, Segment, Form, Container } from 'semantic-ui-react';
+import { Button, Grid, Container } from 'semantic-ui-react';
 import appKey from "../key"
-import Spotify from "spotify-web-api-js"
 
-
-const spotifyAPI = new Spotify();
 
 const authURL = `https://accounts.spotify.com/authorize?client_id=${appKey.client_id}&redirect_uri=http://localhost:3000/callback/&scope=${appKey.scope}&response_type=token&show_dialog=true`
 // Probably won't need this later
@@ -37,8 +34,8 @@ export default class Login extends Component {
   handleLoginClick = (event) => {
     event.preventDefault()
     // Open the Auth flow in a popup.
+    // this.props.getUserId()
     this.windowPopup(authURL, "Login with Spotify", 400, 500)
-    this.props.getUserId()
     console.log("saved")
   }
 
@@ -72,26 +69,20 @@ export default class Login extends Component {
     }
 
     render() {
-      // console.log(popup)
-      // console.log(window)
-      // console.log(this.props.getUserId)
+      console.log(this.props.getUserId)
         return (
           <div className="login-page" >
-              <Container inverted >
-              <Grid columns={1} relaxed='very' stackable textAlign='center' fluid>
+              <Container>
+              <Grid columns={1} relaxed='very' stackable textAlign='center'>
                 {/* <Grid.Row verticalAlign='middle'  fluid > */}
 
 
-                <Container verticalAlign='middle' inverted style={{marginTop: '200px', width: '2000px'}} fluid >
-                  {/* <Header icon>
-                    <Icon name='world' />
-                    Sign in with Spotify
-                  </Header> */}
+                <Container style={{marginTop: '200px', width: '2000px'}} fluid >
 
                   <Button  onClick={this.handleLoginClick} content='Connect to Spotify' size='big' color='green' style={{marginLeft: '500px', borderRadius: 20}}/>
 
                 </Container>
-                {/* </Grid.Row> */}
+
               </Grid>
 
 

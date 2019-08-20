@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Icon, Button } from "semantic-ui-react"
+import { Icon } from "semantic-ui-react"
 import "./SongSearch.css"
 
 // const spotifyAPI = new Spotify();

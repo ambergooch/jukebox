@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import { Icon, Modal, Button } from "semantic-ui-react"
-import Spotify from "spotify-web-api-js"
+import { Icon, Modal } from "semantic-ui-react"
 import "./SongSearch.css"
-
-const spotifyAPI = new Spotify()
 
 
 export default class SongSearch extends Component {
@@ -37,17 +34,6 @@ export default class SongSearch extends Component {
             song_id: trackID
         }
         this.props.addToAPI("songsToPlaylist", song)
-        // this.setState({
-        //     queue: {
-        //         uri: trackURI,
-        //         name: songTitle,
-        //         artist: artistName,
-        //         cover: coverArt
-        //     }
-        // })
-
-
-//   })
     }
 
     render() {

@@ -6,12 +6,10 @@ import Spotify from "spotify-web-api-js"
 import Login from './authentication/Login'
 import Callback from './callback/Callback'
 import Home from './home/Home'
-import SearchResults from './search/SearchResults'
 // import SongList from './search/SongList'
 // import ArtistList from './search/ArtistList'
 // import AlbumList from './search/AlbumList'
 import APIManager from './modules/APIManager'
-import PlaylistView from './playlist/PlaylistView'
 
 const spotifyAPI = new Spotify();
 const loginURL = "http://localhost:3000/login"
@@ -46,7 +44,7 @@ class ApplicationViews extends Component {
 
 
     componentDidMount () {
-        // this.loginUser()
+        this.getSpotifyUserId()
         this.getNowPlaying()
         this.setState({
             token: spotifyAPI.getAccessToken(),
@@ -69,7 +67,6 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState));
 
     }
-
 
     addToAPI = (resource, object) => {
         return APIManager.post(resource, object)
@@ -122,10 +119,11 @@ class ApplicationViews extends Component {
         // }
       }
 
-    getSpotifyUserId = () => {
+      getSpotifyUserId = () => {
+        console.log("spotify id apps")
         spotifyAPI.getMe().then(user => {
-          this.setState({currentUser: user.id})
-          sessionStorage.setItem("spotify_user_id", user.id)
+            sessionStorage.setItem("spotify_user_id", user.id)
+            this.setState({currentUser: user.id})
         })
         // THIS IS POSTING USER TO DATABASE MULTIPLE TIMES. RESOLVE TIMING ISSUE OR ADD CONDITIONAL TO FUNCTION
         // .then(() => this.saveUser())
@@ -246,6 +244,21 @@ class ApplicationViews extends Component {
                 })
 
     }
+    sortQueue = () => {
+        this.state.queue.sort((a, b) => {
+            if (a.downvotes === 0 && b.downvotes === 0) {
+                return b.upvotes - a.upvotes;
+            }
+            else if (a.downvotes === 0 && a.upvotes > 0) {
+                return -1;
+            }
+            else if (b.downvotes === 0 && b.upvotes > 0) {
+                return 1;
+            }
+            return (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes);
+          });
+          console.log("queue sorted", this.state.queue)
+    }
 
     setCode = (value) => {
         console.log("set code")
@@ -273,9 +286,7 @@ class ApplicationViews extends Component {
                     let newIndex = index + 1
                     console.log(newIndex)
                     this.playSong(this.state.queue[newIndex].song_uri)
-
                 }
-
             }
    })
 
@@ -298,7 +309,7 @@ class ApplicationViews extends Component {
 
     render() {
         this.populateQueue()
-
+        console.log(this.state)
         return (
             <React.Fragment>
                 <Route exact path="/callback" render={props => {
@@ -325,6 +336,7 @@ class ApplicationViews extends Component {
                             playSong={this.playSong}
                             playNext={this.playNext}
                             queue={this.state.queue}
+                            sortQueue={this.sortQueue}
                             nowPlaying={this.state.nowPlaying}
                             getNowPlaying={this.getNowPlaying}
                             currentUser={this.state.currentUser}
@@ -333,7 +345,7 @@ class ApplicationViews extends Component {
                             setCurrentPlaylist={this.setCurrentPlaylist}
                             setCode={this.setCode} />
                     } else {
-                        return <Redirect to="./login" />
+                        return <Redirect to="/login" />
                     }
                 }} />
                 <Route path="/search" render={(props) => {
@@ -348,6 +360,7 @@ class ApplicationViews extends Component {
                     playSong={this.playSong}
                     playNext={this.playNext}
                     queue={this.state.queue}
+                    sortQueue={this.sortQueue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
                     currentUser={this.state.currentUser}
@@ -369,6 +382,7 @@ class ApplicationViews extends Component {
                     playSong={this.playSong}
                     playNext={this.playNext}
                     queue={this.state.queue}
+                    sortQueue={this.sortQueue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
                     currentUser={this.state.currentUser}
@@ -389,6 +403,7 @@ class ApplicationViews extends Component {
                     playSong={this.playSong}
                     playNext={this.playNext}
                     queue={this.state.queue}
+                    sortQueue={this.sortQueue}
                     nowPlaying={this.state.nowPlaying}
                     getNowPlaying={this.getNowPlaying}
                     currentUser={this.state.currentUser}

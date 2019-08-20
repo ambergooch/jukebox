@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import 'semantic-ui-css/semantic.min.css'
 import { Container, Dropdown, Image, Menu } from 'semantic-ui-react'
 
-const user = ""
 const currentUserId = sessionStorage.getItem("spotify_user_id")
 export default class NavBar extends Component {
 
@@ -18,23 +17,24 @@ export default class NavBar extends Component {
         sessionStorage.clear()
         const url = 'https://accounts.spotify.com/en/logout '
         const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')
-        setTimeout(() => spotifyLogoutWindow.close(), 1000)
-}
+        setTimeout(() => {spotifyLogoutWindow.close(); spotifyLogoutWindow.opener.location = "http://localhost:3000/login"}, 1000)
+    }
 
-componentDidMount = () => {
-    fetch(`http://localhost:5002/users?spotifyId=${currentUserId}`)
-    .then(e => e.json())
-    .then(user => {
-        this.setState({
-            currentUser: user[0]
+    componentDidMount = () => {
+        fetch(`http://localhost:5002/users?spotifyId=${currentUserId}`)
+        .then(e => e.json())
+        .then(user => {
+            this.setState({
+                currentUser: user[0]
+            })
         })
-    })
 
-}
+    }
 
 
-    render()
-    {
+    render() {
+        console.log(this.props)
+        console.log(this.state)
         const { activeItem } = this.state
         return (
         <Menu inverted pointing secondary color='green' style={{position: 'sticky', top: 0, zIndex: 5, backgroundColor: '#141413', marginBottom: 0, boxShadow: "6px 6px 5px black", border: 'none' }}>

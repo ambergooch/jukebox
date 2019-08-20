@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import Spotify from "spotify-web-api-js"
-import MusicPlayer from './MusicPlayer';
-import { Grid, Container } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import './PlayStatus.css'
 
-
-
-const spotifyAPI = new Spotify();
 
 export default class PlayStatus extends Component {
 
@@ -74,16 +69,7 @@ export default class PlayStatus extends Component {
   // }
 
   render() {
-    // console.log("nowPlaying state progress", this.state.nowPlaying.progress)
-    // console.log("nowPlaying state object", this.state.nowPlaying)
-    // console.log("deviceId", this.state.deviceId)
-    // console.log(this.props.token)
 
-    // const progressBarStyles = {width: (this.state.progressBarValue) + '%'}
-    // console.log(progressBarStyles)
-    {/* <button onClick={() => this.getNowPlaying()}>
-    Check Now Playing
-  </button> */}
     return (
 
 

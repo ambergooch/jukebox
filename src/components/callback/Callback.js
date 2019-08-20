@@ -1,8 +1,4 @@
 import React, {Component} from 'react'
-import Spotify from "spotify-web-api-js"
-
-
-const spotifyAPI = new Spotify();
 
 export default class Callback extends Component {
   state = {
@@ -43,9 +39,9 @@ export default class Callback extends Component {
     if (token) {
 
       window.opener.sessionStorage.setItem("access_token", token)
-      this.props.getUserId()
       window.close()
     }
+    this.props.getUserId()
     window.opener.location = "/"
   }
 

@@ -5,7 +5,6 @@ import { Menu, Input } from 'semantic-ui-react'
 import SongSearch from "./SongSearch"
 import ArtistList from "./ArtistList"
 import AlbumList from "./AlbumList"
-import BrowseStuff from "./Browse"
 import "./SearchResults.css"
 
 const spotifyAPI = new Spotify();
@@ -135,26 +134,5 @@ export default class SearchResults extends Component {
         )
     }
 }
-{/* <div className="song-results">
-{
-this.state.tracks.map( (track, index) =>
-    <div key={index}>
-    {track.name}
-    by {track.artists[0].name}
-    <img src={track.album.images[0].url} style={{width: 100}} alt="" />
-    </div>
-    )
-}
-</div> */}
 
-{/* <div className="artist-results">
-{
-this.state.artists.map( (artist, index) =>
-    <div key={index}>
-    {artist.name}
-    <img src={track.album.images[0].url} style={{width: 100}} alt="" />
-    </div>
-    )
-}
-</div> */}
 

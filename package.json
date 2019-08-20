@@ -7,6 +7,7 @@
     "fomantic-ui-css": "^2.7.7",
     "randomatic": "^3.1.1",
     "react": "^16.8.6",
+    "react-code-input": "^3.8.1",
     "react-dom": "^16.8.6",
     "react-editext": "^3.6.0",
     "react-individual-character-input-boxes": "^0.3.0",

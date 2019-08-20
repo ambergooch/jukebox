@@ -1,60 +1,90 @@
 import React, { Component } from "react";
-import { Button, Grid, Segment, Header, Container, Modal, Form, List } from 'semantic-ui-react'
+import { Container, Segment, Header, Icon } from 'semantic-ui-react'
+// import Spotify from "spotify-web-api-js"
 // import TaskList from "../task/TaskList"
 // import "./Home.css"
 import MusicPlayer from "../player/MusicPlayer";
 import PlayStatus from "../player/PlayStatus";
+import SearchResults from "../search/SearchResults"
+import SideMenu from "../menu/SideMenu"
+import PlaylistView from '../playlist/PlaylistView'
+import Browse from "../search/Browse"
+import SessionMap from '../geolocation/SessionMap'
+import "./Home.css"
+
 
 export default class Home extends Component{
 
-
-
   render(){
-      console.log(this.props)
-        return(
-            <Segment placeholder className="home">
-            <Grid columns={4} relaxed='very' stackable>
-            <Grid.Column>
-              {/* <Header>Player</Header> */}
-               <Container className="music-player">
-                    <PlayStatus />
-                    {/* <MusicPlayer {...this.props} token={this.props.token} getNowPlaying={this.getNowPlaying} /> */}
-                  {/* {
-                    this.props.messages.map(message =>
-                        <MessageComponent key={message.id} message={message} {...this.props} />
-                    )
-                  }
-                  <Form reply>
-                    <Form.TextArea />
-                    <Button onClick={this.postNewMessage} content='Send' labelPosition='left' icon='edit' primary />
-                  </Form> */}
-              </Container>
-            </Grid.Column>
 
-            {/* <Grid.Column>
-              <Header>Tasks</Header> <Modal trigger={<Button content='Add' icon='plus square outline' size='mini' onClick={this.handleOpen} />} open={this.state.open}>
-              <Modal.Header>Add A Task</Modal.Header>
-              <Modal.Content>
-              <Form>
-                  <Form.Input onChange={this.handleFieldChange} id="task" label='Task' placeholder='ex: Take Out Trash' />
-                  <Form.Input onChange={this.handleFieldChange} type="date" id="date_due" label='Date Due' />
-                  <Button content='Add' primary onClick={this.handleAddTask} />
-                  <Button content='Cancel' primary onClick={this.handleClose} />
-              </Form>
-              </Modal.Content>
-            </Modal>
+        return(
+          <React.Fragment>
+            {/* <Navbar users={this.props.users}/> */}
+            {this.props.currentUser === this.props.currentPlaylist.spotifyId ?
+            <Container className="player-bar" fluid>
+              <MusicPlayer {...this.props} token={this.props.token} queue={this.props.queue}/>
+            </Container>
+            : ""}
+             <div className="side-bar" style={{boxShadow: "6px 6px 5px black"}}>
+               <SideMenu {...this.props} />
+                <PlayStatus {...this.props} token={this.props.token}
+                  queue={this.props.queue}
+                  playSong={this.props.playSong}
+                  playNext={this.playNext}
+                  nowPlaying={this.props.nowPlaying} />
+
+             </div>
+             <div className="main-window" style={{backgroundColor: 'rgb(2, 2, 2)'}}>
+
+            {window.location.pathname === "/" ?
+                <Container className="home">
+                  <Browse {...this.props} />
+                </Container>
+
+            : "" }
+            {window.location.pathname === "/search" ?
+                <Container className="search">
+                  <SearchResults {...this.props} addToAPI={this.props.addToAPI}/>
+                </Container>
+
+            : "" }
+            {window.location.pathname === "/map" ?
+                <Container className="map">
+                  <SessionMap {...this.props} />
+                </Container>
+
+            : "" }
+            {window.location.pathname === "/playlist" && this.props.currentPlaylist ?
               <Container>
-                <TaskList
-                  key={this.props.tasks.id}
-                  tasks={this.props.tasks}
-                  deleteFromAPI={this.deleteFromAPI}
-                  updateAPI={this.updateAPI}
-                  {...this.props}
-                />
+                <PlaylistView {...this.props}
+                  users={this.props.users}
+                  currentUser={this.props.currentUser}
+                  playlists={this.props.playlists}
+                  songs={this.props.songs}
+                  deleteFromAPI={this.props.deleteFromAPI}
+                  deleteSongsFromAPI={this.props.deleteSongsFromAPI}
+                  playSong={this.props.playSong}
+                  playNext={this.playNext}
+                  currentPlaylistId={this.props.currentPlaylistId} />
               </Container>
-            </Grid.Column> */}
-            </Grid>
-        </Segment>
+
+            : ""}
+            {window.location.pathname === "/playlist" && !this.props.currentPlaylist ?
+              <Segment placeholder inverted>
+                <Header icon>
+                  <Icon name='music' color='green' />
+                  <br />
+                  To get started, either create a new session or enter the access code of an existing session.
+                </Header>
+              </Segment>
+            : ""}
+
+</div>
+
+             {/* <Grid.Row> */}
+
+         {/* </Grid.Row> */}
+         </React.Fragment>
         )
   }
 }

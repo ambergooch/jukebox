@@ -1,0 +1,24 @@
+/* .mapboxgl-popup-close-button {
+    display: none;
+} */
+
+.map-marker {
+    width: 70%;
+    height: 70%
+}
+
+.mapboxgl-popup-content {
+/* font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif; */
+padding: 10px;
+width: 200px;
+color: grey;
+box-shadow: 5px 8px 10px;
+}
+
+.mapboxgl-popup-content-wrapper {
+padding: 5px;
+}
+
+em {
+    color: red;
+}

@@ -1,47 +1,190 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "user_name": "",
-        "email": "",
-        "password": "",
-        "locationId": 1
-      }
-    ],
-    "songs": [
-      {
-        "id": 1,
-        "song_id": 3942,
-        "votes": 1
-      }
-    ],
-    "playlists": [
-      {
-        "id": 1,
-        "userId": 1,
-        "title": "",
-        "access_code": 1234,
-        "locationId": 1
-      }
-    ],
-    "playlistSong": [
-      {
-        "id": 1,
-        "userId": 1,
-        "playlistId": 1
-      }
-    ],
-    "locations": [
-      {
-        "id": 2,
-        "longitude": 1,
-        "latitude": 1
-      }
-    ],
-    "collaborators": [
-      {
-        "userId": 1,
-        "playlistId": 1
-      }
-    ]
-  }
+  "users": [
+    {
+      "id": 1,
+      "displayName": "Amber Gooch",
+      "email": "agooch91@gmail.com",
+      "spotifyId": "124771983",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/50291354_10210564368225843_6948418956419923968_n.jpg?_nc_cat=110&_nc_oc=AQn5wtYUPX3xBG_Iuj_k1t4KRmvIKMYvceQh6cJyQmF7FtELK2PrTKew7-9Y6Wpi5SM&_nc_ht=scontent.xx&oh=027b19e7fe240b865782d82cf307e0d2&oe=5DAE1449"
+    },
+    {
+      "displayName": "Madison Peper",
+      "email": "madisonpeper@gmail.com",
+      "spotifyId": "1271787056",
+      "image": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/10888748_1001846756496076_4700847125913372754_n.jpg?_nc_cat=107&_nc_oc=AQmMj097uRaw1o7F8RL70uq01kMovCLJD908jPbXRoc67F1zkQqtgw5HlLOiY8UdQ_M&_nc_ht=scontent.xx&oh=5a02bd701616fd9fca375e3fd9b2f523&oe=5DD8F3FE",
+      "id": 2
+    },
+    {
+      "displayName": "Alexandra Woodson",
+      "email": "septembershades10@gmail.com",
+      "spotifyId": "septembershades10",
+      "image": "https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-1/39891677_847991658923271_2894663358840045568_n.jpg?_nc_cat=103&_nc_oc=AQlG1TGVwjRL77sAaWTMd7b7-kOFGXvhD2pD8Zi99Oullrw051H8suMytPsMrY_88FnNHP4ztWFd7XxVr06DLLqG&_nc_ht=scontent-atl3-1.xx&oh=e129a8be94ed2de6c7ae4b44f1afcbad&oe=5DD5474F",
+      "id": 3
+    }
+  ],
+  "playlists": [
+    {
+      "id": 1,
+      "spotifyId": "septembershades10",
+      "title": "Dinner Party",
+      "description": "Jazzy tunes to listen to while we stuff our faces",
+      "access_code": 4652,
+      "latitude": 36.2486197,
+      "longitude": -86.7234122
+    },
+    {
+      "id": 5,
+      "spotifyId": "124771982",
+      "title": "Today's playlist",
+      "description": "A playlist for today, August 13th",
+      "access_code": 1983,
+      "latitude": 36.1327571,
+      "longitude": -86.7565817
+    },
+    {
+      "spotifyId": "septembershades",
+      "title": "Library Party",
+      "description": "Shhh! Quiet! This is a library",
+      "access_code": 2841,
+      "latitude": 36.2260291,
+      "longitude": -86.7249731,
+      "id": 6
+    },
+    {
+      "spotifyId": "1271787056",
+      "title": "Starbucks",
+      "description": "Exclusive playlist for store patrons",
+      "access_code": 5941,
+      "latitude": 36.1565886,
+      "longitude": -86.8070892,
+      "id": 8
+    },
+    {
+      "spotifyId": "124771983",
+      "title": "90's Party Mix",
+      "description": "jfkalkld",
+      "access_code": 6382,
+      "latitude": 36.248564699999996,
+      "longitude": -86.7235754,
+      "id": 9
+    }
+  ],
+  "songsToPlaylist": [
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:2FKbisOVZcinq7VtYUFD4H",
+      "song_id": "2FKbisOVZcinq7VtYUFD4H",
+      "id": 2
+    },
+    {
+      "spotifyId": "1271787056",
+      "playlistId": 1,
+      "song_uri": "spotify:track:03CMUlyOZzrNXJnb8Vzm4l",
+      "song_id": "03CMUlyOZzrNXJnb8Vzm4l",
+      "id": 4
+    },
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:5cf1ZfI16kHp3S1ySpQ36G",
+      "song_id": "5cf1ZfI16kHp3S1ySpQ36G",
+      "id": 5
+    },
+    {
+      "spotifyId": "1271787056",
+      "playlistId": 1,
+      "song_uri": "spotify:track:0dPv2pSm2WNtJUvdUJdMjJ",
+      "song_id": "0dPv2pSm2WNtJUvdUJdMjJ",
+      "id": 7
+    },
+    {
+      "spotifyId": "1271787056",
+      "playlistId": 1,
+      "song_uri": "spotify:track:6WDAtzaXY7d31CkuoxYFcb",
+      "song_id": "6WDAtzaXY7d31CkuoxYFcb",
+      "id": 8
+    },
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 1,
+      "song_uri": "spotify:track:43Fd2LMelrD0HU01n4g4cw",
+      "song_id": "43Fd2LMelrD0HU01n4g4cw",
+      "id": 9
+    },
+    {
+      "id": 11,
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:4fbvXwMTXPWaFyaMWUm9CR",
+      "song_id": "4fbvXwMTXPWaFyaMWUm9CR"
+    },
+    {
+      "id": 12,
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:2cbic3TiUENlJX91y67ARR",
+      "song_id": "2cbic3TiUENlJX91y67ARR"
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:3QVtICc8ViNOy4I5K14d8Z",
+      "song_id": "3QVtICc8ViNOy4I5K14d8Z",
+      "id": 13
+    },
+    {
+      "id": 14,
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:4d4oXk7O2lEhZ83ivV93li",
+      "song_id": "4d4oXk7O2lEhZ83ivV93li"
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:1ZVqbFw2nfy7LdnkQwqZXp",
+      "song_id": "1ZVqbFw2nfy7LdnkQwqZXp",
+      "id": 15
+    },
+    {
+      "id": 16,
+      "spotifyId": "124771983",
+      "playlistId": 5,
+      "song_uri": "spotify:track:758wEKVqfYopJIHYWdLVd4",
+      "song_id": "758wEKVqfYopJIHYWdLVd4"
+    },
+    {
+      "spotifyId": "septembershades10",
+      "playlistId": 5,
+      "song_uri": "spotify:track:0Kp0CPUzFcEqhBbHoRKtbm",
+      "song_id": "0Kp0CPUzFcEqhBbHoRKtbm",
+      "id": 19
+    },
+    {
+      "spotifyId": "124771983",
+      "playlistId": 1,
+      "song_uri": "spotify:track:4fbvXwMTXPWaFyaMWUm9CR",
+      "song_id": "4fbvXwMTXPWaFyaMWUm9CR",
+      "id": 20
+    }
+  ],
+  "locations": [
+    {
+      "latitude": 36.2486197,
+      "longitude": -86.7234122,
+      "id": 1
+    },
+    {
+      "latitude": 36.2486197,
+      "longitude": -86.7234122,
+      "id": 2
+    }
+  ],
+  "collaborators": [
+    {
+      "userId": 1,
+      "playlistId": 1
+    }
+  ]
+}
